@@ -149,6 +149,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Babel config file
+.babelrc
 
 ### VisualStudioCode ###
 .vscode/*
