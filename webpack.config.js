@@ -1,26 +1,20 @@
-var webpack = require('webpack'),
-    path = require('path'),
+var path = require('path'),
     yargs = require('yargs');
  
 var libraryName = 'PrismicHelpers',
-    fileName = 'prismic-helpers',
-    plugins = [],
-    outputFile;
- 
-if (yargs.argv.p) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
-  outputFile = fileName + '.min.js';
-} else {
-  outputFile = fileName + '.js';
-}
+    fileName = 'prismic-helpers';
  
 var config = {
+  mode: yargs.argv.p ? 'production' : 'development',
+  optimization: {
+    minimize: yargs.argv.p
+  },
   entry: [
     __dirname + '/src/index.js'
   ],
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: outputFile,
+    filename: yargs.argv.p ? (fileName + '.min.js') : (fileName + '.js'),
     library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true
@@ -45,8 +39,7 @@ var config = {
       "@root": path.resolve( __dirname, './src' )
     },
     extensions: ['.js']
-  },
-  plugins: plugins
+  }
 };
  
 module.exports = config;
