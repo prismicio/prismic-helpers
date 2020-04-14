@@ -1,6 +1,6 @@
 export default {
   url(link, linkResolver) {
-    if (link) {
+    if (link && link.url) {
       return link.url;
     }
     if (
