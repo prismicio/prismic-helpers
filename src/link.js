@@ -1,5 +1,8 @@
 export default {
   url(link, linkResolver) {
+    if (link) {
+      return link.url;
+    }
     if (
       link &&
       [link.link_type, link._linkType, link.linkType].some(
@@ -7,9 +10,6 @@ export default {
       )
     ) {
       return linkResolver ? linkResolver(link) : "";
-    }
-    if (link) {
-      return link.url;
     }
     if (process.env.NODE_ENV !== "production") {
       console.warn('PrismicHelpers/Link.url expects a Prismic "link" object as first argument but none was passed');
