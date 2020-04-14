@@ -4,9 +4,12 @@ export default {
       link &&
       [link.link_type, link._linkType, link.linkType].some(
         e => e && ["Document", "Link.Document", "Link.document"].includes(e)
-      )
+      ) && linkResolver && typeof linkResolver === 'function'
     ) {
-      return linkResolver ? linkResolver(link) : link.url;
+      const url = linkResolver(link)
+      if (url) {
+        return url
+      }
     }
     if (link && link.url) {
       return link.url;
