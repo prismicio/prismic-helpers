@@ -5,6 +5,7 @@ var libraryName = 'PrismicHelpers',
     fileName = 'prismic-helpers';
  
 var config = {
+  target: 'node',
   mode: yargs.argv.p ? 'production' : 'development',
   optimization: {
     minimize: yargs.argv.p

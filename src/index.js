@@ -1,4 +1,4 @@
-import Link from './link';
-import Date from './date';
+const Link = require('./link');
+const Date = require('./date');
 
 module.exports = { Link, Date };
