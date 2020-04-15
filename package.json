@@ -1,6 +1,6 @@
 {
   "name": "prismic-helpers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Set of helpers to manage prismic data from api v2",
   "main": "dist/prismic-helpers.min.js",
   "scripts": {
