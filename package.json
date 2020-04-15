@@ -1,11 +1,11 @@
 {
   "name": "prismic-helpers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Set of helpers to manage prismic data from api v2",
   "main": "dist/prismic-helpers.min.js",
   "scripts": {
-    "build": "webpack --debug; webpack -p",
-    "dev": "webpack -d --watch",
+    "build": "node node_modules/webpack --debug & webpack -p",
+    "dev": "node node_modules/webpack -d --watch",
     "prepublish": "npm run build"
   },
   "repository": {
