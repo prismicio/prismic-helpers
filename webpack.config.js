@@ -1,9 +1,9 @@
 var path = require('path'),
     yargs = require('yargs');
- 
+
 var libraryName = 'PrismicHelpers',
     fileName = 'prismic-helpers';
- 
+
 var config = {
   target: 'node',
   mode: yargs.argv.p ? 'production' : 'development',
@@ -18,7 +18,8 @@ var config = {
     filename: yargs.argv.p ? (fileName + '.min.js') : (fileName + '.js'),
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
   module: {
     rules: [
@@ -42,5 +43,5 @@ var config = {
     extensions: ['.js']
   }
 };
- 
+
 module.exports = config;
