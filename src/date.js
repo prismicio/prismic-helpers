@@ -1,4 +1,4 @@
-module.exports = function(date) {
+export function Date(date) {
   if(!date) return null;
   var correctIso8601Date = (date.length == 24) 
     ? `${date.substring(0, 22)}:${date.substring(22, 24)}`

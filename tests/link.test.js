@@ -1,11 +1,11 @@
-const linkHelper = require('../src/link')
+import { Link as linkHelper } from '../src';
 
-const {
+import {
   linkV1External,
   linkV1Internal,
   linkV2External,
   linkV2Internal
-} = require('./samples')
+} from './samples'
 
 const lr = (doc) => `/${doc.uid}`
 

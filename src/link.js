@@ -1,4 +1,4 @@
-module.exports = {
+export const Link = {
   url(link, linkResolver) {
     const doc = link && link.value ? link.value.document : link
     if (
