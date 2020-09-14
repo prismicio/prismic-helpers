@@ -1,4 +1,4 @@
-const linkV1Internal = {
+export const linkV1Internal = {
   "id": "XvSV4hEAACIARkK6",
   "type": "page",
   "tags": [],
@@ -9,12 +9,12 @@ const linkV1Internal = {
   "isBroken": false
 }
 
-const linkV1External = {
+export const linkV1External = {
   "link_type": "Web",
   "url": "https://prismic.io"
 }
 
-const linkV2Internal = {
+export const linkV2Internal = {
   "type": "Link.document",
   "value": {
     "document": {
@@ -31,7 +31,7 @@ const linkV2Internal = {
   }
 }
 
-const linkV2External = {
+export const linkV2External = {
   "type": "Link.document",
   "value": {
     "document": {
@@ -42,10 +42,3 @@ const linkV2External = {
   }
 }
 
-module.exports = {
-  linkV1External,
-  linkV1Internal,
-
-  linkV2External,
-  linkV2Internal
-}
