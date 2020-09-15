@@ -1,5 +1,5 @@
 {
-  "name": "prismic-helpers",
+  "name": "@prismicio/helpers",
   "version": "1.0.4",
   "description": "Set of helpers to manage prismic data from api v2",
   "main": "dist/prismic-helpers.js",
