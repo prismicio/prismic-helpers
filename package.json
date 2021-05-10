@@ -1,61 +1,61 @@
 {
-  "name": "@prismicio/helpers",
-  "version": "0.0.0",
-  "description": "Set of helpers to manage Prismic data",
-  "keywords": [
-    "typescript",
-    "helpers",
-    "utils",
-    "toolbox",
-    "prismic"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/prismicio/prismic-helpers.git"
-  },
-  "license": "Apache-2.0",
-  "author": "Prismic <contact@prismic.io> (https://prismic.io)",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.es.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "siroc build",
-    "dev": "siroc build --watch",
-    "release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
-    "release:dry": "standard-version --dry-run",
-    "release:alpha": "yarn build && yarn test && standard-version --release-as minor --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
-    "release:alpha:dry": "standard-version --release-as minor --prerelease alpha --dry-run",
-    "lint": "eslint --ext .js,.ts .",
-    "test": "yarn lint"
-  },
-  "dependencies": {
-    "@prismicio/types": "0.0.1"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "4.22.1",
-    "@typescript-eslint/parser": "4.22.1",
-    "eslint": "7.26.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-prettier": "3.4.0",
-    "prettier": "2.3.0",
-    "siroc": "0.9.2",
-    "standard-version": "9.3.0",
-    "typescript": "4.2.4"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@prismicio/helpers",
+	"version": "0.0.0",
+	"description": "Set of helpers to manage Prismic data",
+	"keywords": [
+		"typescript",
+		"helpers",
+		"utils",
+		"toolbox",
+		"prismic"
+	],
+	"repository": {
+		"type": "git",
+		"url": "ssh://git@github.com/prismicio/prismic-helpers.git"
+	},
+	"license": "Apache-2.0",
+	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
+	"exports": {
+		".": {
+			"require": "./dist/index.js",
+			"import": "./dist/index.es.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "dist/index.js",
+	"module": "dist/index.es.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "siroc build",
+		"dev": "siroc build --watch",
+		"release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
+		"release:dry": "standard-version --dry-run",
+		"release:alpha": "yarn build && yarn test && standard-version --release-as minor --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
+		"release:alpha:dry": "standard-version --release-as minor --prerelease alpha --dry-run",
+		"lint": "eslint --ext .js,.ts .",
+		"test": "yarn lint"
+	},
+	"dependencies": {
+		"@prismicio/types": "0.0.2"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "4.22.1",
+		"@typescript-eslint/parser": "4.22.1",
+		"eslint": "7.26.0",
+		"eslint-config-prettier": "8.3.0",
+		"eslint-plugin-prettier": "3.4.0",
+		"prettier": "2.3.0",
+		"siroc": "0.9.2",
+		"standard-version": "9.3.0",
+		"typescript": "4.2.4"
+	},
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
