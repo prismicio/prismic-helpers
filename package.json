@@ -38,8 +38,10 @@
     "lint": "eslint --ext .js,.ts .",
     "test": "yarn lint"
   },
+  "dependencies": {
+    "@prismicio/types": "0.0.1"
+  },
   "devDependencies": {
-    "@prismicio/types": "0.0.1",
     "@typescript-eslint/eslint-plugin": "4.22.1",
     "@typescript-eslint/parser": "4.22.1",
     "eslint": "7.26.0",

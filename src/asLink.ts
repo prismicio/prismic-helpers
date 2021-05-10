@@ -1,4 +1,4 @@
-import { LinkField, LinkType } from "@prismicio/types";
+import { LinkField, LinkType, PrismicDocumentHeader } from "@prismicio/types";
 import { LinkResolverFunction } from "./types";
 
 // TODO: provide a way to handle v1 fields
@@ -14,22 +14,53 @@ import { LinkResolverFunction } from "./types";
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
 export function asLink(
-	linkField: LinkField,
-	linkResolver: LinkResolverFunction = () => "/" // TODO: Not sure providing a failsafe default is the right idea
+	linkField: LinkField | PrismicDocumentHeader,
+	linkResolver: LinkResolverFunction = doc => "/" // TODO: Not sure providing a failsafe default is the right idea
 ): string {
-	switch (linkField.link_type) {
-		case LinkType.Document:
-			if (linkField.url) {
-				// When using `apiOptions.routes`...
-				return linkField.url;
-			} else {
-				// ...when not
-				return linkResolver(linkField);
-			}
+	let link: LinkField;
 
+	if (!("link_type" in linkField)) {
+		// TODO: This parts turns a Prismic document header into a document link field, really not sure about it
+		// Point is to be able to resolve a Prismic document into a link as the API already returns the `url` field if available and
+		// anything needed by a link resolver to properly resolve links?
+		// This check might be refactored by a typeguard or similar actually
+		if (
+			["id", "uid", "type", "tags", "lang", "data"].every(
+				key => key in linkField
+			)
+		) {
+			link = {
+				link_type: LinkType.Document,
+				id: linkField.id,
+				uid: linkField.uid ?? undefined,
+				type: linkField.type,
+				tags: linkField.tags,
+				lang: linkField.lang,
+				url: linkField.url ?? undefined,
+				slug: linkField.slugs[0]
+			};
+		} else {
+			link = {
+				link_type: LinkType.Any
+			};
+		}
+	} else {
+		link = linkField;
+	}
+
+	switch (link.link_type) {
 		case LinkType.Web:
 		case LinkType.Media:
-			return linkField.url;
+			return link.url;
+
+		case LinkType.Document:
+			if (link.url) {
+				// When using `apiOptions.routes`...
+				return link.url;
+			} else {
+				// ...when not
+				return linkResolver(link);
+			}
 
 		case LinkType.Any:
 		default:
