@@ -1,13 +1,21 @@
-## JavaScript library with a set of helpers for Prismic
+# @prismicio/helpers
 
-Get link url from any kind of Prismic Link: DocumentLink, WebLink, MediaLink
+> ⚠ This project is in an experimental state and therefore primarily meant to be used by Prismic kits. Use it at your own risks or stay tuned for the official release!
 
-```javascript
-PrismicHelpers.Link.url(mydoc.data.myLink, ctx.linkResolver)
+## License
+
 ```
+   Copyright 2013-2021 Prismic <contact@prismic.io> (https://prismic.io)
 
-Convert a Date as string from the API to an ISO Date:
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-```javascript
-PrismicHelpers.Date(mydoc.data.mydate)
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 ```
