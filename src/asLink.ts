@@ -2,15 +2,13 @@ import { LinkField, LinkType } from "@prismicio/types";
 import { ArgumentError } from "./ArgumentError";
 import { LinkResolverFunction } from "./types";
 
-// TODO: provide a way to handle v1 fields
-
 /**
  * Resolves any type of link field to a URL
  *
  * @param linkField - Any kind of link field to resolve
  * @param linkResolver - A link resolver function, without it you're expected to use the `routes` from the API
  *
- * @returns Resolved URL, an empty string if provided link is empty
+ * @returns Resolved URL, null if provided link is empty
  *
  * @typeParam LinkResolverFunctionReturnType - Link resolver function return type
  *
@@ -29,8 +27,8 @@ export function asLink<LinkResolverFunctionReturnType = string>(
 	}
 
 	switch (linkField.link_type) {
-		case LinkType.Web:
 		case LinkType.Media:
+		case LinkType.Web:
 			return linkField.url;
 
 		case LinkType.Document:
