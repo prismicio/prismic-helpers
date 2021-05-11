@@ -1,5 +1,5 @@
-import { FilledRelationField } from "@prismicio/types";
+import { FilledLinkToDocumentField } from "@prismicio/types";
 
-export type LinkResolverFunction = (
-	doc: Omit<FilledRelationField, "url">
-) => string;
+export type LinkResolverFunction<ReturnType = string> = (
+	doc: Omit<FilledLinkToDocumentField, "url">
+) => ReturnType;

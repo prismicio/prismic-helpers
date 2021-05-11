@@ -3,8 +3,9 @@ import type { DateField, TimestampField } from "@prismicio/types";
 /**
  * Transforms a date or timestamp field into a JavaScript Date object
  *
- * @param dateOrTimestampField - a date or timestamp field from Prismic
- * @returns a Date object, null if provided date is falsy
+ * @param dateOrTimestampField - A date or timestamp field from Prismic
+ *
+ * @returns A Date object, null if provided date is falsy
  *
  * @see Templating date field from Prismic {@link https://prismic.io/docs/technologies/templating-date-field-javascript}
  */
