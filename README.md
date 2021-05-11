@@ -2,6 +2,10 @@
 
 > ⚠ This project is in an experimental state and therefore primarily meant to be used by Prismic kits. Use it at your own risks or stay tuned for the official release!
 
+## Todo
+
+- [ ] Provide a way to handle API v1 if necessary
+
 ## License
 
 ```
