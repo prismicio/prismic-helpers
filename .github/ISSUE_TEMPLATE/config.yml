@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Prismic Community Forum
+  - name: 👪 Prismic Community Forum
     url: https://community.prismic.io
-    about: Please use Prismic community forum for issues or questions directly related to Prismic.
+    about: Ask questions about this package or raise issues directly related to Prismic. You will usually get support much quicker there!
