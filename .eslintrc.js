@@ -15,9 +15,21 @@ module.exports = {
 	],
 	plugins: [],
 	rules: {
-		"no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+		"no-console": process.env.NODE_ENV === "production" ? "error" : "warn",
+		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "warn",
 		"no-undef": 0,
-		"@typescript-eslint/no-var-requires": 0
+		curly: "error",
+		"prefer-const": "error",
+		"padding-line-between-statements": [
+			"error",
+			{ blankLine: "always", prev: "*", next: "return" }
+		],
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				argsIgnorePattern: "^_",
+				varsIgnorePattern: "^_"
+			}
+		]
 	}
 };
