@@ -1,5 +1,5 @@
 import { LinkField, LinkType } from "@prismicio/types";
-import { ArgumentError } from "./ArgumentError";
+import { ArgumentError } from "./lib/ArgumentError";
 import { LinkResolverFunction } from "./types";
 
 /**
