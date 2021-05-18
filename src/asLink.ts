@@ -26,18 +26,25 @@ export function asLink<LinkResolverFunctionReturnType = string>(
 		throw new ArgumentError("linkResolver", "function", typeof linkResolver);
 	}
 
+	if (!linkField) {
+		return null;
+	}
+
 	switch (linkField.link_type) {
 		case LinkType.Media:
 		case LinkType.Web:
-			return linkField.url;
+			return "url" in linkField ? linkField.url : null;
 
 		case LinkType.Document:
-			if (linkField.url) {
+			if ("url" in linkField && linkField.url) {
 				// When using `apiOptions.routes`...
 				return linkField.url;
-			} else {
-				// ...when not
+			} else if ("id" in linkField) {
+				// ...when not...
 				return linkResolver(linkField);
+			} else {
+				// ...when empty
+				return null;
 			}
 
 		case LinkType.Any:
