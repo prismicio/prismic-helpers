@@ -24,6 +24,10 @@
 			"require": "./dist/graphql/index.js",
 			"import": "./dist/graphql/index.es.js"
 		},
+		"./dist/graphql": {
+			"require": "./dist/graphql/index.js",
+			"import": "./dist/graphql/index.es.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"main": "dist/index.js",
@@ -40,20 +44,26 @@
 		"release:alpha": "yarn build && yarn test && standard-version --release-as minor --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
 		"release:alpha:dry": "standard-version --release-as minor --prerelease alpha --dry-run",
 		"lint": "eslint --ext .js,.ts .",
-		"test": "yarn lint"
+		"unit": "nyc --reporter=lcovonly --reporter=text ava",
+		"test": "yarn lint && yarn unit"
 	},
 	"dependencies": {
-		"@prismicio/types": "~0.0.4"
+		"@prismicio/types": "~0.0.5"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^4.23.0",
-		"@typescript-eslint/parser": "^4.23.0",
+		"@types/sinon": "^10.0.0",
+		"@typescript-eslint/eslint-plugin": "^4.24.0",
+		"@typescript-eslint/parser": "^4.24.0",
+		"ava": "^3.15.0",
 		"eslint": "^7.26.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^3.4.0",
+		"nyc": "^15.1.0",
 		"prettier": "^2.3.0",
-		"siroc": "^0.10.0",
+		"sinon": "^10.0.0",
+		"siroc": "^0.10.1",
 		"standard-version": "^9.3.0",
+		"ts-eager": "2.0.2",
 		"typescript": "^4.2.4"
 	},
 	"engines": {

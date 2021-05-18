@@ -22,10 +22,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@master
 
-      - name: cache node_modules
+      - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: node_modules
@@ -37,6 +37,9 @@ jobs:
 
       - name: Lint
         run: yarn lint
+
+      - name: Test
+        run: yarn unit
 
       - name: Coverage
         uses: codecov/codecov-action@v1
