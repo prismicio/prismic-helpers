@@ -15,8 +15,8 @@ module.exports = {
 	],
 	plugins: [],
 	rules: {
-		"no-console": process.env.NODE_ENV === "production" ? "error" : "warn",
-		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "warn",
+		"no-console": ["warn", { allow: ["info", "warn", "error"] }],
+		"no-debugger": "warn",
 		"no-undef": 0,
 		curly: "error",
 		"prefer-const": "error",

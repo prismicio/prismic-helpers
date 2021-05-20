@@ -1,15 +1,15 @@
 import { asLink, LinkResolverFunction } from "@prismicio/helpers";
 
 // An hypothetic document from Prismic...
-import doc from "../document.mock.json";
+import { rest as doc } from "../document.mock.json";
 
 const linkResolver: LinkResolverFunction = doc => `/${doc.uid}`;
 
 const relation = asLink(doc.data.relation, linkResolver);
-console.log(relation);
+console.info({ relation });
 
 const link = asLink(doc.data.link, linkResolver);
-console.log(link);
+console.info({ link });
 
 const media = asLink(doc.data.media, linkResolver);
-console.log(media);
+console.info({ media });
