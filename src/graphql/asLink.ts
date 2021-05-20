@@ -47,16 +47,11 @@ export function asLink<
 		return null;
 	}
 
-	switch (linkField._linkType) {
-		case LinkType.File:
-		case LinkType.Image:
-		case LinkType.Web:
-			return linkField.url;
-
-		case LinkType.Document:
-			return linkResolver(linkField);
-
-		default:
-			return null;
+	if ("url" in linkField) {
+		return linkField.url;
+	} else if (linkField._linkType === LinkType.Document) {
+		return linkResolver(linkField);
+	} else {
+		return null;
 	}
 }
