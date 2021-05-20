@@ -259,10 +259,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@prismicio/types@~0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.0.5.tgz#8a63ca1bf6f76b151a3c828b70ae5bc768e4c55e"
-  integrity sha512-BIo6/tT0+7L+p+OTj22v20AcXgK/qKNQyuMzHU4EZM4ZmGba5V+5xna3aczOwqxXwLUcBAroaX3HBY/hkYqWOg==
+"@prismicio/types@~0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.0.6.tgz#3e660d98e307d53f4a3dbe1e0cf9130b85e426e8"
+  integrity sha512-ilCf6W406+XIxwiUlAtdyPLNzcnjG4Z5hBqSxC/oiX4FwoyqbTQ1tCuo8JbKahrRHUNk1lS/Ho7L6kanFlBIVw==
 
 "@rollup/plugin-alias@^3.1.2":
   version "3.1.2"
