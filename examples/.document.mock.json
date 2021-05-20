@@ -1,0 +1,40 @@
+{
+	"id": "XvoFFREAAM0WGBng",
+	"uid": "test",
+	"type": "page",
+	"href": "https://example.cdn.prismic.io/api/v2/documents/search",
+	"tags": [],
+	"first_publication_date": "2020-06-29T15:13:27+0000",
+	"last_publication_date": "2021-05-18T15:44:01+0000",
+	"slugs": ["slug"],
+	"linked_documents": [],
+	"lang": "en-us",
+	"alternate_languages": [],
+	"data": {
+		"date": "2021-05-12",
+		"timestamp": "2021-05-11T22:00:00+0000",
+		"relation": {
+			"id": "XvoFFREAAM0WGBng",
+			"type": "page",
+			"tags": [],
+			"slug": "slug",
+			"lang": "en-us",
+			"uid": "test",
+			"link_type": "Document",
+			"isBroken": false
+		},
+		"link": {
+			"link_type": "Web",
+			"url": "https://prismic.io"
+		},
+		"media": {
+			"link_type": "Media",
+			"name": "test.jpg",
+			"kind": "image",
+			"url": "https://prismic.io",
+			"size": "420",
+			"height": "42",
+			"width": "42"
+		}
+	}
+}

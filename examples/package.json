@@ -1,0 +1,15 @@
+{
+	"name": "@prismicio/helpers.examples",
+	"version": "1.0.0",
+	"license": "Apache-2.0",
+	"scripts": {
+		"ts": "node -r ts-eager/register"
+	},
+	"dependencies": {
+		"@prismicio/helpers": "latest"
+	},
+	"devDependencies": {
+		"ts-eager": "2.0.2",
+		"typescript": "latest"
+	}
+}
