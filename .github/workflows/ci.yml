@@ -41,5 +41,8 @@ jobs:
       - name: Unit
         run: yarn unit
 
+      - name: Build
+        run: yarn build
+
       - name: Coverage
         uses: codecov/codecov-action@v1

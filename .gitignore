@@ -1,5 +1,6 @@
 # custom
 dist
+examples/yarn.lock
 
 # os
 .DS_Store
