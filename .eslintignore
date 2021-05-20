@@ -23,10 +23,9 @@ npm-debug.log*
 package-lock.json
 
 # tests
-lib-cov
 coverage
-*.lcov
 .eslintcache
+.nyc_output
 
 # .env
 .env
