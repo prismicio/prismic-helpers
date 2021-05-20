@@ -1,6 +1,7 @@
 const { asLink } = require("@prismicio/helpers");
 
-const doc = require("./.document.mock.json");
+// An hypothetic document from Prismic...
+const doc = require("../document.mock.json");
 
 const linkResolver = doc => `/${doc.uid}`;
 

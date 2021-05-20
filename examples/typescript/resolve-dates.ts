@@ -1,6 +1,7 @@
-const { asDate } = require("@prismicio/helpers");
+import { asDate } from "@prismicio/helpers";
 
-const doc = require("./.document.mock.json");
+// An hypothetic document from Prismic...
+import doc from "../document.mock.json";
 
 const date = asDate(doc.data.date);
 console.log(date.toUTCString());
