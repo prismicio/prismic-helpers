@@ -15,22 +15,23 @@
 	},
 	"license": "Apache-2.0",
 	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
+	"type": "module",
 	"exports": {
 		".": {
-			"require": "./dist/index.js",
+			"require": "./dist/index.cjs",
 			"import": "./dist/index.es.js"
 		},
 		"./graphql": {
-			"require": "./dist/graphql/index.js",
+			"require": "./dist/graphql/index.cjs",
 			"import": "./dist/graphql/index.es.js"
 		},
 		"./dist/graphql": {
-			"require": "./dist/graphql/index.js",
+			"require": "./dist/graphql/index.cjs",
 			"import": "./dist/graphql/index.es.js"
 		},
 		"./package.json": "./package.json"
 	},
-	"main": "dist/index.js",
+	"main": "dist/index.cjs",
 	"module": "dist/index.es.js",
 	"types": "dist/index.d.ts",
 	"files": [
