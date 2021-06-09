@@ -31,6 +31,6 @@ assignees: ""
 
 ### Steps to reproduce
 
-### What is Expected?
+### What is expected?
 
 ### What is actually happening?
