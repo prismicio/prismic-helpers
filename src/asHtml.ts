@@ -1,140 +1,158 @@
-// @ts-expect-error No type defs :(
-import RichText, { Elements } from "@prismicio/richtext";
-import { RichTextBlock, RichTextField, RichTextSpan } from "@prismicio/types";
-import { HtmlSerializerFunction, LinkResolverFunction } from "./types";
+import {
+	serialize,
+	Element,
+	composeSerializers,
+	wrapMapSerializer
+} from "@prismicio/richtext";
+
+import {
+	LinkType,
+	RichTextField,
+	RTBlockNode,
+	RTEmbedNode,
+	RTImageNode,
+	RTInlineNode,
+	RTLinkNode,
+	RTPreformattedNode
+} from "@prismicio/types";
+import {
+	HTMLSerializerFunction,
+	HTMLSerializerMap,
+	LinkResolverFunction
+} from "./types";
+
 import escapeHtml from "escape-html";
 import { asLink } from "./asLink";
 
-function label(element: RichTextBlock | RichTextSpan) {
-	// @ts-expect-error TODO: Fix prismic types
-	return "label" in element ? ` class="${element.label}"` : "";
+function label(node: RTBlockNode | RTInlineNode) {
+	return "data" in node && "label" in node.data
+		? ` class="${node.data.label}"`
+		: "";
 }
 
 function serializeStandardTag(
 	tag: string,
-	element: RichTextBlock | RichTextSpan,
+	node: RTBlockNode | RTInlineNode,
 	children: string[]
 ) {
-	return `<${tag}${label(element)}>${children.join("")}</${tag}>`;
+	return `<${tag}${label(node)}>${children.join("")}</${tag}>`;
 }
 
-function serializePreFormatted(element: RichTextBlock | RichTextSpan) {
-	return `<pre${label(element)}>${escapeHtml(element.text)}</pre>`;
+function serializePreFormatted(node: RTPreformattedNode) {
+	return `<pre${label(node)}>${escapeHtml(node.text)}</pre>`;
 }
 
-function serializeImage(linkResolver: LinkResolverFunction, element: any) {
-	const linkUrl = element.linkTo ? asLink(element.linkTo, linkResolver) : null;
-	const linkTarget =
-		element.linkTo && element.linkTo.target
-			? `target="${element.linkTo.target}" rel="noopener"`
-			: "";
-	const wrapperClassList = [element.label || "", "block-img"];
-	const img = `<img src="${element.url}" alt="${
-		element.alt || ""
-	}" copyright="${element.copyright || ""}">`;
-
-	return `
-    <p class="${wrapperClassList.join(" ")}">
-      ${linkUrl ? `<a ${linkTarget} href="${linkUrl}">${img}</a>` : img}
-    </p>
-  `;
+// TODO: Check link behavior with image + maybe rewrap with paragraph
+function serializeImage(
+	_linkResolver: LinkResolverFunction<string>,
+	node: RTImageNode
+) {
+	return `<img src="${node.url}" alt="${node.alt}"${
+		node.copyright ? ` copyright="${node.copyright}"` : ""
+	} />`;
 }
 
-function serializeEmbed(element: any) {
-	return `
-    <div data-oembed="${element.oembed.embed_url}"
-      data-oembed-type="${element.oembed.type}"
-      data-oembed-provider="${element.oembed.provider_name}"
-      ${label(element)}>
-          
-      ${element.oembed.html}
-    </div>
-  `;
+function serializeEmbed(node: RTEmbedNode) {
+	return `<div data-oembed="${node.oembed.embed_url}" data-oembed-type="${
+		node.oembed.type
+	}" data-oembed-provider="${node.oembed.provider_name}"${label(node)}>${
+		node.oembed.html
+	}</div>`;
 }
 
 function serializeHyperlink(
 	linkResolver: LinkResolverFunction,
-	element: any,
+	node: RTLinkNode,
 	children: string[]
 ) {
-	const target = element.data.target
-		? `target="${element.data.target}" rel="noopener"`
-		: "";
+	switch (node.data.link_type) {
+		case LinkType.Web: {
+			return `<a href="${node.data.url}" target="${
+				node.data.target
+			}" rel="noopener noreferrer"${label(node)}>${children.join("")}</a>`;
+		}
 
-	return `<a ${target} href="${asLink(
-		element.data,
-		linkResolver
-	)}">${children.join("")}</a>`;
+		case LinkType.Document: {
+			return `<a href="${asLink(node.data, linkResolver)}"${label(
+				node
+			)}>${children.join("")}</a>`;
+		}
+
+		case LinkType.Media: {
+			return `<a href="${node.data.url}"${label(node)}>${children.join(
+				""
+			)}</a>`;
+		}
+	}
 }
 
-function serializeLabel(element: any, children: string[]) {
-	return `<span ${label(element.data)}>${children.join("")}</span>`;
-}
-
-function serializeSpan(content: string) {
+function serializeSpan(content?: string) {
 	return content ? escapeHtml(content).replace(/\n/g, "<br />") : "";
 }
 
-function defaultHtmlSerializer(
-	linkResolver: LinkResolverFunction,
-	type: string,
-	element: RichTextBlock | RichTextSpan,
-	content: string,
-	children: string[],
-	_: number
-) {
-	switch (type) {
-		case Elements.heading1:
-			return serializeStandardTag("h1", element, children);
-		case Elements.heading2:
-			return serializeStandardTag("h2", element, children);
-		case Elements.heading3:
-			return serializeStandardTag("h3", element, children);
-		case Elements.heading4:
-			return serializeStandardTag("h4", element, children);
-		case Elements.heading5:
-			return serializeStandardTag("h5", element, children);
-		case Elements.heading6:
-			return serializeStandardTag("h6", element, children);
-		case Elements.paragraph:
-			return serializeStandardTag("p", element, children);
-		case Elements.preformatted:
-			return serializePreFormatted(element);
-		case Elements.strong:
-			return serializeStandardTag("strong", element, children);
-		case Elements.em:
-			return serializeStandardTag("em", element, children);
-		case Elements.listItem:
-			return serializeStandardTag("li", element, children);
-		case Elements.oListItem:
-			return serializeStandardTag("li", element, children);
-		case Elements.list:
-			return serializeStandardTag("ul", element, children);
-		case Elements.oList:
-			return serializeStandardTag("ol", element, children);
-		case Elements.image:
-			return serializeImage(linkResolver, element);
-		case Elements.embed:
-			return serializeEmbed(element);
-		case Elements.hyperlink:
-			return serializeHyperlink(linkResolver, element, children);
-		case Elements.label:
-			return serializeLabel(element, children);
-		case Elements.span:
+function defaultHTMLSerializer(
+	linkResolver: LinkResolverFunction<string>,
+	_type: Parameters<HTMLSerializerFunction>[0],
+	node: Parameters<HTMLSerializerFunction>[1],
+	content: Parameters<HTMLSerializerFunction>[2],
+	children: Parameters<HTMLSerializerFunction>[3],
+	_key: Parameters<HTMLSerializerFunction>[4]
+): string {
+	switch (node.type) {
+		case Element.heading1:
+			return serializeStandardTag("h1", node, children);
+		case Element.heading2:
+			return serializeStandardTag("h2", node, children);
+		case Element.heading3:
+			return serializeStandardTag("h3", node, children);
+		case Element.heading4:
+			return serializeStandardTag("h4", node, children);
+		case Element.heading5:
+			return serializeStandardTag("h5", node, children);
+		case Element.heading6:
+			return serializeStandardTag("h6", node, children);
+		case Element.paragraph:
+			return serializeStandardTag("p", node, children);
+		case Element.preformatted:
+			return serializePreFormatted(node);
+		case Element.strong:
+			return serializeStandardTag("strong", node, children);
+		case Element.em:
+			return serializeStandardTag("em", node, children);
+		case Element.listItem:
+			return serializeStandardTag("li", node, children);
+		case Element.oListItem:
+			return serializeStandardTag("li", node, children);
+		case Element.list:
+			return serializeStandardTag("ul", node, children);
+		case Element.oList:
+			return serializeStandardTag("ol", node, children);
+		case Element.image:
+			return serializeImage(linkResolver, node);
+		case Element.embed:
+			return serializeEmbed(node);
+		case Element.hyperlink:
+			return serializeHyperlink(linkResolver, node, children);
+		case Element.label:
+			return serializeStandardTag("span", node, children);
+		case Element.span:
 			return serializeSpan(content);
 		default:
 			return "";
 	}
 }
 
-export function asHtml(
+export function asHTML(
 	richTextField: RichTextField,
-	linkResolver: LinkResolverFunction,
-	htmlSerializer: HtmlSerializerFunction
+	linkResolver: LinkResolverFunction<string>,
+	htmlSerializer: HTMLSerializerFunction | HTMLSerializerMap
 ): string {
-	return RichText.serialize(
-		richTextField,
-		defaultHtmlSerializer.bind(null, linkResolver),
-		htmlSerializer
-	).join("");
+	const serializer = composeSerializers<string>(
+		typeof htmlSerializer === "object"
+			? wrapMapSerializer(htmlSerializer)
+			: htmlSerializer,
+		defaultHTMLSerializer.bind(null, linkResolver)
+	);
+
+	return serialize(richTextField, serializer).join("");
 }

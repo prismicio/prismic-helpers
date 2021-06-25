@@ -1,8 +1,8 @@
-import type {
-	FilledLinkToDocumentField,
-	RichTextBlock,
-	RichTextSpan
-} from "@prismicio/types";
+import type { FilledLinkToDocumentField } from "@prismicio/types";
+import {
+	RichTextFunctionSerializer,
+	RichTextMapSerializer
+} from "@prismicio/richtext";
 
 /**
  * Resolves a link to a Prismic document to a URL
@@ -19,10 +19,8 @@ export type LinkResolverFunction<ReturnType = string> = (
 	linkToDocumentField: Omit<FilledLinkToDocumentField, "url">
 ) => ReturnType;
 
-export type HtmlSerializerFunction = (
-	type: string,
-	element: RichTextBlock | RichTextSpan,
-	content: string,
-	children: string[],
-	index: number
-) => string;
+// TODO: Add TSDocs
+export type HTMLSerializerFunction = RichTextFunctionSerializer<string>;
+
+// TODO: Add TSDocs
+export type HTMLSerializerMap = RichTextMapSerializer<string>;
