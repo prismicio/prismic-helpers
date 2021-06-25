@@ -2,7 +2,8 @@ import {
 	serialize,
 	Element,
 	composeSerializers,
-	wrapMapSerializer
+	wrapMapSerializer,
+	RichTextFunctionSerializer,
 } from "@prismicio/richtext";
 import { RichTextField } from "@prismicio/types";
 
@@ -12,21 +13,21 @@ import {
 	serializeImage,
 	serializeEmbed,
 	serializeHyperlink,
-	serializeSpan
+	serializeSpan,
 } from "./lib/serializerHelpers";
 import {
-	HTMLSerializerFunction,
-	HTMLSerializerMap,
-	LinkResolverFunction
+	HTMLFunctionSerializer,
+	HTMLMapSerializer,
+	LinkResolverFunction,
 } from "./types";
 
 function defaultHTMLSerializer(
 	linkResolver: LinkResolverFunction<string>,
-	_type: Parameters<HTMLSerializerFunction>[0],
-	node: Parameters<HTMLSerializerFunction>[1],
-	content: Parameters<HTMLSerializerFunction>[2],
-	children: Parameters<HTMLSerializerFunction>[3],
-	_key: Parameters<HTMLSerializerFunction>[4]
+	_type: Parameters<HTMLFunctionSerializer>[0],
+	node: Parameters<HTMLFunctionSerializer>[1],
+	content: Parameters<HTMLFunctionSerializer>[2],
+	children: Parameters<HTMLFunctionSerializer>[3],
+	_key: Parameters<HTMLFunctionSerializer>[4],
 ): string {
 	switch (node.type) {
 		case Element.heading1:
@@ -66,23 +67,27 @@ function defaultHTMLSerializer(
 		case Element.label:
 			return serializeStandardTag("span", node, children);
 		case Element.span:
-			return serializeSpan(content);
 		default:
-			return "";
+			return serializeSpan(content);
 	}
 }
 
 export function asHTML(
 	richTextField: RichTextField,
 	linkResolver: LinkResolverFunction<string>,
-	htmlSerializer: HTMLSerializerFunction | HTMLSerializerMap
+	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer,
 ): string {
-	const serializer = composeSerializers<string>(
-		typeof htmlSerializer === "object"
-			? wrapMapSerializer(htmlSerializer)
-			: htmlSerializer,
-		defaultHTMLSerializer.bind(null, linkResolver)
-	);
+	let serializer: RichTextFunctionSerializer<string>;
+	if (htmlSerializer) {
+		serializer = composeSerializers<string>(
+			typeof htmlSerializer === "object"
+				? wrapMapSerializer(htmlSerializer)
+				: htmlSerializer,
+			defaultHTMLSerializer.bind(null, linkResolver),
+		);
+	} else {
+		serializer = defaultHTMLSerializer.bind(null, linkResolver);
+	}
 
 	return serialize(richTextField, serializer).join("");
 }
