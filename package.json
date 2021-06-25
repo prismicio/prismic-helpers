@@ -49,8 +49,8 @@
 		"test": "yarn lint && yarn unit"
 	},
 	"dependencies": {
-		"@prismicio/richtext": "^2.0.0-alpha.0",
-		"@prismicio/types": "~0.0.10",
+		"@prismicio/richtext": "^2.0.0-alpha.1",
+		"@prismicio/types": "~0.0.11",
 		"escape-html": "^1.0.3"
 	},
 	"devDependencies": {

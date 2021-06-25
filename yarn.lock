@@ -267,17 +267,17 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@prismicio/richtext@^2.0.0-alpha.0":
-  version "2.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@prismicio/richtext/-/richtext-2.0.0-alpha.0.tgz#2f64af8a4893b1333f3836867d8531b8d90941db"
-  integrity sha512-hscYpg7vpLyduybiAK+8kNZPJaQ9sgyqJxO9vOoHXULdIAZYc3wGgZxKl+/JbhPia+1wtdirG7JIpWnZ1w4xPw==
+"@prismicio/richtext@^2.0.0-alpha.1":
+  version "2.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@prismicio/richtext/-/richtext-2.0.0-alpha.1.tgz#29756f4dc78bbcedf16714cca1f61ec9dd1a9e69"
+  integrity sha512-tTSxp8XySM9j5CkMyWywl9R74PsqYi8vJ8LiZy3PR9NysE28TVSBn3Glgn+3YBwBLIV1VkwbKLPWEHf0oZ3Pyg==
   dependencies:
-    "@prismicio/types" "^0.0.10"
+    "@prismicio/types" "^0.0.11"
 
-"@prismicio/types@^0.0.10", "@prismicio/types@~0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.0.10.tgz#b3b93a460393c650d8a0ce95ea8620f1e08f49da"
-  integrity sha512-B55j/YEZbhYWjpli70+RbuX0NHFRlqM6q0tQHw7Dr4ovGqHNnTJqGH8zVFuKqlmH5SLk/7jGSi7fcWconS94Tw==
+"@prismicio/types@^0.0.11", "@prismicio/types@~0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.0.11.tgz#97d73ef5abed5ce9623bf7c8fcacf4f9bac8d9a3"
+  integrity sha512-QsGW0quZ2NJDaDl+XvUhiafo7xUWOCKkJlvWwNaG1vWXB73b5cj0dk0UAPmoVOY3xx65JXTGKhBBkNKna8DhfA==
 
 "@rollup/plugin-alias@^3.1.2":
   version "3.1.2"

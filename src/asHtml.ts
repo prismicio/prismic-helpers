@@ -4,91 +4,21 @@ import {
 	composeSerializers,
 	wrapMapSerializer
 } from "@prismicio/richtext";
+import { RichTextField } from "@prismicio/types";
 
 import {
-	LinkType,
-	RichTextField,
-	RTBlockNode,
-	RTEmbedNode,
-	RTImageNode,
-	RTInlineNode,
-	RTLinkNode,
-	RTPreformattedNode
-} from "@prismicio/types";
+	serializeStandardTag,
+	serializePreFormatted,
+	serializeImage,
+	serializeEmbed,
+	serializeHyperlink,
+	serializeSpan
+} from "./lib/serializerHelpers";
 import {
 	HTMLSerializerFunction,
 	HTMLSerializerMap,
 	LinkResolverFunction
 } from "./types";
-
-import escapeHtml from "escape-html";
-import { asLink } from "./asLink";
-
-function label(node: RTBlockNode | RTInlineNode) {
-	return "data" in node && "label" in node.data
-		? ` class="${node.data.label}"`
-		: "";
-}
-
-function serializeStandardTag(
-	tag: string,
-	node: RTBlockNode | RTInlineNode,
-	children: string[]
-) {
-	return `<${tag}${label(node)}>${children.join("")}</${tag}>`;
-}
-
-function serializePreFormatted(node: RTPreformattedNode) {
-	return `<pre${label(node)}>${escapeHtml(node.text)}</pre>`;
-}
-
-// TODO: Check link behavior with image + maybe rewrap with paragraph
-function serializeImage(
-	_linkResolver: LinkResolverFunction<string>,
-	node: RTImageNode
-) {
-	return `<img src="${node.url}" alt="${node.alt}"${
-		node.copyright ? ` copyright="${node.copyright}"` : ""
-	} />`;
-}
-
-function serializeEmbed(node: RTEmbedNode) {
-	return `<div data-oembed="${node.oembed.embed_url}" data-oembed-type="${
-		node.oembed.type
-	}" data-oembed-provider="${node.oembed.provider_name}"${label(node)}>${
-		node.oembed.html
-	}</div>`;
-}
-
-function serializeHyperlink(
-	linkResolver: LinkResolverFunction,
-	node: RTLinkNode,
-	children: string[]
-) {
-	switch (node.data.link_type) {
-		case LinkType.Web: {
-			return `<a href="${node.data.url}" target="${
-				node.data.target
-			}" rel="noopener noreferrer"${label(node)}>${children.join("")}</a>`;
-		}
-
-		case LinkType.Document: {
-			return `<a href="${asLink(node.data, linkResolver)}"${label(
-				node
-			)}>${children.join("")}</a>`;
-		}
-
-		case LinkType.Media: {
-			return `<a href="${node.data.url}"${label(node)}>${children.join(
-				""
-			)}</a>`;
-		}
-	}
-}
-
-function serializeSpan(content?: string) {
-	return content ? escapeHtml(content).replace(/\n/g, "<br />") : "";
-}
 
 function defaultHTMLSerializer(
 	linkResolver: LinkResolverFunction<string>,
