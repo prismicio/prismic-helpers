@@ -3,7 +3,7 @@ const { asLink } = require("@prismicio/helpers/dist/graphql");
 // An hypothetic document from Prismic...
 const { graphql: doc } = require("../document.mock.json");
 
-const linkResolver = doc => `/${doc._meta.uid}`;
+const linkResolver = (doc) => `/${doc._meta.uid}`;
 
 const relation = asLink(doc.relation, linkResolver);
 console.info({ relation });

@@ -6,7 +6,7 @@ import {
 	RTImageNode,
 	RTEmbedNode,
 	RTLinkNode,
-	LinkType
+	LinkType,
 } from "@prismicio/types";
 
 import { asLink } from "../asLink";
@@ -21,7 +21,7 @@ export const getLabel = (node: RTBlockNode | RTInlineNode): string => {
 export const serializeStandardTag = (
 	tag: string,
 	node: RTBlockNode | RTInlineNode,
-	children: string[]
+	children: string[],
 ): string => {
 	return `<${tag}${getLabel(node)}>${children.join("")}</${tag}>`;
 };
@@ -33,7 +33,7 @@ export const serializePreFormatted = (node: RTPreformattedNode): string => {
 // TODO: Check link behavior with image + maybe rewrap with paragraph
 export const serializeImage = (
 	_linkResolver: LinkResolverFunction<string>,
-	node: RTImageNode
+	node: RTImageNode,
 ): string => {
 	return `<img src="${node.url}" alt="${node.alt}"${
 		node.copyright ? ` copyright="${node.copyright}"` : ""
@@ -51,7 +51,7 @@ export const serializeEmbed = (node: RTEmbedNode): string => {
 export const serializeHyperlink = (
 	linkResolver: LinkResolverFunction,
 	node: RTLinkNode,
-	children: string[]
+	children: string[],
 ): string => {
 	switch (node.data.link_type) {
 		case LinkType.Web: {
@@ -62,13 +62,13 @@ export const serializeHyperlink = (
 
 		case LinkType.Document: {
 			return `<a href="${asLink(node.data, linkResolver)}"${getLabel(
-				node
+				node,
 			)}>${children.join("")}</a>`;
 		}
 
 		case LinkType.Media: {
 			return `<a href="${node.data.url}"${getLabel(node)}>${children.join(
-				""
+				"",
 			)}</a>`;
 		}
 	}

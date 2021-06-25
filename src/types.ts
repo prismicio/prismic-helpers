@@ -1,7 +1,7 @@
 import type { FilledLinkToDocumentField } from "@prismicio/types";
 import {
 	RichTextFunctionSerializer,
-	RichTextMapSerializer
+	RichTextMapSerializer,
 } from "@prismicio/richtext";
 
 /**
@@ -16,11 +16,14 @@ import {
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  */
 export type LinkResolverFunction<ReturnType = string> = (
-	linkToDocumentField: Omit<FilledLinkToDocumentField, "url">
+	linkToDocumentField: Omit<FilledLinkToDocumentField, "url">,
 ) => ReturnType;
 
 // TODO: Add TSDocs
-export type HTMLSerializerFunction = RichTextFunctionSerializer<string>;
+export type HTMLFunctionSerializer = RichTextFunctionSerializer<
+	string | null,
+	string
+>;
 
 // TODO: Add TSDocs
-export type HTMLSerializerMap = RichTextMapSerializer<string>;
+export type HTMLMapSerializer = RichTextMapSerializer<string>;

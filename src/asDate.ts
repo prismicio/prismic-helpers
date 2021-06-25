@@ -9,9 +9,9 @@ import type { DateField, TimestampField } from "@prismicio/types";
  *
  * @see Templating date field from Prismic {@link https://prismic.io/docs/technologies/templating-date-field-javascript}
  */
-export function asDate(
-	dateOrTimestampField: DateField | TimestampField
-): Date | null {
+export const asDate = (
+	dateOrTimestampField: DateField | TimestampField,
+): Date | null => {
 	if (!dateOrTimestampField) {
 		return null;
 	}
@@ -31,10 +31,10 @@ export function asDate(
 		 * @see Regex101 expression: {@link https://regex101.com/r/jxyETT/1}
 		 */
 		return new Date(
-			dateOrTimestampField.replace(/(\+|-)(\d{2})(\d{2})$/, ".000$1$2:$3")
+			dateOrTimestampField.replace(/(\+|-)(\d{2})(\d{2})$/, ".000$1$2:$3"),
 		);
 	} else {
 		// ...else field is a date field
 		return new Date(dateOrTimestampField);
 	}
-}
+};

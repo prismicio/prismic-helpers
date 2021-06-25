@@ -15,13 +15,13 @@ import { LinkResolverFunction } from "./types";
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
-export function asLink<LinkResolverFunctionReturnType = string>(
+export const asLink = <LinkResolverFunctionReturnType = string>(
 	linkField: LinkField,
-	linkResolver: LinkResolverFunction<LinkResolverFunctionReturnType>
+	linkResolver: LinkResolverFunction<LinkResolverFunctionReturnType>,
 ):
 	| ReturnType<LinkResolverFunction<LinkResolverFunctionReturnType>>
 	| string
-	| null {
+	| null => {
 	if (typeof linkResolver !== "function") {
 		throw new ArgumentError("linkResolver", "function", typeof linkResolver);
 	}
@@ -51,4 +51,4 @@ export function asLink<LinkResolverFunctionReturnType = string>(
 		default:
 			return null;
 	}
-}
+};

@@ -10,7 +10,7 @@ interface MyLinkToDocumentField extends FilledMinimalLinkToDocumentField {
 	};
 }
 
-const linkResolver: LinkResolverFunction<MyLinkToDocumentField> = doc =>
+const linkResolver: LinkResolverFunction<MyLinkToDocumentField> = (doc) =>
 	`/${doc._meta.uid}`;
 
 const relation = asLink(doc.relation, linkResolver);

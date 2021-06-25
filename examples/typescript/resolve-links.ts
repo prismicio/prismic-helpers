@@ -3,7 +3,7 @@ import { asLink, LinkResolverFunction } from "@prismicio/helpers";
 // An hypothetic document from Prismic...
 import { rest as doc } from "../document.mock.json";
 
-const linkResolver: LinkResolverFunction = doc => `/${doc.uid}`;
+const linkResolver: LinkResolverFunction = (doc) => `/${doc.uid}`;
 
 const relation = asLink(doc.data.relation, linkResolver);
 console.info({ relation });

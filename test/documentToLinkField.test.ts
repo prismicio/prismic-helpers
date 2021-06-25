@@ -1,3 +1,4 @@
+import { LinkType } from "@prismicio/types";
 import test from "ava";
 
 import { documentToLinkField } from "../src";
@@ -15,50 +16,50 @@ const referenceDocument = {
 	linked_documents: [],
 	lang: "en-us",
 	alternate_languages: [],
-	data: {}
+	data: {},
 };
 
-test("returns equivalent link field from given document", t => {
+test("returns equivalent link field from given document", (t) => {
 	const document = { ...referenceDocument, url: null };
 
 	t.deepEqual(documentToLinkField(document), {
-		link_type: "Document",
+		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
 		type: "page",
 		tags: [],
 		lang: "en-us",
 		url: undefined,
-		slug: "slug"
+		slug: "slug",
 	});
 });
 
-test("returns equivalent link field from given document with `apiOptions.routes`", t => {
+test("returns equivalent link field from given document with `apiOptions.routes`", (t) => {
 	const document = { ...referenceDocument };
 
 	t.deepEqual(documentToLinkField(document), {
-		link_type: "Document",
+		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
 		type: "page",
 		tags: [],
 		lang: "en-us",
 		url: "/test",
-		slug: "slug"
+		slug: "slug",
 	});
 });
 
-test("returns equivalent link field from given document without uid", t => {
+test("returns equivalent link field from given document without uid", (t) => {
 	const document = { ...referenceDocument, uid: null };
 
 	t.deepEqual(documentToLinkField(document), {
-		link_type: "Document",
+		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: undefined,
 		type: "page",
 		tags: [],
 		lang: "en-us",
 		url: "/test",
-		slug: "slug"
+		slug: "slug",
 	});
 });

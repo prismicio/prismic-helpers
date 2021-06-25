@@ -7,6 +7,6 @@ export { documentToLinkField } from "./documentToLinkField";
 
 export type {
 	LinkResolverFunction,
-	HTMLSerializerFunction,
-	HTMLSerializerMap
+	HTMLFunctionSerializer,
+	HTMLMapSerializer,
 } from "./types";

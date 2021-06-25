@@ -15,5 +15,5 @@ import type { FilledMinimalLinkToDocumentField } from "@prismicio/types/dist/gra
  */
 export type LinkResolverFunction<
 	LinkToDocumentField extends FilledMinimalLinkToDocumentField = FilledMinimalLinkToDocumentField,
-	ReturnType = string
+	ReturnType = string,
 > = (linkToDocumentField: LinkToDocumentField) => ReturnType;

@@ -1,7 +1,7 @@
 import {
 	FilledLinkToDocumentField,
 	LinkType,
-	PrismicDocument
+	PrismicDocument,
 } from "@prismicio/types";
 
 /**
@@ -12,9 +12,9 @@ import {
  *
  * @returns The equivalent link field to use with `asLink()`
  */
-export function documentToLinkField(
-	prismicDocument: PrismicDocument
-): FilledLinkToDocumentField {
+export const documentToLinkField = (
+	prismicDocument: PrismicDocument,
+): FilledLinkToDocumentField => {
 	return {
 		link_type: LinkType.Document,
 		id: prismicDocument.id,
@@ -23,6 +23,6 @@ export function documentToLinkField(
 		tags: prismicDocument.tags,
 		lang: prismicDocument.lang,
 		url: prismicDocument.url ?? undefined,
-		slug: prismicDocument.slugs[0] // Slug field not available with GraphQl
+		slug: prismicDocument.slugs[0], // Slug field not available with GraphQl
 	};
-}
+};

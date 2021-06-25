@@ -2,7 +2,7 @@
 import {
 	FilledMinimalLinkToDocumentField,
 	LinkField,
-	LinkType
+	LinkType,
 } from "@prismicio/types/dist/graphql";
 import { ArgumentError } from "../lib/ArgumentError";
 import { LinkResolverFunction } from "./types";
@@ -21,15 +21,15 @@ import { LinkResolverFunction } from "./types";
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
-export function asLink<
+export const asLink = <
 	LinkResolverLinkToDocumentField extends FilledMinimalLinkToDocumentField = FilledMinimalLinkToDocumentField,
-	LinkResolverFunctionReturnType = string
+	LinkResolverFunctionReturnType = string,
 >(
 	linkField: LinkField<LinkResolverLinkToDocumentField>,
 	linkResolver: LinkResolverFunction<
 		LinkResolverLinkToDocumentField,
 		LinkResolverFunctionReturnType
-	>
+	>,
 ):
 	| ReturnType<
 			LinkResolverFunction<
@@ -38,7 +38,7 @@ export function asLink<
 			>
 	  >
 	| string
-	| null {
+	| null => {
 	if (typeof linkResolver !== "function") {
 		throw new ArgumentError("linkResolver", "function", typeof linkResolver);
 	}
@@ -54,4 +54,4 @@ export function asLink<
 	} else {
 		return null;
 	}
-}
+};
