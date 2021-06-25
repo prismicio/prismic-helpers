@@ -1,77 +1,77 @@
 {
-  "name": "@prismicio/helpers",
-  "version": "2.0.0-alpha.0",
-  "description": "Set of helpers to manage Prismic data",
-  "keywords": [
-    "typescript",
-    "helpers",
-    "utils",
-    "toolbox",
-    "prismic"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/prismicio/prismic-helpers.git"
-  },
-  "license": "Apache-2.0",
-  "author": "Prismic <contact@prismic.io> (https://prismic.io)",
-  "type": "module",
-  "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.es.js"
-    },
-    "./graphql": {
-      "require": "./dist/graphql/index.cjs",
-      "import": "./dist/graphql/index.es.js"
-    },
-    "./dist/graphql": {
-      "require": "./dist/graphql/index.cjs",
-      "import": "./dist/graphql/index.es.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "siroc build",
-    "dev": "siroc build --watch",
-    "release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
-    "release:dry": "standard-version --dry-run",
-    "release:alpha": "yarn build && yarn test && standard-version --release-as major --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
-    "release:alpha:dry": "standard-version --release-as major --prerelease alpha --dry-run",
-    "lint": "eslint --ext .js,.ts .",
-    "unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava",
-    "test": "yarn lint && yarn unit"
-  },
-  "dependencies": {
-    "@prismicio/richtext": "^1.1.0",
-    "@prismicio/types": "~0.0.7",
-    "escape-html": "^1.0.3"
-  },
-  "devDependencies": {
-    "@types/escape-html": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "ava": "^3.15.0",
-    "eslint": "^7.27.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "nyc": "^15.1.0",
-    "prettier": "^2.3.0",
-    "siroc": "^0.10.1",
-    "standard-version": "^9.3.0",
-    "ts-eager": "^2.0.2",
-    "typescript": "^4.3.2"
-  },
-  "engines": {
-    "node": ">=12.7.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@prismicio/helpers",
+	"version": "2.0.0-alpha.0",
+	"description": "Set of helpers to manage Prismic data",
+	"keywords": [
+		"typescript",
+		"helpers",
+		"utils",
+		"toolbox",
+		"prismic"
+	],
+	"repository": {
+		"type": "git",
+		"url": "ssh://git@github.com/prismicio/prismic-helpers.git"
+	},
+	"license": "Apache-2.0",
+	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
+	"type": "module",
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.es.js"
+		},
+		"./graphql": {
+			"require": "./dist/graphql/index.cjs",
+			"import": "./dist/graphql/index.es.js"
+		},
+		"./dist/graphql": {
+			"require": "./dist/graphql/index.cjs",
+			"import": "./dist/graphql/index.es.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.es.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "siroc build",
+		"dev": "siroc build --watch",
+		"release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
+		"release:dry": "standard-version --dry-run",
+		"release:alpha": "yarn build && yarn test && standard-version --release-as major --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
+		"release:alpha:dry": "standard-version --release-as major --prerelease alpha --dry-run",
+		"lint": "eslint --ext .js,.ts .",
+		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava",
+		"test": "yarn lint && yarn unit"
+	},
+	"dependencies": {
+		"@prismicio/richtext": "^2.0.0-alpha.0",
+		"@prismicio/types": "~0.0.10",
+		"escape-html": "^1.0.3"
+	},
+	"devDependencies": {
+		"@types/escape-html": "^1.0.1",
+		"@typescript-eslint/eslint-plugin": "^4.28.0",
+		"@typescript-eslint/parser": "^4.28.0",
+		"ava": "^3.15.0",
+		"eslint": "^7.29.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^3.4.0",
+		"nyc": "^15.1.0",
+		"prettier": "^2.3.1",
+		"siroc": "^0.11.1",
+		"standard-version": "^9.3.0",
+		"ts-eager": "^2.0.2",
+		"typescript": "^4.3.4"
+	},
+	"engines": {
+		"node": ">=12.7.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
