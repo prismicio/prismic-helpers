@@ -1,6 +1,6 @@
 export { asDate } from "./asDate";
 export { asLink } from "./asLink";
-export { asText } from "./asText";
+export { asText } from "@prismicio/richtext";
 
 export { documentToLinkField } from "./documentToLinkField";
 
