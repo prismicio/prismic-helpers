@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.1](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2021-06-29)
+
+
+### Bug Fixes
+
+* update dependencies and @prismicio/richtext types ([f30aa18](https://github.com/prismicio/prismic-helpers/commit/f30aa181635401b16b88d96e7e50c398e5fc0ba0))
+
+
+### Refactor
+
+* extract serializer helpers into a dedicated file ([5d1d2a8](https://github.com/prismicio/prismic-helpers/commit/5d1d2a849236aba7d928a1e27a45f132abca3582))
+* migrate asHTML to @prismicio/richtext@2 ([a565d02](https://github.com/prismicio/prismic-helpers/commit/a565d02ef51b8609719a1f96ad408b8994b664e3))
+* migrate asHtml to typescript ([f589b05](https://github.com/prismicio/prismic-helpers/commit/f589b05047e9979900899221e73b4242d1cdc445))
+* provide asText from @prismicio/richtext directly ([987105f](https://github.com/prismicio/prismic-helpers/commit/987105f07f57e722f1d392fac09f149bc289ad37))
+
+
+### Chore
+
+* migrate to npm ([8a41c1a](https://github.com/prismicio/prismic-helpers/commit/8a41c1a6e1916972f9d3f9979b01cc0cac694a37))
+* replace yarn scripts with npm ([9756c13](https://github.com/prismicio/prismic-helpers/commit/9756c139cb2027117da9799de6c59ff4a9283016))
+* **deps:** maintain dependencies ([a3aacb3](https://github.com/prismicio/prismic-helpers/commit/a3aacb3e825f9747e1dd0e008ceb3971d184c42b))
+* typo on config ([010cb0b](https://github.com/prismicio/prismic-helpers/commit/010cb0bab6fb3ac42e5fec564ddb792476605bbf))
+
 ## [2.0.0-alpha.0](https://github.com/prismicio/prismic-helpers/compare/v1.0.3...v2.0.0-alpha.0) (2021-05-27)
 
 
