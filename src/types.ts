@@ -20,10 +20,7 @@ export type LinkResolverFunction<ReturnType = string> = (
 ) => ReturnType;
 
 // TODO: Add TSDocs
-export type HTMLFunctionSerializer = RichTextFunctionSerializer<
-	string | null,
-	string
->;
+export type HTMLFunctionSerializer = RichTextFunctionSerializer<string>;
 
 // TODO: Add TSDocs
 export type HTMLMapSerializer = RichTextMapSerializer<string>;

@@ -79,7 +79,7 @@ export function asHTML(
 ): string {
 	let serializer: RichTextFunctionSerializer<string>;
 	if (htmlSerializer) {
-		serializer = composeSerializers<string>(
+		serializer = composeSerializers(
 			typeof htmlSerializer === "object"
 				? wrapMapSerializer(htmlSerializer)
 				: htmlSerializer,
