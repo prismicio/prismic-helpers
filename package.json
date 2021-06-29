@@ -40,13 +40,13 @@
 	"scripts": {
 		"build": "siroc build",
 		"dev": "siroc build --watch",
-		"release": "yarn build && yarn test && standard-version && git push --follow-tags && yarn build && npm publish",
+		"release": "npm run build && npm run test && standard-version && git push --follow-tags && npm run build && npm publish",
 		"release:dry": "standard-version --dry-run",
-		"release:alpha": "yarn build && yarn test && standard-version --release-as major --prerelease alpha && git push --follow-tags && yarn build && npm publish --tag alpha",
+		"release:alpha": "npm run build && npm run test && standard-version --release-as major --prerelease alpha && git push --follow-tags && npm run build && npm publish --tag alpha",
 		"release:alpha:dry": "standard-version --release-as major --prerelease alpha --dry-run",
 		"lint": "eslint --ext .js,.ts .",
 		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava",
-		"test": "yarn lint && yarn unit"
+		"test": "npm run lint && npm run unit"
 	},
 	"dependencies": {
 		"@prismicio/richtext": "^2.0.0-alpha.3",
