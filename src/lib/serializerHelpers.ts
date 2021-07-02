@@ -32,7 +32,7 @@ export const serializePreFormatted = (node: RTPreformattedNode): string => {
 
 // TODO: Check link behavior with image + maybe rewrap with paragraph
 export const serializeImage = (
-	_linkResolver: LinkResolverFunction<string>,
+	_linkResolver: LinkResolverFunction<string> | undefined,
 	node: RTImageNode,
 ): string => {
 	return `<img src="${node.url}" alt="${node.alt}"${
@@ -49,7 +49,7 @@ export const serializeEmbed = (node: RTEmbedNode): string => {
 };
 
 export const serializeHyperlink = (
-	linkResolver: LinkResolverFunction,
+	linkResolver: LinkResolverFunction | undefined,
 	node: RTLinkNode,
 	children: string[],
 ): string => {
