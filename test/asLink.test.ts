@@ -3,22 +3,6 @@ import test from "ava";
 import { linkResolver } from "./__testutils__/linkResolver";
 
 import { asLink } from "../src";
-import { ArgumentError } from "../src/lib/ArgumentError";
-
-test("throws when no linkResolver is provided", (t) => {
-	const error = t.throws(
-		() => {
-			// @ts-expect-error testing JavaScript failsafe on purpose
-			asLink();
-		},
-		{ instanceOf: ArgumentError },
-	);
-
-	t.is(
-		error.message,
-		"Expected argument `linkResolver` to be of type `function` but received type `undefined`",
-	);
-});
 
 test("returns null when link field is falsy", (t) => {
 	const field = undefined;
@@ -80,6 +64,15 @@ test("resolves a link to document field with `apiOptions.routes`", (t) => {
 	};
 
 	t.is(asLink(field, linkResolver), "/test");
+});
+
+test("returns null when given a document field and linkResolver is not provided ", (t) => {
+	const field = {
+		id: "XvoFFREAAM0WGBng",
+		link_type: "Document",
+	};
+
+	t.is(asLink(field), null);
 });
 
 test("resolves a link to web field", (t) => {

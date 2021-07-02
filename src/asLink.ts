@@ -1,5 +1,4 @@
 import { LinkField, LinkType } from "@prismicio/types";
-import { ArgumentError } from "./lib/ArgumentError";
 import { LinkResolverFunction } from "./types";
 
 /**
@@ -17,15 +16,8 @@ import { LinkResolverFunction } from "./types";
  */
 export const asLink = <LinkResolverFunctionReturnType = string>(
 	linkField: LinkField,
-	linkResolver: LinkResolverFunction<LinkResolverFunctionReturnType>,
-):
-	| ReturnType<LinkResolverFunction<LinkResolverFunctionReturnType>>
-	| string
-	| null => {
-	if (typeof linkResolver !== "function") {
-		throw new ArgumentError("linkResolver", "function", typeof linkResolver);
-	}
-
+	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType>,
+): LinkResolverFunctionReturnType | string | null => {
 	if (!linkField) {
 		return null;
 	}
@@ -41,7 +33,7 @@ export const asLink = <LinkResolverFunctionReturnType = string>(
 				return linkField.url;
 			} else if ("id" in linkField) {
 				// ...when not...
-				return linkResolver(linkField);
+				return linkResolver ? linkResolver(linkField) : null;
 			} else {
 				// ...when empty
 				return null;

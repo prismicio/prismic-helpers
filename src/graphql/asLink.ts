@@ -4,7 +4,6 @@ import {
 	LinkField,
 	LinkType,
 } from "@prismicio/types/dist/graphql";
-import { ArgumentError } from "../lib/ArgumentError";
 import { LinkResolverFunction } from "./types";
 
 /**
@@ -26,7 +25,7 @@ export const asLink = <
 	LinkResolverFunctionReturnType = string,
 >(
 	linkField: LinkField<LinkResolverLinkToDocumentField>,
-	linkResolver: LinkResolverFunction<
+	linkResolver?: LinkResolverFunction<
 		LinkResolverLinkToDocumentField,
 		LinkResolverFunctionReturnType
 	>,
@@ -39,10 +38,6 @@ export const asLink = <
 	  >
 	| string
 	| null => {
-	if (typeof linkResolver !== "function") {
-		throw new ArgumentError("linkResolver", "function", typeof linkResolver);
-	}
-
 	if (!linkField) {
 		return null;
 	}
@@ -50,7 +45,7 @@ export const asLink = <
 	if ("url" in linkField) {
 		return linkField.url;
 	} else if (linkField._linkType === LinkType.Document) {
-		return linkResolver(linkField);
+		return linkResolver ? linkResolver(linkField) : null;
 	} else {
 		return null;
 	}

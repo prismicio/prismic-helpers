@@ -2,7 +2,6 @@ import { FilledMinimalLinkToDocumentField } from "@prismicio/types/dist/graphql"
 import test from "ava";
 
 import { asLink, LinkResolverFunction } from "../src/graphql";
-import { ArgumentError } from "../src/lib/ArgumentError";
 
 interface MyLinkToDocumentField extends FilledMinimalLinkToDocumentField {
 	_meta: {
@@ -12,21 +11,6 @@ interface MyLinkToDocumentField extends FilledMinimalLinkToDocumentField {
 
 const linkResolver: LinkResolverFunction<MyLinkToDocumentField> = (doc) =>
 	`/${doc._meta.uid}`;
-
-test("throws when no linkResolver is provided", (t) => {
-	const error = t.throws(
-		() => {
-			// @ts-expect-error testing JavaScript failsafe
-			asLink();
-		},
-		{ instanceOf: ArgumentError },
-	);
-
-	t.is(
-		error.message,
-		"Expected argument `linkResolver` to be of type `function` but received type `undefined`",
-	);
-});
 
 test("returns null when link field is falsy", (t) => {
 	const field = undefined;
@@ -80,4 +64,15 @@ test("resolves a link to document field", (t) => {
 	} as const;
 
 	t.is(asLink(field, linkResolver), "/test");
+});
+
+test("returns null when given a document field and linkResolver is not provided ", (t) => {
+	const field = {
+		_linkType: "Link.document",
+		_meta: {
+			uid: "test",
+		},
+	} as const;
+
+	t.is(asLink(field), null);
 });
