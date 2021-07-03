@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.4](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2021-07-03)
+
+
+### Chore
+
+* update dependencies ([49349ac](https://github.com/prismicio/prismic-helpers/commit/49349ac583c04130d43cfc7026a2a6588f2cff0f))
+
 ## [2.0.0-alpha.3](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2021-07-03)
 
 
