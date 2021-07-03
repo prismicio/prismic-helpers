@@ -63,3 +63,19 @@ test("returns equivalent link field from given document without uid", (t) => {
 		slug: "slug",
 	});
 });
+
+test("returns equivalent link field from given document with non-empty data", (t) => {
+	const document = { ...referenceDocument, data: { foo: "bar" } };
+
+	t.deepEqual(documentToLinkField(document), {
+		link_type: LinkType.Document,
+		id: "XvoFFREAAM0WGBng",
+		uid: "test",
+		type: "page",
+		tags: [],
+		lang: "en-us",
+		url: "/test",
+		slug: "slug",
+		data: { foo: "bar" },
+	});
+});

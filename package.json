@@ -50,7 +50,7 @@
 	},
 	"dependencies": {
 		"@prismicio/richtext": "^2.0.0-alpha.4",
-		"@prismicio/types": "^0.1.0",
+		"@prismicio/types": "^0.1.1",
 		"escape-html": "^1.0.3"
 	},
 	"devDependencies": {
@@ -58,7 +58,7 @@
 		"@typescript-eslint/eslint-plugin": "^4.28.1",
 		"@typescript-eslint/parser": "^4.28.1",
 		"ava": "^3.15.0",
-		"eslint": "^7.29.0",
+		"eslint": "^7.30.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^3.4.0",
 		"nyc": "^15.1.0",

@@ -12,9 +12,13 @@ import {
  *
  * @returns The equivalent link field to use with `asLink()`
  */
-export const documentToLinkField = (
-	prismicDocument: PrismicDocument,
-): FilledLinkToDocumentField => {
+export const documentToLinkField = <Document extends PrismicDocument>(
+	prismicDocument: Document,
+): FilledLinkToDocumentField<
+	Document["type"],
+	Document["lang"],
+	Document["data"]
+> => {
 	return {
 		link_type: LinkType.Document,
 		id: prismicDocument.id,
@@ -24,5 +28,9 @@ export const documentToLinkField = (
 		lang: prismicDocument.lang,
 		url: prismicDocument.url ?? undefined,
 		slug: prismicDocument.slugs[0], // Slug field not available with GraphQl
+		// The REST API does not include a `data` property if the data object is empty.
+		...(Object.keys(prismicDocument.data).length > 0
+			? { data: prismicDocument.data }
+			: {}),
 	};
 };
