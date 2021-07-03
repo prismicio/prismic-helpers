@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.3](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2021-07-03)
+
+
+### Bug Fixes
+
+* optional Link Resolver for asLink and asHTML ([#22](https://github.com/prismicio/prismic-helpers/issues/22)) ([b007ff1](https://github.com/prismicio/prismic-helpers/commit/b007ff1dbadc469aa0854794bcc58297946b8bda)), closes [#21](https://github.com/prismicio/prismic-helpers/issues/21)
+* retain data field in documentToLinkField ([#23](https://github.com/prismicio/prismic-helpers/issues/23)) ([81b0706](https://github.com/prismicio/prismic-helpers/commit/81b07069e3f260f03f84abd6d33aa52ff97e7b29)), closes [#19](https://github.com/prismicio/prismic-helpers/issues/19)
+
 ## [2.0.0-alpha.2](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2021-07-01)
 
 
