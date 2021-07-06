@@ -18,3 +18,7 @@ test("serializes with a custom function serializer", (t) => {
 test("serializes with a custom map serializer", (t) => {
 	t.snapshot(asHTML(richTextFixture.en, linkResolver, htmlMapSerializer));
 });
+
+test("escapes external links to prevent XSS", (t) => {
+	t.snapshot(asHTML(richTextFixture.xss, linkResolver));
+});

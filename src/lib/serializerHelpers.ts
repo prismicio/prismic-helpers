@@ -55,7 +55,7 @@ export const serializeHyperlink = (
 ): string => {
 	switch (node.data.link_type) {
 		case LinkType.Web: {
-			return `<a href="${node.data.url}" target="${
+			return `<a href="${escapeHtml(node.data.url)}" target="${
 				node.data.target
 			}" rel="noopener noreferrer"${getLabel(node)}>${children.join("")}</a>`;
 		}
