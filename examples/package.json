@@ -6,10 +6,10 @@
 		"ts": "node -r ts-eager/register"
 	},
 	"dependencies": {
-		"@prismicio/helpers": "latest"
+		"@prismicio/helpers": "alpha"
 	},
 	"devDependencies": {
-		"ts-eager": "2.0.2",
-		"typescript": "latest"
+		"ts-eager": "^2.0.2",
+		"typescript": "^4.3.5"
 	}
 }
