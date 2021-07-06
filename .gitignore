@@ -1,6 +1,6 @@
 # custom
 dist
-examples/yarn.lock
+examples/**/package-lock.json
 
 # os
 .DS_Store
