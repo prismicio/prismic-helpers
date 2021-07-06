@@ -19,8 +19,16 @@ export type LinkResolverFunction<ReturnType = string> = (
 	linkToDocumentField: Omit<FilledLinkToDocumentField, "url">,
 ) => ReturnType;
 
-// TODO: Add TSDocs
+/**
+ * Serializes a node from a rich text or title field with a function to HTML
+ *
+ * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
+ */
 export type HTMLFunctionSerializer = RichTextFunctionSerializer<string>;
 
-// TODO: Add TSDocs
+/**
+ * Serializes a node from a rich text or title field with a map to HTML
+ *
+ * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
+ */
 export type HTMLMapSerializer = RichTextMapSerializer<string>;

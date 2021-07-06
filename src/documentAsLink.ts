@@ -8,7 +8,7 @@ import { asLink } from "./asLink";
  * Pipes {@link documentToLinkField} and {@link asLink} to resolve a document to a link in a single function call
  *
  * @param prismicDocument - A document coming from Prismic
- * @param linkResolver - An optional link resolver function, without it you're expected to use the `routes` options from the API
+ * @param [linkResolver] - An optional link resolver function, without it you're expected to use the `routes` options from the API
  *
  * @returns Resolved document URL, null if provided link is empty
  *

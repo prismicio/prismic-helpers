@@ -21,6 +21,11 @@ import {
 	LinkResolverFunction,
 } from "./types";
 
+/**
+ * A default HTML serializer providing sensible and safe defaults for every node type
+ *
+ * @internal
+ */
 function defaultHTMLSerializer(
 	linkResolver: LinkResolverFunction<string> | undefined,
 	_type: Parameters<HTMLFunctionSerializer>[0],
@@ -72,6 +77,17 @@ function defaultHTMLSerializer(
 	}
 }
 
+/**
+ * Serializes a rich text or title field to an HTML string
+ *
+ * @param richTextField - A rich text or title field from Prismic
+ * @param [linkResolver] - An optional link resolver function to resolve links, without it you're expected to use the `routes` options from the API
+ * @param [htmlSerializer] - An optional serializer, unhandled cases will fallback to the default serializer
+ *
+ * @returns HTML equivalent of the provided rich text or title field
+ *
+ * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
+ */
 export function asHTML(
 	richTextField: RichTextField,
 	linkResolver?: LinkResolverFunction<string>,
