@@ -1,26 +1,12 @@
 import { LinkType } from "@prismicio/types";
 import test from "ava";
 
+import { documentFixture } from "./__fixtures__/document";
+
 import { documentToLinkField } from "../src";
 
-const referenceDocument = {
-	id: "XvoFFREAAM0WGBng",
-	uid: "test",
-	url: "/test",
-	type: "page",
-	href: "https://example.cdn.prismic.io/api/v2/documents/search",
-	tags: [],
-	first_publication_date: "2020-06-29T15:13:27+0000",
-	last_publication_date: "2021-05-18T15:44:01+0000",
-	slugs: ["slug"],
-	linked_documents: [],
-	lang: "en-us",
-	alternate_languages: [],
-	data: {},
-};
-
 test("returns equivalent link field from given document", (t) => {
-	const document = { ...referenceDocument, url: null };
+	const document = { ...documentFixture.empty, url: null };
 
 	t.deepEqual(documentToLinkField(document), {
 		link_type: LinkType.Document,
@@ -35,7 +21,7 @@ test("returns equivalent link field from given document", (t) => {
 });
 
 test("returns equivalent link field from given document with `apiOptions.routes`", (t) => {
-	const document = { ...referenceDocument };
+	const document = { ...documentFixture.empty };
 
 	t.deepEqual(documentToLinkField(document), {
 		link_type: LinkType.Document,
@@ -50,7 +36,7 @@ test("returns equivalent link field from given document with `apiOptions.routes`
 });
 
 test("returns equivalent link field from given document without uid", (t) => {
-	const document = { ...referenceDocument, uid: null };
+	const document = { ...documentFixture.empty, uid: null };
 
 	t.deepEqual(documentToLinkField(document), {
 		link_type: LinkType.Document,
@@ -65,7 +51,7 @@ test("returns equivalent link field from given document without uid", (t) => {
 });
 
 test("returns equivalent link field from given document with non-empty data", (t) => {
-	const document = { ...referenceDocument, data: { foo: "bar" } };
+	const document = { ...documentFixture.empty, data: { foo: "bar" } };
 
 	t.deepEqual(documentToLinkField(document), {
 		link_type: LinkType.Document,

@@ -3,6 +3,7 @@ import test from "ava";
 import { linkResolver } from "./__testutils__/linkResolver";
 
 import { asLink } from "../src";
+import { LinkType } from "@prismicio/types";
 
 test("returns null when link field is falsy", (t) => {
 	const field = undefined;
@@ -13,7 +14,7 @@ test("returns null when link field is falsy", (t) => {
 
 test("returns null when link to document field is empty", (t) => {
 	const field = {
-		link_type: "Document",
+		link_type: LinkType.Document,
 	};
 
 	t.is(asLink(field, linkResolver), null);
@@ -21,7 +22,7 @@ test("returns null when link to document field is empty", (t) => {
 
 test("returns null when link to media field is empty", (t) => {
 	const field = {
-		link_type: "Media",
+		link_type: LinkType.Media,
 	};
 
 	t.is(asLink(field, linkResolver), null);
@@ -29,7 +30,7 @@ test("returns null when link to media field is empty", (t) => {
 
 test("returns null when link field is empty", (t) => {
 	const field = {
-		link_type: "Any",
+		link_type: LinkType.Any,
 	};
 
 	t.is(asLink(field, linkResolver), null);
@@ -43,7 +44,7 @@ test("resolves a link to document field", (t) => {
 		slug: "slug",
 		lang: "en-us",
 		uid: "test",
-		link_type: "Document",
+		link_type: LinkType.Document,
 		isBroken: false,
 	};
 
@@ -59,7 +60,7 @@ test("resolves a link to document field with `apiOptions.routes`", (t) => {
 		lang: "en-us",
 		uid: "test",
 		url: "/test",
-		link_type: "Document",
+		link_type: LinkType.Document,
 		isBroken: false,
 	};
 
@@ -69,7 +70,7 @@ test("resolves a link to document field with `apiOptions.routes`", (t) => {
 test("returns null when given a document field and linkResolver is not provided ", (t) => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
-		link_type: "Document",
+		link_type: LinkType.Document,
 	};
 
 	t.is(asLink(field), null);
@@ -77,7 +78,7 @@ test("returns null when given a document field and linkResolver is not provided 
 
 test("resolves a link to web field", (t) => {
 	const field = {
-		link_type: "Web",
+		link_type: LinkType.Web,
 		url: "https://prismic.io",
 	};
 
@@ -86,7 +87,7 @@ test("resolves a link to web field", (t) => {
 
 test("resolves a link to media field", (t) => {
 	const field = {
-		link_type: "Media",
+		link_type: LinkType.Media,
 		name: "test.jpg",
 		kind: "image",
 		url: "https://prismic.io",

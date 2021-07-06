@@ -4,6 +4,7 @@ export { asText } from "@prismicio/richtext";
 export { asHTML } from "./asHTML";
 
 export { documentToLinkField } from "./documentToLinkField";
+export { documentAsLink } from "./documentAsLink";
 
 export type {
 	LinkResolverFunction,

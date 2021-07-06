@@ -11,6 +11,8 @@ import {
  * @param prismicDocument - A document coming from Prismic
  *
  * @returns The equivalent link field to use with `asLink()`
+ *
+ * @typeParam Document - Specific interface of the provided document
  */
 export const documentToLinkField = <Document extends PrismicDocument>(
 	prismicDocument: Document,

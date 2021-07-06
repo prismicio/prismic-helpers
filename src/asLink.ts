@@ -5,7 +5,7 @@ import { LinkResolverFunction } from "./types";
  * Resolves any type of link field to a URL
  *
  * @param linkField - Any kind of link field to resolve
- * @param linkResolver - A link resolver function, without it you're expected to use the `routes` from the API
+ * @param linkResolver - An optional link resolver function, without it you're expected to use the `routes` options from the API
  *
  * @returns Resolved URL, null if provided link is empty
  *
