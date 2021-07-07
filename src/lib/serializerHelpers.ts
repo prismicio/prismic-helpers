@@ -7,6 +7,7 @@ import {
 	RTEmbedNode,
 	RTLinkNode,
 	LinkType,
+	RichTextNodeType,
 } from "@prismicio/types";
 
 import { asLink } from "../asLink";
@@ -30,14 +31,29 @@ export const serializePreFormatted = (node: RTPreformattedNode): string => {
 	return `<pre${getLabel(node)}>${escapeHtml(node.text)}</pre>`;
 };
 
-// TODO: Check link behavior with image + maybe rewrap with paragraph
 export const serializeImage = (
-	_linkResolver: LinkResolverFunction<string> | undefined,
+	linkResolver: LinkResolverFunction<string> | undefined,
 	node: RTImageNode,
 ): string => {
-	return `<img src="${node.url}" alt="${node.alt}"${
+	let imageTag = `<img src="${node.url}" alt="${node.alt}"${
 		node.copyright ? ` copyright="${node.copyright}"` : ""
 	} />`;
+
+	// If the image has a link, we wrap it with an anchor tag
+	if (node.linkTo) {
+		imageTag = serializeHyperlink(
+			linkResolver,
+			{
+				type: RichTextNodeType.hyperlink,
+				data: node.linkTo,
+				start: 0,
+				end: 0,
+			},
+			[imageTag],
+		);
+	}
+
+	return `<p class="block-img">${imageTag}</p>`;
 };
 
 export const serializeEmbed = (node: RTEmbedNode): string => {
