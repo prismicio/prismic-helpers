@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.5](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-07-07)
+
+
+### Features
+
+* add documentAsLink function, closes [#20](https://github.com/prismicio/prismic-helpers/issues/20) ([befcd75](https://github.com/prismicio/prismic-helpers/commit/befcd75404a743e37eb1a54ab32a3ef2c7dbc538))
+* handle link on image ([1a2fb56](https://github.com/prismicio/prismic-helpers/commit/1a2fb56d48749010bcab1fd968476fd142165f22))
+
+
+### Bug Fixes
+
+* also export types for graphql export ([124f837](https://github.com/prismicio/prismic-helpers/commit/124f8376f3be3b1d85ecbf8a555ce034e133c369))
+* escape external links to prevent xss ([0cb7c43](https://github.com/prismicio/prismic-helpers/commit/0cb7c43b42d1f3ab42251441f6831a0d35c62dcb))
+
+
+### Documentation
+
+* document asHTML new helper ([d40d3c6](https://github.com/prismicio/prismic-helpers/commit/d40d3c6f888091a7d1ed594417ff6e66f7073207))
+
+
+### Chore
+
+* **deps:** examples dependencies ([76e6b41](https://github.com/prismicio/prismic-helpers/commit/76e6b41e0c5e36baf7a12a4ed1a08477a3dbb103))
+* ignore examples lock files ([699febc](https://github.com/prismicio/prismic-helpers/commit/699febc08fd5699e3d62d723ad517aa962e79294))
+
 ## [2.0.0-alpha.4](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2021-07-03)
 
 
