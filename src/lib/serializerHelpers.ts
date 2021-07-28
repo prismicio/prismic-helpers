@@ -35,8 +35,8 @@ export const serializeImage = (
 	linkResolver: LinkResolverFunction<string> | undefined,
 	node: RTImageNode,
 ): string => {
-	let imageTag = `<img src="${node.url}" alt="${node.alt}"${
-		node.copyright ? ` copyright="${node.copyright}"` : ""
+	let imageTag = `<img src="${node.url}" alt="${escapeHtml(node.alt)}"${
+		node.copyright ? ` copyright="${escapeHtml(node.copyright)}"` : ""
 	} />`;
 
 	// If the image has a link, we wrap it with an anchor tag
