@@ -50,7 +50,7 @@
 	},
 	"dependencies": {
 		"@prismicio/richtext": "^2.0.0-alpha.6",
-		"@prismicio/types": "^0.1.2",
+		"@prismicio/types": "^0.1.5",
 		"escape-html": "^1.0.3"
 	},
 	"devDependencies": {
