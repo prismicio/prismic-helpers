@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.6](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2021-08-11)
+
+
+### Features
+
+* export serializer elements types for convenience ([715f11d](https://github.com/prismicio/prismic-helpers/commit/715f11db3776a189fcc9f59e835f08900e3059be))
+
+
+### Bug Fixes
+
+* prevent XSS on image tag serialization ([c0e6d6d](https://github.com/prismicio/prismic-helpers/commit/c0e6d6d6d8d36747de381cc6acd3c7fec6d839d2))
+
+
+### Chore
+
+* update pull request template ([8330ddd](https://github.com/prismicio/prismic-helpers/commit/8330ddd31db54760bf9d92e2c597c63a8a3e32ba))
+
 ## [2.0.0-alpha.5](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-07-07)
 
 
