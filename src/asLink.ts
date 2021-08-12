@@ -16,7 +16,7 @@ import { LinkResolverFunction } from "./types";
  */
 export const asLink = <LinkResolverFunctionReturnType = string>(
 	linkField: LinkField,
-	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType>,
+	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType> | null,
 ): LinkResolverFunctionReturnType | string | null => {
 	if (!linkField) {
 		return null;

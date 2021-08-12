@@ -28,7 +28,7 @@ export const asLink = <
 	linkResolver?: LinkResolverFunction<
 		LinkResolverLinkToDocumentField,
 		LinkResolverFunctionReturnType
-	>,
+	> | null,
 ):
 	| ReturnType<
 			LinkResolverFunction<

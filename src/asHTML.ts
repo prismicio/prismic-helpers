@@ -27,7 +27,7 @@ import {
  * @internal
  */
 function defaultHTMLSerializer(
-	linkResolver: LinkResolverFunction<string> | undefined,
+	linkResolver: LinkResolverFunction<string> | undefined | null,
 	_type: Parameters<HTMLFunctionSerializer>[0],
 	node: Parameters<HTMLFunctionSerializer>[1],
 	content: Parameters<HTMLFunctionSerializer>[2],
@@ -90,8 +90,8 @@ function defaultHTMLSerializer(
  */
 export function asHTML(
 	richTextField: RichTextField,
-	linkResolver?: LinkResolverFunction<string>,
-	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer,
+	linkResolver?: LinkResolverFunction<string> | null,
+	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer | null,
 ): string {
 	let serializer: RichTextFunctionSerializer<string>;
 	if (htmlSerializer) {

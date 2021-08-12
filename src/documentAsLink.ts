@@ -23,7 +23,7 @@ export const documentAsLink = <
 	LinkResolverFunctionReturnType = string,
 >(
 	prismicDocument: Document,
-	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType>,
+	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType> | null,
 ): LinkResolverFunctionReturnType | string | null => {
 	return asLink(documentToLinkField(prismicDocument), linkResolver);
 };
