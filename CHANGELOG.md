@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.7](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.6...v2.0.0-alpha.7) (2021-08-12)
+
+
+### Features
+
+* allow explicit null for linkResolver & HTML serializer ([275bfca](https://github.com/prismicio/prismic-helpers/commit/275bfca7d527c4d8266394952d2cc0ebdfadd853))
+
 ## [2.0.0-alpha.6](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2021-08-11)
 
 
