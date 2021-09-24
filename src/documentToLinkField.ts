@@ -5,15 +5,13 @@ import {
 } from "@prismicio/types";
 
 /**
- * Converts a document into a link field
- * This is useful when crawling the API for document links
+ * Converts a document into a link field, this is useful when crawling the API
+ * for document links
  *
+ * @typeParam TDocument - Specific interface of the provided document
  * @param prismicDocument - A document coming from Prismic
  *
  * @returns The equivalent link field to use with `asLink()`
- *
- * @typeParam TDocument - Specific interface of the provided document
- *
  * @internal
  */
 export const documentToLinkField = <TDocument extends PrismicDocument>(

@@ -9,14 +9,13 @@ import { LinkResolverFunction } from "./types";
 /**
  * Resolves any type of link field to a URL
  *
- * @param linkField - Any kind of link field to resolve
- * @param linkResolver - A link resolver function, without it you're expected to use the `routes` from the API
- *
- * @returns Resolved URL, null if provided link is empty
- *
  * @typeParam LinkResolverLinkToDocumentField - Link resolver link to document field type
  * @typeParam LinkResolverFunctionReturnType - Link resolver function return type
+ * @param linkField - Any kind of link field to resolve
+ * @param linkResolver - A link resolver function, without it you're expected to
+ *   use the `routes` from the API
  *
+ * @returns Resolved URL, null if provided link is empty
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
