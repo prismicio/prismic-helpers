@@ -1,5 +1,6 @@
 import test from "ava";
 
+import { documentFixture } from "./__fixtures__/document";
 import { linkResolver } from "./__testutils__/linkResolver";
 
 import { asLink } from "../src";
@@ -97,4 +98,10 @@ test("resolves a link to media field", (t) => {
 	};
 
 	t.is(asLink(field, linkResolver), "https://prismic.io");
+});
+
+test("resolves a document", (t) => {
+	const document = { ...documentFixture.empty };
+
+	t.is(asLink(document), "/test");
 });
