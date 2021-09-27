@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-alpha.9](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.8...v2.0.0-alpha.9) (2021-09-27)
+
+
+### Features
+
+* remove documentAsLink ([5cdee16](https://github.com/prismicio/prismic-helpers/commit/5cdee1631863144c7ad67553cf171921c5569d3f))
+* update asLink to handle documents ([ae14694](https://github.com/prismicio/prismic-helpers/commit/ae14694229a73a0cc46620bc98e37eac26e6f44b))
+
+
+### Chore
+
+* tag graphql functions as experimental to help with potential breaking changes ([b0432a4](https://github.com/prismicio/prismic-helpers/commit/b0432a49393e5a43d54bc3b013b7b5301cdae33d))
+* update template config ([e05d381](https://github.com/prismicio/prismic-helpers/commit/e05d3819fb9efc4d50912c3fff595f80e56f6c57))
+
 ## [2.0.0-alpha.8](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.7...v2.0.0-alpha.8) (2021-09-14)
 
 
