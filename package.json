@@ -19,20 +19,20 @@
 	"exports": {
 		".": {
 			"require": "./dist/index.cjs",
-			"import": "./dist/index.es.js"
+			"import": "./dist/index.mjs"
 		},
 		"./graphql": {
 			"require": "./dist/graphql/index.cjs",
-			"import": "./dist/graphql/index.es.js"
+			"import": "./dist/graphql/index.mjs"
 		},
 		"./dist/graphql": {
 			"require": "./dist/graphql/index.cjs",
-			"import": "./dist/graphql/index.es.js"
+			"import": "./dist/graphql/index.mjs"
 		},
 		"./package.json": "./package.json"
 	},
 	"main": "dist/index.cjs",
-	"module": "dist/index.es.js",
+	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
