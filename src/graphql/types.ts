@@ -11,6 +11,7 @@ import type { FilledMinimalLinkToDocumentField } from "@prismicio/types/dist/gra
  * @param linkToDocumentField - A document link to resolve
  *
  * @returns Resolved URL
+ * @experimental
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  */
 export type LinkResolverFunction<

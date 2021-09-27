@@ -16,6 +16,7 @@ import { LinkResolverFunction } from "./types";
  *   use the `routes` from the API
  *
  * @returns Resolved URL, null if provided link is empty
+ * @experimental
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
