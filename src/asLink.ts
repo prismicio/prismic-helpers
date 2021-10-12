@@ -23,10 +23,11 @@ export const asLink = <LinkResolverFunctionReturnType = string>(
 	}
 
 	// Converts document to link field if needed
-	const linkField: LinkField =
+	const linkField = (
 		"link_type" in linkFieldOrDocument
 			? linkFieldOrDocument
-			: documentToLinkField(linkFieldOrDocument);
+			: documentToLinkField(linkFieldOrDocument)
+	) as LinkField;
 
 	switch (linkField.link_type) {
 		case LinkType.Media:
