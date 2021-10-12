@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.1](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2021-10-12)
+
+
+### Bug Fixes
+
+* type issue with empty links in asLink ([542b4d9](https://github.com/prismicio/prismic-helpers/commit/542b4d9e7ad4f6654c7249598fee37a7a3392140))
+
+
+### Chore
+
+* **deps:** update dependencies ([6165b41](https://github.com/prismicio/prismic-helpers/commit/6165b41f80827212f92397e41b290a0d40343921))
+* mark package as side effect free ([9636f9d](https://github.com/prismicio/prismic-helpers/commit/9636f9dab96ac32b2cb8c888c36c317bbf800de1))
+
+
+### Refactor
+
+* use currying to build HTML serializer ([b7ba08a](https://github.com/prismicio/prismic-helpers/commit/b7ba08af7de99e0c1296dfaf23d8c23f008fceb3))
+
 ## [2.0.0-beta.0](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-alpha.9...v2.0.0-beta.0) (2021-09-29)
 
 
