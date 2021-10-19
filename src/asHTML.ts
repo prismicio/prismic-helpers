@@ -4,8 +4,9 @@ import {
 	composeSerializers,
 	wrapMapSerializer,
 	RichTextFunctionSerializer,
+	RichTextMapSerializerFunction,
 } from "@prismicio/richtext";
-import { RichTextField } from "@prismicio/types";
+import { RichTextField, RTAnyNode } from "@prismicio/types";
 
 import {
 	serializeStandardTag,
@@ -75,6 +76,53 @@ const createDefaultHTMLSerializer = (
 	};
 };
 
+const withStringifiedChildren = <
+	Node extends RTAnyNode,
+	TextType extends string | undefined,
+>(
+	fn?: (payload: {
+		type: Node["type"];
+		node: Node;
+		text: TextType;
+		children: string;
+		key: string;
+	}) => string | null | undefined,
+): RichTextMapSerializerFunction<string, Node, TextType> | undefined => {
+	return fn
+		? (payload) =>
+				fn({
+					...payload,
+					children: payload.children.join(""),
+				})
+		: undefined;
+};
+
+const prepareHTMLMapSerializer = (
+	serializer: HTMLMapSerializer,
+): RichTextFunctionSerializer<string> => {
+	return wrapMapSerializer({
+		heading1: withStringifiedChildren(serializer.heading1),
+		heading2: withStringifiedChildren(serializer.heading2),
+		heading3: withStringifiedChildren(serializer.heading3),
+		heading4: withStringifiedChildren(serializer.heading4),
+		heading5: withStringifiedChildren(serializer.heading5),
+		heading6: withStringifiedChildren(serializer.heading6),
+		paragraph: withStringifiedChildren(serializer.paragraph),
+		preformatted: withStringifiedChildren(serializer.preformatted),
+		strong: withStringifiedChildren(serializer.strong),
+		em: withStringifiedChildren(serializer.em),
+		listItem: withStringifiedChildren(serializer.listItem),
+		oListItem: withStringifiedChildren(serializer.oListItem),
+		list: withStringifiedChildren(serializer.list),
+		oList: withStringifiedChildren(serializer.oList),
+		image: withStringifiedChildren(serializer.image),
+		embed: withStringifiedChildren(serializer.embed),
+		hyperlink: withStringifiedChildren(serializer.hyperlink),
+		label: withStringifiedChildren(serializer.label),
+		span: withStringifiedChildren(serializer.span),
+	});
+};
+
 /**
  * Serializes a rich text or title field to an HTML string
  *
@@ -96,8 +144,9 @@ export const asHTML = (
 	if (htmlSerializer) {
 		serializer = composeSerializers(
 			typeof htmlSerializer === "object"
-				? wrapMapSerializer(htmlSerializer)
-				: htmlSerializer,
+				? prepareHTMLMapSerializer(htmlSerializer)
+				: (type, node, text, children, key) =>
+						htmlSerializer(type, node, text, children.join(""), key),
 			createDefaultHTMLSerializer(linkResolver),
 		);
 	} else {

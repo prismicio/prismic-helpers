@@ -2,6 +2,7 @@ import type { FilledLinkToDocumentField } from "@prismicio/types";
 import {
 	RichTextFunctionSerializer,
 	RichTextMapSerializer,
+	RichTextMapSerializerFunction,
 } from "@prismicio/richtext";
 
 /**
@@ -23,11 +24,52 @@ export type LinkResolverFunction<ReturnType = string> = (
  *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
-export type HTMLFunctionSerializer = RichTextFunctionSerializer<string>;
+export type HTMLFunctionSerializer = (
+	type: Parameters<RichTextFunctionSerializer<string>>[0],
+	node: Parameters<RichTextFunctionSerializer<string>>[1],
+	text: Parameters<RichTextFunctionSerializer<string>>[2],
+	children: Parameters<RichTextFunctionSerializer<string>>[3][number],
+	key: Parameters<RichTextFunctionSerializer<string>>[4],
+) => string | null | undefined;
 
 /**
  * Serializes a node from a rich text or title field with a map to HTML
  *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
-export type HTMLMapSerializer = RichTextMapSerializer<string>;
+export type HTMLMapSerializer = {
+	[P in keyof RichTextMapSerializer<string>]: (payload: {
+		type: Parameters<HTMLMapSerializerFunction<P>>[0]["type"];
+		node: Parameters<HTMLMapSerializerFunction<P>>[0]["node"];
+		text: Parameters<HTMLMapSerializerFunction<P>>[0]["text"];
+		children: Parameters<HTMLMapSerializerFunction<P>>[0]["children"][number];
+		key: Parameters<HTMLMapSerializerFunction<P>>[0]["key"];
+	}) => string | null | undefined;
+};
+
+type HTMLMapSerializerFunction<P extends keyof RichTextMapSerializer<string>> =
+	RichTextMapSerializerFunction<
+		string,
+		ExtractRTNodeType<RichTextMapSerializer<string>[P]>,
+		ExtractRTTextType<RichTextMapSerializer<string>[P]>
+	>;
+
+type ExtractRTNodeType<T> = T extends RichTextMapSerializerFunction<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	any,
+	infer U,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	any
+>
+	? U
+	: never;
+
+type ExtractRTTextType<T> = T extends RichTextMapSerializerFunction<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	any,
+	infer U
+>
+	? U
+	: never;

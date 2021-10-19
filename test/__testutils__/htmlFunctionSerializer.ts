@@ -9,7 +9,7 @@ export const htmlFunctionSerializer: HTMLFunctionSerializer = (
 ) => {
 	switch (node.type) {
 		case Element.heading1: {
-			return `<h2>${children.join("")}</h2>`;
+			return `<h2>${children}</h2>`;
 		}
 	}
 
