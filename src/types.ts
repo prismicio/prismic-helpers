@@ -22,6 +22,9 @@ export type LinkResolverFunction<ReturnType = string> = (
 /**
  * Serializes a node from a rich text or title field with a function to HTML
  *
+ * Unlike a typical `@prismicio/richtext` function serializer, this serializer
+ * converts the `children` argument to a single string rather than an array of strings.
+ *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
 export type HTMLFunctionSerializer = (
@@ -35,6 +38,9 @@ export type HTMLFunctionSerializer = (
 /**
  * Serializes a node from a rich text or title field with a map to HTML
  *
+ * Unlike a typical `@prismicio/richtext` map serializer, this serializer
+ * converts the `children` property to a single string rather than an array of strings.
+ *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
 export type HTMLMapSerializer = {
@@ -47,14 +53,26 @@ export type HTMLMapSerializer = {
 	}) => string | null | undefined;
 };
 
-type HTMLMapSerializerFunction<P extends keyof RichTextMapSerializer<string>> =
-	RichTextMapSerializerFunction<
-		string,
-		ExtractRTNodeType<RichTextMapSerializer<string>[P]>,
-		ExtractRTTextType<RichTextMapSerializer<string>[P]>
-	>;
+/**
+ * A {@link RichTextMapSerializerFunction} type specifically for {@link HTMLMapSerializer}.
+ *
+ * @typeParam BlockName - The serializer's Rich Text block type.
+ */
+type HTMLMapSerializerFunction<
+	BlockType extends keyof RichTextMapSerializer<string>,
+> = RichTextMapSerializerFunction<
+	string,
+	ExtractNodeGeneric<RichTextMapSerializer<string>[BlockType]>,
+	ExtractTextTypeGeneric<RichTextMapSerializer<string>[BlockType]>
+>;
 
-type ExtractRTNodeType<T> = T extends RichTextMapSerializerFunction<
+/**
+ * Returns the `Node` generic from {@link RichTextMapSerializerFunction}.
+ *
+ * @typeParam T - The `RichTextMapSerializerFunction` containing the needed
+ *   `Node` generic.
+ */
+type ExtractNodeGeneric<T> = T extends RichTextMapSerializerFunction<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	infer U,
@@ -64,7 +82,13 @@ type ExtractRTNodeType<T> = T extends RichTextMapSerializerFunction<
 	? U
 	: never;
 
-type ExtractRTTextType<T> = T extends RichTextMapSerializerFunction<
+/**
+ * Returns the `TextType` generic from {@link RichTextMapSerializerFunction}.
+ *
+ * @typeParam T - The `RichTextMapSerializerFunction` containing the needed
+ *   `TextType` generic.
+ */
+type ExtractTextTypeGeneric<T> = T extends RichTextMapSerializerFunction<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
