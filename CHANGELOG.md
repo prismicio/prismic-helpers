@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.2](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-11-05)
+
+
+### Features
+
+* pass HTML serializer children as string ([c3634f9](https://github.com/prismicio/prismic-helpers/commit/c3634f9c444079d8f9892e7ec1d02e18bfe73c9d))
+
+
+### Refactor
+
+* use runtime-generated map serializer ([ff15253](https://github.com/prismicio/prismic-helpers/commit/ff15253cce791306ae03a6001f5bd03d1448a09e))
+
+
+### Documentation
+
+* update TSDoc for new HTML serializer types ([05bd482](https://github.com/prismicio/prismic-helpers/commit/05bd482865ae8ef21d6384a2fb9e40629d0e0d57))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([2a8037f](https://github.com/prismicio/prismic-helpers/commit/2a8037f78aa5db74bfc9712516b2cb77f5062f32))
+
 ## [2.0.0-beta.1](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2021-10-12)
 
 
