@@ -2,8 +2,9 @@ import {
 	serialize,
 	Element,
 	composeSerializers,
-	wrapMapSerializer,
 	RichTextFunctionSerializer,
+	RichTextMapSerializer,
+	wrapMapSerializer,
 } from "@prismicio/richtext";
 import { RichTextField } from "@prismicio/types";
 
@@ -76,6 +77,37 @@ const createDefaultHTMLSerializer = (
 };
 
 /**
+ * Wraps a map serializer into a regular function serializer. The given map
+ * serializer should accept children as a string, not as an array of strings
+ * like `@prismicio/richtext`'s `wrapMapSerializer`.
+ *
+ * @param mapSerializer - Map serializer to wrap
+ *
+ * @returns A regular function serializer
+ */
+const wrapMapSerializerWithStringChildren = (
+	mapSerializer: HTMLMapSerializer,
+): RichTextFunctionSerializer<string> => {
+	const modifiedMapSerializer = {} as RichTextMapSerializer<string>;
+
+	for (const tag in mapSerializer) {
+		const tagSerializer = mapSerializer[tag as keyof typeof mapSerializer];
+
+		if (tagSerializer) {
+			modifiedMapSerializer[tag as keyof typeof mapSerializer] = (payload) => {
+				return tagSerializer({
+					...payload,
+					// @ts-expect-error - merging blockSerializer types causes TS to bail to a never type
+					children: payload.children.join(""),
+				});
+			};
+		}
+	}
+
+	return wrapMapSerializer(modifiedMapSerializer);
+};
+
+/**
  * Serializes a rich text or title field to an HTML string
  *
  * @param richTextField - A rich text or title field from Prismic
@@ -96,8 +128,9 @@ export const asHTML = (
 	if (htmlSerializer) {
 		serializer = composeSerializers(
 			typeof htmlSerializer === "object"
-				? wrapMapSerializer(htmlSerializer)
-				: htmlSerializer,
+				? wrapMapSerializerWithStringChildren(htmlSerializer)
+				: (type, node, text, children, key) =>
+						htmlSerializer(type, node, text, children.join(""), key),
 			createDefaultHTMLSerializer(linkResolver),
 		);
 	} else {
