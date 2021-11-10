@@ -37,7 +37,7 @@ test("returns null when link field is empty", (t) => {
 	t.is(asLink(field, linkResolver), null);
 });
 
-test("resolves a link to document field", (t) => {
+test("resolves a link to document field without Route Resolver", (t) => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
 		type: "page",
@@ -49,23 +49,61 @@ test("resolves a link to document field", (t) => {
 		isBroken: false,
 	};
 
-	t.is(asLink(field, linkResolver), "/test");
+	t.is(
+		asLink(field),
+		null,
+		"returns null if both Link Resolver and Route Resolver are not used",
+	);
+	t.is(
+		asLink(field, linkResolver),
+		"/test",
+		"uses Link Resolver URL if Link Resolver returns a non-nullish value",
+	);
+	t.is(
+		asLink(field, () => undefined),
+		null,
+		"returns null if Link Resolver returns undefined",
+	);
+	t.is(
+		asLink(field, () => null),
+		null,
+		"returns null if Link Resolver returns null",
+	);
 });
 
-test("resolves a link to document field with `apiOptions.routes`", (t) => {
+test("resolves a link to document field with Route Resolver", (t) => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
 		type: "page",
 		tags: [],
 		slug: "slug",
 		lang: "en-us",
-		uid: "test",
-		url: "/test",
+		uid: "uid",
+		url: "url",
 		link_type: LinkType.Document,
 		isBroken: false,
 	};
 
-	t.is(asLink(field, linkResolver), "/test");
+	t.is(
+		asLink(field),
+		field.url,
+		"uses Route Resolver URL if Link Resolver is not given",
+	);
+	t.is(
+		asLink(field, () => "link-resolver-value"),
+		"link-resolver-value",
+		"uses Link Resolver URL if Link Resolver returns a non-nullish value",
+	);
+	t.is(
+		asLink(field, () => undefined),
+		field.url,
+		"uses Route Resolver URL if Link Resolver returns undefined",
+	);
+	t.is(
+		asLink(field, () => null),
+		field.url,
+		"uses Route Resolver URL if Link Resolver returns null",
+	);
 });
 
 test("returns null when given a document field and linkResolver is not provided ", (t) => {
