@@ -34,17 +34,24 @@ export const asLink = <LinkResolverFunctionReturnType = string>(
 		case LinkType.Web:
 			return "url" in linkField ? linkField.url : null;
 
-		case LinkType.Document:
-			if ("url" in linkField && linkField.url) {
-				// When using `apiOptions.routes`...
-				return linkField.url;
-			} else if ("id" in linkField) {
-				// ...when not...
-				return linkResolver ? linkResolver(linkField) : null;
-			} else {
-				// ...when empty
-				return null;
+		case LinkType.Document: {
+			if ("id" in linkField && linkResolver) {
+				// When using Link Resolver...
+				const resolvedURL = linkResolver(linkField);
+
+				if (resolvedURL != null) {
+					return resolvedURL;
+				}
 			}
+
+			if ("url" in linkField && linkField.url) {
+				// When using Route Resolver...
+				return linkField.url;
+			}
+
+			// When empty or Link Resolver and Route Resolver are not used...
+			return null;
+		}
 
 		case LinkType.Any:
 		default:
