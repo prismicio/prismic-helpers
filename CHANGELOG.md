@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.3](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2021-11-10)
+
+
+### Bug Fixes
+
+* prioritize Link Resolver over Route Resolver ([#30](https://github.com/prismicio/prismic-helpers/issues/30)) ([acc4a17](https://github.com/prismicio/prismic-helpers/commit/acc4a17fd4e45b1e188b4464548e33e5c61932d3))
+
 ## [2.0.0-beta.2](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-11-05)
 
 
