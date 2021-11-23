@@ -5,7 +5,13 @@ export { asHTML } from "./asHTML";
 
 export { documentToLinkField } from "./documentToLinkField";
 
-export { Element } from "@prismicio/richtext";
+import { Element } from "@prismicio/richtext";
+export { Element };
+/**
+ * @deprecated Renamed to `Element` (without an "s").
+ */
+// TODO: Remove in v3.
+export const Elements = Element;
 
 export type {
 	LinkResolverFunction,
