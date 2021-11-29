@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.4](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-11-29)
+
+
+### Features
+
+* export Elements as a deprecated alias for Element ([b6fbe0c](https://github.com/prismicio/prismic-helpers/commit/b6fbe0c9ebc245c37d6e271f72dacd39b2ca3f85))
+
 ## [2.0.0-beta.3](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2021-11-10)
 
 
