@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.5](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2021-11-29)
+
+
+### Bug Fixes
+
+* support nullish `slugs` property when passing a document to `asLink` ([85eedea](https://github.com/prismicio/prismic-helpers/commit/85eedead6ed988fa29c2feea39148009a4562cf6))
+
 ## [2.0.0-beta.4](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-11-29)
 
 
