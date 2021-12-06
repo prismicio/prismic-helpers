@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.7](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-12-06)
+
+
+### Features
+
+* allow nullish field in `asHTML` and `asText` ([4c7c8bc](https://github.com/prismicio/prismic-helpers/commit/4c7c8bc95898dd6195b64f9774c6ee34f6917a41))
+
+
+### Bug Fixes
+
+* support documents without `slugs` in `documentToLinkField` ([a60f4be](https://github.com/prismicio/prismic-helpers/commit/a60f4be34acc20c9ec3a0111f02f8d9d1f874cbb))
+
 ## [2.0.0-beta.6](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2021-12-03)
 
 
