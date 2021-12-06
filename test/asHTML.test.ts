@@ -22,3 +22,8 @@ test("serializes with a custom map serializer", (t) => {
 test("escapes external links to prevent XSS", (t) => {
 	t.snapshot(asHTML(richTextFixture.xss, linkResolver));
 });
+
+test("returns null for nullish inputs", (t) => {
+	t.is(asHTML(null), null);
+	t.is(asHTML(undefined), null);
+});

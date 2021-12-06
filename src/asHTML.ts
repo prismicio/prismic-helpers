@@ -120,22 +120,26 @@ const wrapMapSerializerWithStringChildren = (
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
 export const asHTML = (
-	richTextField: RichTextField,
+	richTextField: RichTextField | null | undefined,
 	linkResolver?: LinkResolverFunction<string> | null,
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer | null,
-): string => {
-	let serializer: RichTextFunctionSerializer<string>;
-	if (htmlSerializer) {
-		serializer = composeSerializers(
-			typeof htmlSerializer === "object"
-				? wrapMapSerializerWithStringChildren(htmlSerializer)
-				: (type, node, text, children, key) =>
-						htmlSerializer(type, node, text, children.join(""), key),
-			createDefaultHTMLSerializer(linkResolver),
-		);
-	} else {
-		serializer = createDefaultHTMLSerializer(linkResolver);
-	}
+): string | null => {
+	if (richTextField) {
+		let serializer: RichTextFunctionSerializer<string>;
+		if (htmlSerializer) {
+			serializer = composeSerializers(
+				typeof htmlSerializer === "object"
+					? wrapMapSerializerWithStringChildren(htmlSerializer)
+					: (type, node, text, children, key) =>
+							htmlSerializer(type, node, text, children.join(""), key),
+				createDefaultHTMLSerializer(linkResolver),
+			);
+		} else {
+			serializer = createDefaultHTMLSerializer(linkResolver);
+		}
 
-	return serialize(richTextField, serializer).join("");
+		return serialize(richTextField, serializer).join("");
+	} else {
+		return null;
+	}
 };
