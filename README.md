@@ -1,13 +1,3 @@
-<!--
-
-Replace all on all files (README.md, CONTRIBUTING.md, bug_report.md, package.json):
-- @prismicio/helpers
-- Set of helpers to manage Prismic data
-- prismicio/prismic-helpers
-- prismic-helpers
-
--->
-
 # @prismicio/helpers
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -68,7 +58,7 @@ For more clarity on this project and its structure you can also check out the de
 <!-- Links -->
 
 [prismic]: https://prismic.io
-[prismic-docs]: https://prismic.io/docs/technologies/javascript
+[prismic-docs]: https://prismic.io/docs/technical-reference/prismicio-helpers
 [changelog]: ./CHANGELOG.md
 [contributing]: ./CONTRIBUTING.md
 [forum-question]: https://community.prismic.io/c/kits-and-dev-languages/javascript/14
