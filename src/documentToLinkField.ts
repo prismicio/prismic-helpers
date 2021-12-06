@@ -4,6 +4,9 @@ import {
 	PrismicDocument,
 } from "@prismicio/types";
 
+type SetOptional<T, Keys extends keyof T> = Omit<T, Keys> &
+	Partial<Pick<T, Keys>>;
+
 /**
  * Converts a document into a link field, this is useful when crawling the API
  * for document links
@@ -14,7 +17,9 @@ import {
  * @returns The equivalent link field to use with `asLink()`
  * @internal
  */
-export const documentToLinkField = <TDocument extends PrismicDocument>(
+export const documentToLinkField = <
+	TDocument extends SetOptional<PrismicDocument, "slugs">,
+>(
 	prismicDocument: TDocument,
 ): FilledLinkToDocumentField<
 	TDocument["type"],

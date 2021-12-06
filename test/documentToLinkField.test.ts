@@ -65,3 +65,25 @@ test("returns equivalent link field from given document with non-empty data", (t
 		data: { foo: "bar" },
 	});
 });
+
+// This test checks support for Gatsby users. The `slugs` field is not
+// queriable in Gatsby since it is deprecated.
+// Deprecation info: https://community.prismic.io/t/what-are-slugs/6493
+test("supports documents without slugs field", (t) => {
+	const document = {
+		...documentFixture.empty,
+		url: null,
+		slugs: undefined,
+	};
+
+	t.deepEqual(documentToLinkField(document), {
+		link_type: LinkType.Document,
+		id: "XvoFFREAAM0WGBng",
+		uid: "test",
+		type: "page",
+		tags: [],
+		lang: "en-us",
+		url: undefined,
+		slug: undefined,
+	});
+});
