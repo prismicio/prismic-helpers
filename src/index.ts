@@ -2,6 +2,7 @@ export { asDate } from "./asDate";
 export { asLink } from "./asLink";
 export { asText } from "./asText";
 export { asHTML } from "./asHTML";
+export { isFilled } from "./isFilled";
 
 export { documentToLinkField } from "./documentToLinkField";
 
