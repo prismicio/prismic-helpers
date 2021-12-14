@@ -22,15 +22,11 @@ import {
 	TitleField,
 } from "@prismicio/types";
 
-const boolean = <T>(input: T) => {
-	return !!input;
-};
-
-const notNullish = <T>(input: T) => {
+const isNonNullish = <T>(input: T) => {
 	return input != null;
 };
 
-const notEmptyArray = <T>(input: T[]) => {
+const isNonEmptyArray = <T>(input: T[]) => {
 	return !!input.length;
 };
 
@@ -88,27 +84,27 @@ export const isContentRelationshipFilled = isLinkFilled as <
 	field: RelationField<TypeEnum, LangEnum, DataInterface>,
 ) => field is RelationField<TypeEnum, LangEnum, DataInterface, "filled">;
 
-export const isDateFilled = boolean as (
+export const isDateFilled = isNonNullish as (
 	field: DateField,
 ) => field is DateField<"filled">;
 
-export const isTimestampFilled = boolean as (
+export const isTimestampFilled = isNonNullish as (
 	field: TimestampField,
 ) => field is TimestampField<"filled">;
 
-export const isColorFilled = boolean as (
+export const isColorFilled = isNonNullish as (
 	field: ColorField,
 ) => field is ColorField<"filled">;
 
-export const isNumberFilled = notNullish as (
+export const isNumberFilled = isNonNullish as (
 	field: NumberField,
 ) => field is NumberField<"filled">;
 
-export const isKeyTextFilled = boolean as (
+export const isKeyTextFilled = isNonNullish as (
 	field: KeyTextField,
 ) => field is KeyTextField<"filled">;
 
-export const isSelectFilled = notNullish as <Enum extends string>(
+export const isSelectFilled = isNonNullish as <Enum extends string>(
 	field: SelectField<Enum>,
 ) => field is SelectField<Enum, "filled">;
 
@@ -124,17 +120,17 @@ export const isGeoPointFilled = (
 	return "longitude" in field;
 };
 
-export const isIntegrationFieldsFilled = notNullish as <Blob>(
+export const isIntegrationFieldsFilled = isNonNullish as <Blob>(
 	field: IntegrationFields<Blob>,
 ) => field is IntegrationFields<Blob, "filled">;
 
-export const isGroupFilled = notEmptyArray as <
+export const isGroupFilled = isNonEmptyArray as <
 	Fields extends Record<string, AnyRegularField>,
 >(
 	field: GroupField<Fields>,
 ) => field is GroupField<Fields, "filled">;
 
-export const isSliceZoneFilled = notEmptyArray as <
+export const isSliceZoneFilled = isNonEmptyArray as <
 	Slices extends Slice | SharedSlice,
 >(
 	field: SliceZone<Slices>,
