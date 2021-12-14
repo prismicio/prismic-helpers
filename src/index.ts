@@ -2,7 +2,26 @@ export { asDate } from "./asDate";
 export { asLink } from "./asLink";
 export { asText } from "./asText";
 export { asHTML } from "./asHTML";
-export { isFilled } from "./isFilled";
+export {
+	isColorFilled,
+	isContentRelationshipFilled,
+	isDateFilled,
+	isEmbedFilled,
+	isGeoPointFilled,
+	isGroupFilled,
+	isImageFilled,
+	isImageThumbnailFilled,
+	isIntegrationFieldsFilled,
+	isKeyTextFilled,
+	isLinkFilled,
+	isLinkToMediaFilled,
+	isNumberFilled,
+	isRichTextFilled,
+	isSelectFilled,
+	isSliceZoneFilled,
+	isTimestampFilled,
+	isTitleFilled,
+} from "./isFilled";
 
 export { documentToLinkField } from "./documentToLinkField";
 

@@ -1,138 +1,143 @@
 import test from "ava";
-
 import * as prismicM from "@prismicio/mock";
-import * as prismicT from "@prismicio/types";
 
-import { isFilled } from "../src";
+import * as prismicH from "../src";
 
-test("returns false for not filled fields", (t) => {
-	// Simple fields
-	const dateField: prismicT.DateField<"empty"> = null;
-	t.false(isFilled(dateField), "DateField");
-
-	const timestampField: prismicT.TimestampField<"empty"> = null;
-	t.false(isFilled(timestampField), "TimestampField");
-
-	const colorField: prismicT.ColorField<"empty"> = null;
-	t.false(isFilled(colorField), "ColorField");
-
-	const numberField: prismicT.NumberField<"empty"> = null;
-	t.false(isFilled(numberField), "NumberField");
-
-	const keyTextField: prismicT.KeyTextField<"empty"> = null;
-	t.false(isFilled(keyTextField), "KeyTextField");
-
-	const selectField: prismicT.SelectField<"empty"> = null;
-	t.false(isFilled(selectField), "SelectField");
-
-	// TitleField, RichTextField
-	const titleField: prismicT.TitleField<"empty"> = [];
-	t.false(isFilled(titleField), "TitleField");
-
-	const richTextField: prismicT.RichTextField<"empty"> = [];
-	t.false(isFilled(richTextField), "RichTextField");
-
-	// RelationField, LinkField, LinkToMediaField
-	const relationField: prismicT.RelationField<string, string, never, "empty"> =
-		prismicM.value.contentRelationship({ isFilled: false });
-	t.false(isFilled(relationField), "RelationField");
-
-	const linkField: prismicT.LinkField<string, string, never, "empty"> =
-		prismicM.value.link({ type: prismicT.LinkType.Any, isFilled: false });
-	t.false(isFilled(linkField), "LinkField");
-
-	const linkToWebField: prismicT.EmptyLinkField<typeof prismicT.LinkType.Web> =
-		prismicM.value.link({ type: prismicT.LinkType.Web, isFilled: false });
-	t.false(isFilled(linkToWebField), "LinkToWebField");
-
-	const linkToMediaField: prismicT.LinkToMediaField<"empty"> =
-		prismicM.value.linkToMedia({ isFilled: false });
-	t.false(isFilled(linkToMediaField), "LinkToMediaField");
-
-	// ImageField, EmbedField, GeoPointField, IntegrationField
-	const imageField: prismicT.ImageField<null, "empty"> = {};
-	t.false(isFilled(imageField), "ImageField");
-
-	const embedField: prismicT.EmbedField<prismicT.CommonEmbedData, "empty"> = {};
-	t.false(isFilled(embedField), "EmbedField");
-
-	const geoPointField: prismicT.GeoPointField<"empty"> = {};
-	t.false(isFilled(geoPointField), "GeoPointField");
-
-	const integrationFields: prismicT.IntegrationFields<unknown, "empty"> = null;
-	t.false(isFilled(integrationFields), "IntegrationFields");
+test("color", (t) => {
+	t.false(prismicH.isColorFilled(null));
+	t.true(prismicH.isColorFilled(prismicM.value.color({ seed: t.title })));
 });
 
-test("returns false for not filled primitives", (t) => {
-	t.false(isFilled(null));
-	t.false(isFilled(undefined as unknown as null));
-	t.false(isFilled(""));
-	t.false(isFilled([]));
-	t.false(isFilled({}));
+test("content relationship", (t) => {
+	t.false(
+		prismicH.isContentRelationshipFilled(
+			prismicM.value.contentRelationship({
+				seed: t.title,
+				isFilled: false,
+			}),
+		),
+	);
+	t.true(
+		prismicH.isContentRelationshipFilled(
+			prismicM.value.contentRelationship({
+				seed: t.title,
+				isFilled: true,
+			}),
+		),
+	);
 });
 
-test("returns true for filled fields", (t) => {
-	// Simple fields
-	const dateField: prismicT.DateField = prismicM.value.date();
-	t.true(isFilled(dateField), "DateField");
-
-	const timestampField: prismicT.TimestampField = prismicM.value.timestamp();
-	t.true(isFilled(timestampField), "TimestampField");
-
-	const colorField: prismicT.ColorField = prismicM.value.color();
-	t.true(isFilled(colorField), "ColorField");
-
-	const numberField: prismicT.NumberField = prismicM.value.number();
-	t.true(isFilled(numberField), "NumberField");
-
-	const keyTextField1: prismicT.KeyTextField = prismicM.value.keyText();
-	t.true(isFilled(keyTextField1), "KeyTextField");
-
-	const selectField: prismicT.SelectField = prismicM.value.select();
-	t.true(isFilled(selectField), "SelectField");
-
-	// TitleField, RichTextField
-	const titleField: prismicT.TitleField = prismicM.value.title();
-	t.true(isFilled(titleField), "TitleField");
-
-	const richTextField: prismicT.RichTextField = prismicM.value.richText();
-	t.true(isFilled(richTextField), "RichTextField");
-
-	// RelationField, LinkField, LinkToMediaField
-	const relationField: prismicT.RelationField<string, string, never, "filled"> =
-		prismicM.value.contentRelationship({ isFilled: true });
-	t.true(isFilled(relationField), "RelationField");
-
-	const linkField: prismicT.LinkField<string, string, never, "filled"> =
-		prismicM.value.link({ isFilled: true });
-	t.true(isFilled(linkField), "LinkField");
-
-	const linkToWebField: prismicT.FilledLinkToWebField = prismicM.value.link({
-		type: prismicT.LinkType.Web,
-		isFilled: true,
-	});
-	t.true(isFilled(linkToWebField), "LinkToWebField");
-
-	const linkToMediaField: prismicT.LinkToMediaField<"filled"> =
-		prismicM.value.linkToMedia({ isFilled: true });
-	t.true(isFilled(linkToMediaField), "LinkToMediaField");
-
-	// ImageField, EmbedField, GeoPointField, IntegrationField
-	const imageField: prismicT.ImageField = prismicM.value.image();
-	t.true(isFilled(imageField), "ImageField");
-
-	const embedField: prismicT.EmbedField = prismicM.value.embed();
-	t.true(isFilled(embedField), "EmbedField");
-
-	const geoPointField: prismicT.GeoPointField = prismicM.value.geoPoint();
-	t.true(isFilled(geoPointField), "GeoPointField");
-
-	const integrationFields: prismicT.IntegrationFields =
-		prismicM.value.integrationFields();
-	t.true(isFilled(integrationFields), "IntegrationFields");
+test("date", (t) => {
+	t.false(prismicH.isDateFilled(null));
+	t.true(prismicH.isDateFilled(prismicM.value.date({ seed: t.title })));
 });
 
-test("returns true for filled primitives", (t) => {
-	t.true(isFilled(false));
-	t.true(isFilled(0));
+test("embed", (t) => {
+	t.false(prismicH.isEmbedFilled({}));
+	t.true(prismicH.isEmbedFilled(prismicM.value.embed({ seed: t.title })));
+});
+
+test("geopoint", (t) => {
+	t.false(prismicH.isGeoPointFilled({}));
+	t.true(prismicH.isGeoPointFilled(prismicM.value.geoPoint({ seed: t.title })));
+});
+
+test("group", (t) => {
+	t.false(prismicH.isGroupFilled([]));
+	t.true(prismicH.isGroupFilled(prismicM.value.group({ seed: t.title })));
+});
+
+test("image", (t) => {
+	t.false(prismicH.isImageFilled({}));
+	t.true(prismicH.isImageFilled(prismicM.value.image({ seed: t.title })));
+});
+
+test("image thumbnail", (t) => {
+	t.false(prismicH.isImageThumbnailFilled({}));
+	t.true(
+		prismicH.isImageThumbnailFilled({
+			url: "url",
+			alt: null,
+			copyright: null,
+			dimensions: { width: 1, height: 1 },
+		}),
+	);
+});
+
+test("integration fields", (t) => {
+	t.false(prismicH.isIntegrationFieldsFilled(null));
+	t.true(
+		prismicH.isIntegrationFieldsFilled(
+			prismicM.value.integrationFields({ seed: t.title }),
+		),
+	);
+});
+
+test("key text", (t) => {
+	t.false(prismicH.isKeyTextFilled(null));
+	t.true(prismicH.isKeyTextFilled(prismicM.value.keyText({ seed: t.title })));
+});
+
+test("link", (t) => {
+	t.false(
+		prismicH.isLinkFilled(
+			prismicM.value.link({ seed: t.title, isFilled: false }),
+		),
+	);
+	t.true(
+		prismicH.isLinkFilled(
+			prismicM.value.link({ seed: t.title, isFilled: true }),
+		),
+	);
+});
+
+test("link to media", (t) => {
+	t.false(
+		prismicH.isLinkToMediaFilled(
+			prismicM.value.linkToMedia({ seed: t.title, isFilled: false }),
+		),
+	);
+	t.true(
+		prismicH.isLinkToMediaFilled(
+			prismicM.value.linkToMedia({ seed: t.title, isFilled: true }),
+		),
+	);
+});
+
+test("number", (t) => {
+	t.false(prismicH.isNumberFilled(null));
+	t.true(prismicH.isNumberFilled(prismicM.value.number({ seed: t.title })));
+});
+
+test("rich text", (t) => {
+	t.false(prismicH.isRichTextFilled([]));
+	t.false(
+		prismicH.isRichTextFilled([{ type: "paragraph", text: "", spans: [] }]),
+	);
+	t.true(prismicH.isRichTextFilled(prismicM.value.richText({ seed: t.title })));
+});
+
+test("select", (t) => {
+	t.false(prismicH.isSelectFilled(null));
+	t.true(prismicH.isSelectFilled(prismicM.value.select({ seed: t.title })));
+});
+
+test("slice zone", (t) => {
+	t.false(prismicH.isSliceZoneFilled([]));
+	t.true(
+		prismicH.isSliceZoneFilled(prismicM.value.sliceZone({ seed: t.title })),
+	);
+});
+
+test("timestamp", (t) => {
+	t.false(prismicH.isTimestampFilled(null));
+	t.true(
+		prismicH.isTimestampFilled(prismicM.value.timestamp({ seed: t.title })),
+	);
+});
+
+test("title", (t) => {
+	t.false(prismicH.isTitleFilled([]));
+	t.false(prismicH.isTitleFilled([{ type: "heading1", text: "", spans: [] }]));
+	t.true(prismicH.isTitleFilled(prismicM.value.title({ seed: t.title })));
 });
