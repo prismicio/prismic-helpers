@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0-beta.8](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-12-16)
+
+
+### Features
+
+* add `isFilled` helpers ([#34](https://github.com/prismicio/prismic-helpers/issues/34)) ([fe086d2](https://github.com/prismicio/prismic-helpers/commit/fe086d25d82b88794b1f963974145a279623c902))
+
+
+### Documentation
+
+* update docs link [skip ci] ([662a077](https://github.com/prismicio/prismic-helpers/commit/662a0773e2f2268a8e676f496ba9ea7eacd1fad1))
+
 ## [2.0.0-beta.7](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-12-06)
 
 
