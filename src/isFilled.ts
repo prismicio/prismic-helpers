@@ -1,4 +1,4 @@
-import {
+import type {
 	AnyRegularField,
 	ColorField,
 	DateField,
@@ -22,15 +22,38 @@ import {
 	TitleField,
 } from "@prismicio/types";
 
-const isNonNullish = <T>(input: T) => {
+/**
+ * Determines if a value is not nullish (i.e. not `null` or `undefined`). This
+ * is used to check if nullable field values are filled.
+ *
+ * @param input - The value to check.
+ *
+ * @returns `true` if `input` is not nullish, `false` otherwise.
+ */
+const isNonNullish = <T>(input: T): input is NonNullable<T> => {
 	return input != null;
 };
 
-const isNonEmptyArray = <T>(input: T[]) => {
+/**
+ * Determines if an array is not empty. This is used to check if array-based
+ * fields are filled.
+ *
+ * @param input - The array to check.
+ *
+ * @returns `true` if `input` has at least one element, `false` otherwise.
+ */
+const isNonEmptyArray = <T>(input: T[]): input is [T, ...T[]] => {
 	return !!input.length;
 };
 
-export const isRichTextFilled = (
+/**
+ * Determines if a Rich Text field is filled.
+ *
+ * @param field - Rich Text field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const richText = (
 	field: RichTextField,
 ): field is RichTextField<"filled"> => {
 	if (field.length === 1 && "text" in field[0]) {
@@ -40,23 +63,51 @@ export const isRichTextFilled = (
 	}
 };
 
-export const isTitleFilled = isRichTextFilled as (
+/**
+ * Determines if a Title field is filled.
+ *
+ * @param field - Title field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const title = richText as (
 	field: TitleField,
 ) => field is TitleField<"filled">;
 
-export const isImageThumbnailFilled = (
+/**
+ * Determines if an Image thumbnail is filled.
+ *
+ * @param field - Image thumbnail to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const imageThumbnail = (
 	thumbnail: ImageFieldImage,
 ): thumbnail is ImageFieldImage<"filled"> => {
 	return !!thumbnail.url;
 };
 
-export const isImageFilled = <ThumbnailNames extends string>(
+/**
+ * Determines if an Image field is filled.
+ *
+ * @param field - Image field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const image = <ThumbnailNames extends string>(
 	field: ImageField<ThumbnailNames>,
 ): field is ImageField<ThumbnailNames, "filled"> => {
-	return isImageThumbnailFilled(field);
+	return imageThumbnail(field);
 };
 
-export const isLinkFilled = <
+/**
+ * Determines if a Link field is filled.
+ *
+ * @param field - Link field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const link = <
 	TypeEnum = string,
 	LangEnum = string,
 	DataInterface extends Record<
@@ -69,11 +120,25 @@ export const isLinkFilled = <
 	return "id" in field || "url" in field;
 };
 
-export const isLinkToMediaFilled = isLinkFilled as (
+/**
+ * Determines if a Link to Media field is filled.
+ *
+ * @param field - Link to Media field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const linkToMedia = link as (
 	field: LinkToMediaField,
 ) => field is LinkToMediaField<"filled">;
 
-export const isContentRelationshipFilled = isLinkFilled as <
+/**
+ * Determines if a Content Relationship field is filled.
+ *
+ * @param field - Content Relationship field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const contentRelationship = link as <
 	TypeEnum = string,
 	LangEnum = string,
 	DataInterface extends Record<
@@ -84,54 +149,131 @@ export const isContentRelationshipFilled = isLinkFilled as <
 	field: RelationField<TypeEnum, LangEnum, DataInterface>,
 ) => field is RelationField<TypeEnum, LangEnum, DataInterface, "filled">;
 
-export const isDateFilled = isNonNullish as (
+/**
+ * Determines if a Date field is filled.
+ *
+ * @param field - Date field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const date = isNonNullish as (
 	field: DateField,
 ) => field is DateField<"filled">;
 
-export const isTimestampFilled = isNonNullish as (
+/**
+ * Determines if a Timestamp field is filled.
+ *
+ * @param field - Timestamp field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const timestamp = isNonNullish as (
 	field: TimestampField,
 ) => field is TimestampField<"filled">;
 
-export const isColorFilled = isNonNullish as (
+/**
+ * Determines if a Color field is filled.
+ *
+ * @param field - Color field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const color = isNonNullish as (
 	field: ColorField,
 ) => field is ColorField<"filled">;
 
-export const isNumberFilled = isNonNullish as (
+/**
+ * Determines if a Number field is filled.
+ *
+ * @param field - Number field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const number = isNonNullish as (
 	field: NumberField,
 ) => field is NumberField<"filled">;
 
-export const isKeyTextFilled = isNonNullish as (
+/**
+ * Determines if a Key Text field is filled.
+ *
+ * @param field - Key Text field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const keyText = isNonNullish as (
 	field: KeyTextField,
 ) => field is KeyTextField<"filled">;
 
-export const isSelectFilled = isNonNullish as <Enum extends string>(
+/**
+ * Determines if a Select field is filled.
+ *
+ * @param field - Select field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const select = isNonNullish as <Enum extends string>(
 	field: SelectField<Enum>,
 ) => field is SelectField<Enum, "filled">;
 
-export const isEmbedFilled = <Data extends Record<string, unknown>>(
+/**
+ * Determines if an Embed field is filled.
+ *
+ * @param field - Embed field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const embed = <Data extends Record<string, unknown>>(
 	field: EmbedField<Data>,
 ): field is EmbedField<Data, "filled"> => {
 	return !!field.embed_url;
 };
 
-export const isGeoPointFilled = (
+/**
+ * Determines if a GeoPoint field is filled.
+ *
+ * @param field - GeoPoint field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const geoPoint = (
 	field: GeoPointField,
 ): field is GeoPointField<"filled"> => {
 	return "longitude" in field;
 };
 
-export const isIntegrationFieldsFilled = isNonNullish as <Blob>(
+/**
+ * Determines if an Integration Fields field is filled.
+ *
+ * @param field - Integration Fields field to check.
+ *
+ * @returns `true` if `field` is filled, `false` otherwise.
+ */
+export const integrationFields = isNonNullish as <Blob>(
 	field: IntegrationFields<Blob>,
 ) => field is IntegrationFields<Blob, "filled">;
 
-export const isGroupFilled = isNonEmptyArray as <
+/**
+ * Determines if a Group has at least one item.
+ *
+ * @param group - Group to check.
+ *
+ * @returns `true` if `group` contains at least one item, `false` otherwise.
+ */
+export const group = isNonEmptyArray as <
 	Fields extends Record<string, AnyRegularField>,
 >(
-	field: GroupField<Fields>,
-) => field is GroupField<Fields, "filled">;
+	group: GroupField<Fields>,
+) => group is GroupField<Fields, "filled">;
 
-export const isSliceZoneFilled = isNonEmptyArray as <
+/**
+ * Determines if a Slice Zone has at least one Slice.
+ *
+ * @param slices - Slice Zone to check.
+ *
+ * @returns `true` if `slices` contains at least one Slice, `false` otherwise.
+ */
+export const sliceZone = isNonEmptyArray as <
 	Slices extends Slice | SharedSlice,
 >(
-	field: SliceZone<Slices>,
-) => field is SliceZone<Slices, "filled">;
+	slices: SliceZone<Slices>,
+) => slices is SliceZone<Slices, "filled">;
