@@ -1,33 +1,84 @@
 {
-  "name": "@prismicio/helpers",
-  "version": "1.0.5",
-  "description": "Set of helpers to manage prismic data from api v2",
-  "main": "dist/prismic-helpers.js",
-  "module": "dist/prismic-helpers.esm.js",
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c --watch",
-    "prepublish": "npm run test && npm run build",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/prismicio/prismic-helpers.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/prismicio/prismic-helpers/issues"
-  },
-  "homepage": "https://github.com/prismicio/prismic-helpers#readme",
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@rollup/plugin-babel": "^5.2.0",
-    "@rollup/plugin-replace": "^2.3.3",
-    "jest": "^26.2.2",
-    "rollup": "^2.26.4",
-    "rollup-plugin-size": "^0.2.2",
-    "rollup-plugin-terser": "^7.0.0"
-  }
+	"name": "@prismicio/helpers",
+	"version": "2.0.0-beta.8",
+	"description": "Set of helpers to manage Prismic data",
+	"keywords": [
+		"typescript",
+		"helpers",
+		"utils",
+		"toolbox",
+		"prismic"
+	],
+	"repository": {
+		"type": "git",
+		"url": "ssh://git@github.com/prismicio/prismic-helpers.git"
+	},
+	"license": "Apache-2.0",
+	"author": "Prismic <contact@prismic.io> (https://prismic.io)",
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.js"
+		},
+		"./graphql": {
+			"require": "./dist/graphql/index.cjs",
+			"import": "./dist/graphql/index.js"
+		},
+		"./dist/graphql": {
+			"require": "./dist/graphql/index.cjs",
+			"import": "./dist/graphql/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"src"
+	],
+	"scripts": {
+		"build": "siroc build",
+		"dev": "siroc build --watch",
+		"format": "prettier --write .",
+		"lint": "eslint --ext .js,.ts .",
+		"prepare": "npm run build",
+		"release": "npm run build && npm run test && standard-version && git push --follow-tags && npm run build && npm publish",
+		"release:beta": "npm run build && npm run test && standard-version --release-as major --prerelease beta && git push --follow-tags && npm run build && npm publish --tag beta",
+		"release:beta:dry": "standard-version --release-as major --prerelease beta --dry-run",
+		"release:dry": "standard-version --dry-run",
+		"test": "npm run lint && npm run unit",
+		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava"
+	},
+	"dependencies": {
+		"@prismicio/richtext": "^2.0.0-beta.3",
+		"@prismicio/types": "^0.1.20",
+		"escape-html": "^1.0.3"
+	},
+	"devDependencies": {
+		"@prismicio/mock": "^0.0.6",
+		"@types/escape-html": "^1.0.1",
+		"@typescript-eslint/eslint-plugin": "^5.7.0",
+		"@typescript-eslint/parser": "^5.7.0",
+		"ava": "^3.15.0",
+		"eslint": "^8.4.1",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-tsdoc": "^0.2.14",
+		"nyc": "^15.1.0",
+		"prettier": "^2.5.1",
+		"prettier-plugin-jsdoc": "^0.3.30",
+		"siroc": "^0.16.0",
+		"standard-version": "^9.3.2",
+		"ts-eager": "^2.0.2",
+		"typescript": "^4.5.4"
+	},
+	"engines": {
+		"node": ">=12.7.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
