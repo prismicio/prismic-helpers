@@ -3,9 +3,31 @@ import { buildURL, ImgixURLParams } from "imgix-url-builder";
 
 import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 
+/**
+ * The return type of `asImageSrc()`.
+ */
 type AsImageSrcReturnType<Field extends ImageFieldImage> =
 	Field extends ImageFieldImage<"empty"> ? null : string;
 
+/**
+ * Returns the URL of an Image field with optional image transformations (via
+ * Imgix URL parameters).
+ *
+ * @example
+ *
+ * ```ts
+ * const src = asImageSrc(document.data.imageField, { sat: -100 });
+ * // => A grayscale version of `document.data.imageField`.
+ * ```
+ *
+ * @param field - Image field (or one of its responsive views) from which to get
+ *   an image URL.
+ * @param params - An object of Imgix URL API parameters to transform the image.
+ *
+ * @returns The Image field's image URL with transformations applied (if given).
+ *   If the Image field is empty, `null` is returned.
+ * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
+ */
 export const asImageSrc = <Field extends ImageFieldImage>(
 	field: Field,
 	params: ImgixURLParams = {},
