@@ -49,7 +49,8 @@
 		"release:beta": "npm run build && npm run test && standard-version --release-as major --prerelease beta && git push --follow-tags && npm run build && npm publish --tag beta",
 		"release:beta:dry": "standard-version --release-as major --prerelease beta --dry-run",
 		"release:dry": "standard-version --dry-run",
-		"test": "npm run lint && npm run unit",
+		"size": "size-limit",
+		"test": "npm run lint && npm run unit && npm run build && npm run size",
 		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava"
 	},
 	"dependencies": {
@@ -59,6 +60,7 @@
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.0.6",
+		"@size-limit/preset-small-lib": "^7.0.5",
 		"@types/escape-html": "^1.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.7.0",
 		"@typescript-eslint/parser": "^5.7.0",
@@ -71,6 +73,7 @@
 		"prettier": "^2.5.1",
 		"prettier-plugin-jsdoc": "^0.3.30",
 		"siroc": "^0.16.0",
+		"size-limit": "^7.0.5",
 		"standard-version": "^9.3.2",
 		"ts-eager": "^2.0.2",
 		"typescript": "^4.5.4"
