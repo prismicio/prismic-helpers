@@ -25,7 +25,9 @@ type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
  * 	widths: [400, 800, 1600],
  * 	sat: -100,
  * });
- * // => A width-based srcset (e.g. `400w`, `800w`) where all images are grayscale.
+ * // => https://images.prismic.io/your-repo/your-image.png?sat=-100&width=400 400w,
+ * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&width=800 800w,
+ * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&width=1600 1600w
  * ```
  *
  * @param field - Image field (or one of its responsive views) from which to get

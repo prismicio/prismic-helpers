@@ -16,6 +16,8 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  * Creates a pixel-density-based `srcset` from an Image field with optional
  * image transformations (via Imgix URL parameters).
  *
+ * If a `pixelDensities` parameter is not given, `[1, 2, 3]` will be used by default.
+ *
  * @example
  *
  * ```ts
@@ -23,7 +25,9 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  * 	pixelDensities: [1, 2, 3],
  * 	sat: -100,
  * });
- * // => A pixel-density-based srcset (e.g. `1x`, `2x`) where all images are grayscale.
+ * // => https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=1 1x,
+ * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=2 2x,
+ * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=3 3x
  * ```
  *
  * @param field - Image field (or one of its responsive views) from which to get
@@ -37,13 +41,14 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  */
 export const asImagePixelDensitySrcSet = <Field extends ImageFieldImage>(
 	field: Field,
-	params: BuildPixelDensitySrcSetParams,
+	params?: Omit<BuildPixelDensitySrcSetParams, "pixelDensities"> &
+		Partial<Pick<BuildPixelDensitySrcSetParams, "pixelDensities">>,
 ): AsImagePixelDensitySrcSetReturnType<Field> => {
 	if (isImageThumbnailFilled(field)) {
-		return buildPixelDensitySrcSet(
-			field.url,
-			params,
-		) as AsImagePixelDensitySrcSetReturnType<Field>;
+		return buildPixelDensitySrcSet(field.url, {
+			pixelDensities: [1, 2, 3],
+			...params,
+		}) as AsImagePixelDensitySrcSetReturnType<Field>;
 	} else {
 		return null as AsImagePixelDensitySrcSetReturnType<Field>;
 	}
