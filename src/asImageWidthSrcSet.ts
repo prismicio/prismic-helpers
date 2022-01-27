@@ -1,5 +1,9 @@
 import { ImageFieldImage } from "@prismicio/types";
-import { buildWidthSrcSet, BuildWidthSrcSetParams } from "imgix-url-builder";
+import {
+	buildURL,
+	buildWidthSrcSet,
+	BuildWidthSrcSetParams,
+} from "imgix-url-builder";
 
 import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 
@@ -7,7 +11,20 @@ import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
  * The return type of `asImageWidthSrcSet()`.
  */
 type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
-	Field extends ImageFieldImage<"empty"> ? null : string;
+	Field extends ImageFieldImage<"empty">
+		? null
+		: {
+				/**
+				 * The Image field's image URL with Imgix URL parameters (if given).
+				 */
+				src: string;
+
+				/**
+				 * A width-based `srcset` attribute value for the Image field's image
+				 * with Imgix URL parameters (if given).
+				 */
+				srcset: string;
+		  };
 
 /**
  * Creates a width-based `srcset` from an Image field with optional image
@@ -35,15 +52,17 @@ type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
  * @param params - An object of Imgix URL API parameters. The `widths` parameter
  *   defines the resulting `srcset` widths.
  *
- * @returns A `srcset` attribute value for the Image field with the given Imgix
- *   URL parameters (if given). If the Image field is empty, `null` is returned.
+ * @returns A `srcset` attribute value for the Image field with Imgix URL
+ *   parameters (if given). If the Image field is empty, `null` is returned.
  * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
  */
 export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 	field: Field,
-	params?: Omit<BuildWidthSrcSetParams, "widths"> &
-		Partial<Pick<BuildWidthSrcSetParams, "widths">>,
+	params: Omit<BuildWidthSrcSetParams, "widths"> &
+		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
+	const { widths = [400, 800, 1600], ...urlParams } = params;
+
 	if (isImageThumbnailFilled(field)) {
 		const {
 			url,
@@ -53,6 +72,8 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 			...responsiveViews
 		} = field;
 
+		let srcset: string;
+
 		// The Prismic Rest API will always return thumbnail values if
 		// the base size is filled.
 		const responsiveViewObjects: ImageFieldImage<"filled">[] =
@@ -61,21 +82,26 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 		if (responsiveViewObjects.length) {
 			// If the field contains responsive views, those image
 			// URLs and widths will be used in the `srcset`.
-			return [
+			srcset = [
 				url,
 				...responsiveViewObjects.map((thumbnail) => {
 					return buildWidthSrcSet(thumbnail.url, {
-						...params,
+						...urlParams,
 						widths: [thumbnail.dimensions.width],
 					});
 				}),
-			].join(", ") as AsImageWidthSrcSetReturnType<Field>;
+			].join(", ");
 		} else {
-			return buildWidthSrcSet(field.url, {
-				widths: [400, 800, 1600],
-				...params,
-			}) as AsImageWidthSrcSetReturnType<Field>;
+			srcset = buildWidthSrcSet(field.url, {
+				...urlParams,
+				widths,
+			});
 		}
+
+		return {
+			src: buildURL(url, urlParams),
+			srcset,
+		} as AsImageWidthSrcSetReturnType<Field>;
 	} else {
 		return null as AsImageWidthSrcSetReturnType<Field>;
 	}

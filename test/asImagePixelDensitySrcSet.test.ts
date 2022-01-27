@@ -11,13 +11,17 @@ test("returns an image field pixel-density-based srcset", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.is(
+	t.deepEqual(
 		asImagePixelDensitySrcSet(field, {
 			pixelDensities: [1, 2, 3],
 		}),
-		`${field.url}&dpr=1 1x, ` +
-			`${field.url}&dpr=2 2x, ` +
-			`${field.url}&dpr=3 3x`,
+		{
+			src: field.url,
+			srcset:
+				`${field.url}&dpr=1 1x, ` +
+				`${field.url}&dpr=2 2x, ` +
+				`${field.url}&dpr=3 3x`,
+		},
 	);
 });
 
@@ -29,14 +33,18 @@ test("applies given Imgix URL parameters", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.is(
+	t.deepEqual(
 		asImagePixelDensitySrcSet(field, {
 			pixelDensities: [1, 2, 3],
 			sat: 100,
 		}),
-		`${field.url}&sat=100&dpr=1 1x, ` +
-			`${field.url}&sat=100&dpr=2 2x, ` +
-			`${field.url}&sat=100&dpr=3 3x`,
+		{
+			src: `${field.url}&sat=100`,
+			srcset:
+				`${field.url}&sat=100&dpr=1 1x, ` +
+				`${field.url}&sat=100&dpr=2 2x, ` +
+				`${field.url}&sat=100&dpr=3 3x`,
+		},
 	);
 });
 
@@ -48,12 +56,13 @@ test("uses pixel densities of [1, 2, 3] by default", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.is(
-		asImagePixelDensitySrcSet(field),
-		`${field.url}&dpr=1 1x, ` +
+	t.deepEqual(asImagePixelDensitySrcSet(field), {
+		src: field.url,
+		srcset:
+			`${field.url}&dpr=1 1x, ` +
 			`${field.url}&dpr=2 2x, ` +
 			`${field.url}&dpr=3 3x`,
-	);
+	});
 });
 
 test("returns null when image field is empty", (t) => {
