@@ -17,7 +17,7 @@ type AsImageSrcReturnType<Field extends ImageFieldImage> =
  *
  * ```ts
  * const src = asImageSrc(document.data.imageField, { sat: -100 });
- * // => A grayscale version of `document.data.imageField`.
+ * // => https://images.prismic.io/repo/image.png?sat=-100
  * ```
  *
  * @param field - Image field (or one of its responsive views) from which to get

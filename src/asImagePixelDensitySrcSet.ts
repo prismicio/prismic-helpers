@@ -39,9 +39,12 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  * 	pixelDensities: [1, 2, 3],
  * 	sat: -100,
  * });
- * // => https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=1 1x,
- * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=2 2x,
- * //    https://images.prismic.io/your-repo/your-image.png?sat=-100&dpr=3 3x
+ * // => {
+ * //   src:    'https://images.prismic.io/repo/image.png?sat=-100',
+ * //   srcset: 'https://images.prismic.io/repo/image.png?sat=-100&dpr=1 1x, ' +
+ * //           'https://images.prismic.io/repo/image.png?sat=-100&dpr=2 2x,' +
+ * //           'https://images.prismic.io/repo/image.png?sat=-100&dpr=3 3x'
+ * // }
  * ```
  *
  * @param field - Image field (or one of its responsive views) from which to get
