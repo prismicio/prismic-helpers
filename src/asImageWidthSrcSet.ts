@@ -61,9 +61,8 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 	params: Omit<BuildWidthSrcSetParams, "widths"> &
 		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
-	const { widths = [400, 800, 1600], ...urlParams } = params;
-
 	if (isImageThumbnailFilled(field)) {
+		const { widths = [400, 800, 1600], ...urlParams } = params;
 		const {
 			url,
 			alt: _alt,
@@ -72,35 +71,27 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 			...responsiveViews
 		} = field;
 
-		let srcset: string;
-
 		// The Prismic Rest API will always return thumbnail values if
 		// the base size is filled.
 		const responsiveViewObjects: ImageFieldImage<"filled">[] =
 			Object.values(responsiveViews);
 
-		if (responsiveViewObjects.length) {
-			// If the field contains responsive views, those image
-			// URLs and widths will be used in the `srcset`.
-			srcset = [
-				url,
-				...responsiveViewObjects.map((thumbnail) => {
-					return buildWidthSrcSet(thumbnail.url, {
-						...urlParams,
-						widths: [thumbnail.dimensions.width],
-					});
-				}),
-			].join(", ");
-		} else {
-			srcset = buildWidthSrcSet(field.url, {
-				...urlParams,
-				widths,
-			});
-		}
-
 		return {
 			src: buildURL(url, urlParams),
-			srcset,
+			srcset: responsiveViewObjects.length
+				? [
+						url,
+						...responsiveViewObjects.map((thumbnail) => {
+							return buildWidthSrcSet(thumbnail.url, {
+								...urlParams,
+								widths: [thumbnail.dimensions.width],
+							});
+						}),
+				  ].join(", ")
+				: buildWidthSrcSet(field.url, {
+						...urlParams,
+						widths,
+				  }),
 		} as AsImageWidthSrcSetReturnType<Field>;
 	} else {
 		return null as AsImageWidthSrcSetReturnType<Field>;

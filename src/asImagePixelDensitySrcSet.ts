@@ -58,17 +58,15 @@ export const asImagePixelDensitySrcSet = <Field extends ImageFieldImage>(
 	params: Omit<BuildPixelDensitySrcSetParams, "pixelDensities"> &
 		Partial<Pick<BuildPixelDensitySrcSetParams, "pixelDensities">> = {},
 ): AsImagePixelDensitySrcSetReturnType<Field> => {
-	const { pixelDensities = [1, 2, 3], ...imgixParams } = params;
-
 	if (isImageThumbnailFilled(field)) {
-		const srcset = buildPixelDensitySrcSet(field.url, {
-			...imgixParams,
-			pixelDensities,
-		});
+		const { pixelDensities = [1, 2, 3], ...imgixParams } = params;
 
 		return {
 			src: buildURL(field.url, imgixParams),
-			srcset,
+			srcset: buildPixelDensitySrcSet(field.url, {
+				...imgixParams,
+				pixelDensities,
+			}),
 		} as AsImagePixelDensitySrcSetReturnType<Field>;
 	} else {
 		return null as AsImagePixelDensitySrcSetReturnType<Field>;
