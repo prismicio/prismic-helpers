@@ -1,6 +1,6 @@
 {
 	"name": "@prismicio/helpers",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Set of helpers to manage Prismic data",
 	"keywords": [
 		"typescript",
@@ -54,8 +54,8 @@
 		"unit": "nyc --reporter=lcovonly --reporter=text --exclude-after-remap=false ava"
 	},
 	"dependencies": {
-		"@prismicio/richtext": "^2.0.0",
-		"@prismicio/types": "^0.1.20",
+		"@prismicio/richtext": "^2.0.1",
+		"@prismicio/types": "^0.1.22",
 		"escape-html": "^1.0.3",
 		"imgix-url-builder": "^0.0.2"
 	},
@@ -63,10 +63,10 @@
 		"@prismicio/mock": "^0.0.6",
 		"@size-limit/preset-small-lib": "^7.0.5",
 		"@types/escape-html": "^1.0.1",
-		"@typescript-eslint/eslint-plugin": "^5.7.0",
-		"@typescript-eslint/parser": "^5.7.0",
-		"ava": "^3.15.0",
-		"eslint": "^8.4.1",
+		"@typescript-eslint/eslint-plugin": "^5.10.1",
+		"@typescript-eslint/parser": "^5.10.1",
+		"ava": "^4.0.1",
+		"eslint": "^8.7.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-tsdoc": "^0.2.14",
@@ -77,12 +77,13 @@
 		"size-limit": "^7.0.5",
 		"standard-version": "^9.3.2",
 		"ts-eager": "^2.0.2",
-		"typescript": "^4.5.4"
+		"typescript": "^4.5.5"
 	},
 	"engines": {
 		"node": ">=12.7.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"react-native": "dist/index.js"
 }

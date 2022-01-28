@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/prismicio/prismic-helpers/compare/v2.0.0...v2.0.1) (2022-01-28)
+
+
+### Chore
+
+* add Size Limit repo support ([da22d5b](https://github.com/prismicio/prismic-helpers/commit/da22d5b4444fcc0cfc3d5a90777c88b6006837ad))
+* **deps:** update `@prismicio/richtext` ([4c97a27](https://github.com/prismicio/prismic-helpers/commit/4c97a27b34b34ea73cd7989d526c9273d7f76370))
+* **deps:** update dependencies ([ffbf66e](https://github.com/prismicio/prismic-helpers/commit/ffbf66e8711cd7d016a9982a715829b390bd152f))
+* fix Size Limit integration ([660bd1e](https://github.com/prismicio/prismic-helpers/commit/660bd1ec1528146e55fd8f0bb2a19b577267a14d))
+* support React Native's Metro bundler ([51151f9](https://github.com/prismicio/prismic-helpers/commit/51151f9929739b7fbfb09bf5e14704734d94a416))
+
 ## [2.0.0](https://github.com/prismicio/prismic-helpers/compare/v1.0.3...v2.0.0) (2022-01-05)
 
 ## [2.0.0-beta.8](https://github.com/prismicio/prismic-helpers/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-12-16)
