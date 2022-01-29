@@ -97,7 +97,7 @@ test("returns a srcset of responsive views if the field contains responsive view
 	t.deepEqual(asImageWidthSrcSet(field), {
 		src: field.url,
 		srcset:
-			`${field.url}, ` +
+			`${field.url}&width=1000 1000w, ` +
 			`${field.foo.url}&width=500 500w, ` +
 			`${field.bar.url}&width=250 250w`,
 	});

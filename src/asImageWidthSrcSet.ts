@@ -72,9 +72,9 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 		} = params;
 		const {
 			url,
+			dimensions,
 			alt: _alt,
 			copyright: _copyright,
-			dimensions: _dimensions,
 			...responsiveViews
 		} = field;
 
@@ -87,7 +87,10 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 			src: buildURL(url, urlParams),
 			srcset: responsiveViewObjects.length
 				? [
-						url,
+						buildWidthSrcSet(url, {
+							...urlParams,
+							widths: [dimensions.width],
+						}),
 						...responsiveViewObjects.map((thumbnail) => {
 							return buildWidthSrcSet(thumbnail.url, {
 								...urlParams,
