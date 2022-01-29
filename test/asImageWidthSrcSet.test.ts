@@ -3,7 +3,29 @@ import test from "ava";
 
 import { asImageWidthSrcSet } from "../src";
 
-test("returns an image field src and width-based srcset", (t) => {
+test("returns an image field src and width-based srcset with [640, 750, 828, 1080, 1200, 1920, 2048, 3840] widths by default", (t) => {
+	const field: ImageField = {
+		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
+		alt: null,
+		copyright: null,
+		dimensions: { width: 400, height: 300 },
+	};
+
+	t.deepEqual(asImageWidthSrcSet(field), {
+		src: field.url,
+		srcset:
+			`${field.url}&width=640 640w, ` +
+			`${field.url}&width=750 750w, ` +
+			`${field.url}&width=828 828w, ` +
+			`${field.url}&width=1080 1080w, ` +
+			`${field.url}&width=1200 1200w, ` +
+			`${field.url}&width=1920 1920w, ` +
+			`${field.url}&width=2048 2048w, ` +
+			`${field.url}&width=3840 3840w`,
+	});
+});
+
+test("supports custom widths", (t) => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -35,34 +57,21 @@ test("applies given Imgix URL parameters", (t) => {
 
 	t.deepEqual(
 		asImageWidthSrcSet(field, {
-			widths: [400, 800, 1600],
 			sat: 100,
 		}),
 		{
 			src: `${field.url}&sat=100`,
 			srcset:
-				`${field.url}&sat=100&width=400 400w, ` +
-				`${field.url}&sat=100&width=800 800w, ` +
-				`${field.url}&sat=100&width=1600 1600w`,
+				`${field.url}&sat=100&width=640 640w, ` +
+				`${field.url}&sat=100&width=750 750w, ` +
+				`${field.url}&sat=100&width=828 828w, ` +
+				`${field.url}&sat=100&width=1080 1080w, ` +
+				`${field.url}&sat=100&width=1200 1200w, ` +
+				`${field.url}&sat=100&width=1920 1920w, ` +
+				`${field.url}&sat=100&width=2048 2048w, ` +
+				`${field.url}&sat=100&width=3840 3840w`,
 		},
 	);
-});
-
-test("uses widths of [400, 800, 1600] by default", (t) => {
-	const field: ImageField = {
-		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
-		alt: null,
-		copyright: null,
-		dimensions: { width: 400, height: 300 },
-	};
-
-	t.deepEqual(asImageWidthSrcSet(field), {
-		src: field.url,
-		srcset:
-			`${field.url}&width=400 400w, ` +
-			`${field.url}&width=800 800w, ` +
-			`${field.url}&width=1600 1600w`,
-	});
 });
 
 test("returns a srcset of responsive views if the field contains responsive views", (t) => {
@@ -97,10 +106,5 @@ test("returns a srcset of responsive views if the field contains responsive view
 test("returns null when image field is empty", (t) => {
 	const field: ImageField<null, "empty"> = {};
 
-	t.is(
-		asImageWidthSrcSet(field, {
-			widths: [400, 800, 1600],
-		}),
-		null,
-	);
+	t.is(asImageWidthSrcSet(field), null);
 });

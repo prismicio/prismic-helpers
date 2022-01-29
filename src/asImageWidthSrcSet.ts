@@ -33,7 +33,8 @@ type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
  * If the Image field contains responsive views, each responsive view is used as
  * a width in the resulting `srcset`.
  *
- * If a `widths` parameter is not given, `[400, 800, 1600]` will be used by default.
+ * If a `widths` parameter is not given, the following widths will be used by
+ * default: 640, 750, 828, 1080, 1200, 1920, 2048, 3840.
  *
  * @example
  *
@@ -65,7 +66,10 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
 	if (isImageThumbnailFilled(field)) {
-		const { widths = [400, 800, 1600], ...urlParams } = params;
+		const {
+			widths = [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+			...urlParams
+		} = params;
 		const {
 			url,
 			alt: _alt,
