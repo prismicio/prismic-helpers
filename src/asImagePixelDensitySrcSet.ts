@@ -30,7 +30,8 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  * Creates a pixel-density-based `srcset` from an Image field with optional
  * image transformations (via Imgix URL parameters).
  *
- * If a `pixelDensities` parameter is not given, `[1, 2, 3]` will be used by default.
+ * If a `pixelDensities` parameter is not given, the following pixel densities
+ * will be used by default: 1, 2, 3.
  *
  * @example
  *
