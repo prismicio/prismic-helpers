@@ -37,14 +37,13 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  *
  * ```ts
  * const srcset = asImagePixelDensitySrcSet(document.data.imageField, {
- * 	pixelDensities: [1, 2, 3],
+ * 	pixelDensities: [1, 2],
  * 	sat: -100,
  * });
  * // => {
  * //   src:    'https://images.prismic.io/repo/image.png?sat=-100',
  * //   srcset: 'https://images.prismic.io/repo/image.png?sat=-100&dpr=1 1x, ' +
- * //           'https://images.prismic.io/repo/image.png?sat=-100&dpr=2 2x,' +
- * //           'https://images.prismic.io/repo/image.png?sat=-100&dpr=3 3x'
+ * //           'https://images.prismic.io/repo/image.png?sat=-100&dpr=2 2x'
  * // }
  * ```
  *
