@@ -4,5 +4,4 @@ export default {
 	require: ["ts-eager/register"],
 	verbose: true,
 	timeout: "60s",
-	snapshotDir: ".",
 };
