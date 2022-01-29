@@ -39,7 +39,7 @@ jobs:
         run: npm run lint
 
       - name: Unit
-        run: AVA_FORCE_CI=not-ci npm run unit
+        run: npm run unit
 
       - name: Build
         run: npm run build
