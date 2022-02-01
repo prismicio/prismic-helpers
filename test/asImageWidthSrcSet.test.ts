@@ -15,11 +15,8 @@ test("returns an image field src and width-based srcset with [640, 750, 828, 108
 		src: field.url,
 		srcset:
 			`${field.url}&width=640 640w, ` +
-			`${field.url}&width=750 750w, ` +
 			`${field.url}&width=828 828w, ` +
-			`${field.url}&width=1080 1080w, ` +
 			`${field.url}&width=1200 1200w, ` +
-			`${field.url}&width=1920 1920w, ` +
 			`${field.url}&width=2048 2048w, ` +
 			`${field.url}&width=3840 3840w`,
 	});
@@ -63,11 +60,8 @@ test("applies given Imgix URL parameters", (t) => {
 			src: `${field.url}&sat=100`,
 			srcset:
 				`${field.url}&sat=100&width=640 640w, ` +
-				`${field.url}&sat=100&width=750 750w, ` +
 				`${field.url}&sat=100&width=828 828w, ` +
-				`${field.url}&sat=100&width=1080 1080w, ` +
 				`${field.url}&sat=100&width=1200 1200w, ` +
-				`${field.url}&sat=100&width=1920 1920w, ` +
 				`${field.url}&sat=100&width=2048 2048w, ` +
 				`${field.url}&sat=100&width=3840 3840w`,
 		},

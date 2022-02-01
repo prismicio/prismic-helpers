@@ -66,10 +66,7 @@ export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
 		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
 	if (isImageThumbnailFilled(field)) {
-		const {
-			widths = [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-			...urlParams
-		} = params;
+		const { widths = [640, 828, 1200, 2048, 3840], ...urlParams } = params;
 		const {
 			url,
 			dimensions,
