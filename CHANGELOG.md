@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/prismicio/prismic-helpers/compare/v2.0.1...v2.1.0) (2022-02-01)
+
+
+### Features
+
+* add `asImageSrc()`, `asImageWidthSrcSet()`, `asImagePixelDensitySrcSet()` ([#38](https://github.com/prismicio/prismic-helpers/issues/38)) ([2b4984a](https://github.com/prismicio/prismic-helpers/commit/2b4984aaccdaba564cd57f875067626482c7660b))
+
+
+### Chore
+
+* revert to AVA 3 ([cccd34f](https://github.com/prismicio/prismic-helpers/commit/cccd34fced3811c77bcce7db20f4aa9a048f2148))
+
 ### [2.0.1](https://github.com/prismicio/prismic-helpers/compare/v2.0.0...v2.0.1) (2022-01-28)
 
 
