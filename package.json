@@ -56,7 +56,8 @@
 	"dependencies": {
 		"@prismicio/richtext": "^2.0.1",
 		"@prismicio/types": "^0.1.22",
-		"escape-html": "^1.0.3"
+		"escape-html": "^1.0.3",
+		"imgix-url-builder": "^0.0.2"
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.0.6",
