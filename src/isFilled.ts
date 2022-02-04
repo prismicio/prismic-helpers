@@ -94,7 +94,7 @@ export const imageThumbnail = (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const image = <ThumbnailNames extends string>(
+export const image = <ThumbnailNames extends string | null>(
 	field: ImageField<ThumbnailNames>,
 ): field is ImageField<ThumbnailNames, "filled"> => {
 	return imageThumbnail(field);
