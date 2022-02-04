@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/prismicio/prismic-helpers/compare/v2.1.0...v2.1.1) (2022-02-04)
+
+
+### Bug Fixes
+
+* `isFilled.image` thumbnail names should extend `string | null`, fixes [#41](https://github.com/prismicio/prismic-helpers/issues/41) ([659c212](https://github.com/prismicio/prismic-helpers/commit/659c212feb07a7abdf672da0976adec6dfaf9e8b))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([ea814ca](https://github.com/prismicio/prismic-helpers/commit/ea814ca0c23917a0ab8a454c6bd3577708325f54))
+
 ## [2.1.0](https://github.com/prismicio/prismic-helpers/compare/v2.0.1...v2.1.0) (2022-02-01)
 
 
