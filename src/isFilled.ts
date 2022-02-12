@@ -1,4 +1,5 @@
 import type {
+	AnyOEmbed,
 	AnyRegularField,
 	ColorField,
 	DateField,
@@ -12,6 +13,7 @@ import type {
 	LinkField,
 	LinkToMediaField,
 	NumberField,
+	OEmbedExtra,
 	RelationField,
 	RichTextField,
 	SelectField,
@@ -222,7 +224,7 @@ export const select = isNonNullish as <Enum extends string>(
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const embed = <Data extends Record<string, unknown>>(
+export const embed = <Data extends AnyOEmbed = AnyOEmbed & OEmbedExtra>(
 	field: EmbedField<Data>,
 ): field is EmbedField<Data, "filled"> => {
 	return !!field.embed_url;
