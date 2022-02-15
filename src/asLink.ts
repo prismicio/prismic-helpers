@@ -3,6 +3,16 @@ import { documentToLinkField } from "./documentToLinkField";
 import { LinkResolverFunction } from "./types";
 
 /**
+ * The return type of `asLink()`.
+ */
+type AsLinkReturnType<
+	LinkResolverFunctionReturnType = string,
+	Field extends LinkField | PrismicDocument = LinkField | PrismicDocument,
+> = Field extends LinkField<"empty">
+	? null
+	: LinkResolverFunctionReturnType | string | null;
+
+/**
  * Resolves any type of link field or document to a URL
  *
  * @typeParam LinkResolverFunctionReturnType - Link resolver function return type
@@ -14,12 +24,15 @@ import { LinkResolverFunction } from "./types";
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  * @see Prismic API `routes` options documentation: {@link https://prismic.io/docs/technologies/route-resolver-nuxtjs}
  */
-export const asLink = <LinkResolverFunctionReturnType = string>(
-	linkFieldOrDocument: LinkField | PrismicDocument,
+export const asLink = <
+	LinkResolverFunctionReturnType = string,
+	Field extends LinkField | PrismicDocument = LinkField | PrismicDocument,
+>(
+	linkFieldOrDocument: Field,
 	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType> | null,
-): LinkResolverFunctionReturnType | string | null => {
+): AsLinkReturnType<LinkResolverFunctionReturnType, Field> => {
 	if (!linkFieldOrDocument) {
-		return null;
+		return null as AsLinkReturnType<LinkResolverFunctionReturnType, Field>;
 	}
 
 	// Converts document to link field if needed
@@ -32,7 +45,10 @@ export const asLink = <LinkResolverFunctionReturnType = string>(
 	switch (linkField.link_type) {
 		case LinkType.Media:
 		case LinkType.Web:
-			return "url" in linkField ? linkField.url : null;
+			return ("url" in linkField ? linkField.url : null) as AsLinkReturnType<
+				LinkResolverFunctionReturnType,
+				Field
+			>;
 
 		case LinkType.Document: {
 			if ("id" in linkField && linkResolver) {
@@ -40,21 +56,27 @@ export const asLink = <LinkResolverFunctionReturnType = string>(
 				const resolvedURL = linkResolver(linkField);
 
 				if (resolvedURL != null) {
-					return resolvedURL;
+					return resolvedURL as AsLinkReturnType<
+						LinkResolverFunctionReturnType,
+						Field
+					>;
 				}
 			}
 
 			if ("url" in linkField && linkField.url) {
 				// When using Route Resolver...
-				return linkField.url;
+				return linkField.url as AsLinkReturnType<
+					LinkResolverFunctionReturnType,
+					Field
+				>;
 			}
 
 			// When empty or Link Resolver and Route Resolver are not used...
-			return null;
+			return null as AsLinkReturnType<LinkResolverFunctionReturnType, Field>;
 		}
 
 		case LinkType.Any:
 		default:
-			return null;
+			return null as AsLinkReturnType<LinkResolverFunctionReturnType, Field>;
 	}
 };
