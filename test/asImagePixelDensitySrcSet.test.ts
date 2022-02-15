@@ -3,6 +3,11 @@ import test from "ava";
 
 import { asImagePixelDensitySrcSet } from "../src";
 
+test("returns null for nullish inputs", (t) => {
+	t.is(asImagePixelDensitySrcSet(null), null);
+	t.is(asImagePixelDensitySrcSet(undefined), null);
+});
+
 test("returns an image field pixel-density-based srcset with [1, 2, 3] pxiel densities by default", (t) => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",

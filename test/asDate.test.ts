@@ -2,6 +2,11 @@ import test from "ava";
 
 import { asDate } from "../src";
 
+test("returns null for nullish inputs", (t) => {
+	t.is(asDate(null), null);
+	t.is(asDate(undefined), null);
+});
+
 test("returns null when date field is empty", (t) => {
 	const field = null;
 

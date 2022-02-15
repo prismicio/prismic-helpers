@@ -1,4 +1,12 @@
-import { LinkField, LinkType, PrismicDocument } from "@prismicio/types";
+import {
+	FilledLinkToDocumentField,
+	FilledLinkToMediaField,
+	FilledLinkToWebField,
+	LinkField,
+	LinkType,
+	PrismicDocument,
+} from "@prismicio/types";
+
 import { documentToLinkField } from "./documentToLinkField";
 import { LinkResolverFunction } from "./types";
 
@@ -7,10 +15,20 @@ import { LinkResolverFunction } from "./types";
  */
 type AsLinkReturnType<
 	LinkResolverFunctionReturnType = string,
-	Field extends LinkField | PrismicDocument = LinkField | PrismicDocument,
-> = Field extends LinkField<"empty">
-	? null
-	: LinkResolverFunctionReturnType | string | null;
+	Field extends LinkField | PrismicDocument | null | undefined =
+		| LinkField
+		| PrismicDocument
+		| null
+		| undefined,
+> = Field extends FilledLinkToWebField
+	? LinkResolverFunctionReturnType | string | null
+	: Field extends FilledLinkToMediaField
+	? LinkResolverFunctionReturnType | string | null
+	: Field extends FilledLinkToDocumentField
+	? LinkResolverFunctionReturnType | string | null
+	: Field extends PrismicDocument
+	? LinkResolverFunctionReturnType | string | null
+	: null;
 
 /**
  * Resolves any type of link field or document to a URL
@@ -26,7 +44,11 @@ type AsLinkReturnType<
  */
 export const asLink = <
 	LinkResolverFunctionReturnType = string,
-	Field extends LinkField | PrismicDocument = LinkField | PrismicDocument,
+	Field extends LinkField | PrismicDocument | null | undefined =
+		| LinkField
+		| PrismicDocument
+		| null
+		| undefined,
 >(
 	linkFieldOrDocument: Field,
 	linkResolver?: LinkResolverFunction<LinkResolverFunctionReturnType> | null,

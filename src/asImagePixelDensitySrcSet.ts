@@ -10,21 +10,22 @@ import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 /**
  * The return type of `asImagePixelDensitySrcSet()`.
  */
-type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
-	Field extends ImageFieldImage<"empty">
-		? null
-		: {
-				/**
-				 * The Image field's image URL with Imgix URL parameters (if given).
-				 */
-				src: string;
+type AsImagePixelDensitySrcSetReturnType<
+	Field extends ImageFieldImage | null | undefined,
+> = Field extends ImageFieldImage<"filled">
+	? {
+			/**
+			 * The Image field's image URL with Imgix URL parameters (if given).
+			 */
+			src: string;
 
-				/**
-				 * A pixel-densitye-based `srcset` attribute value for the Image field's
-				 * image with Imgix URL parameters (if given).
-				 */
-				srcset: string;
-		  };
+			/**
+			 * A pixel-densitye-based `srcset` attribute value for the Image field's
+			 * image with Imgix URL parameters (if given).
+			 */
+			srcset: string;
+	  }
+	: null;
 
 /**
  * Creates a pixel-density-based `srcset` from an Image field with optional
@@ -56,12 +57,14 @@ type AsImagePixelDensitySrcSetReturnType<Field extends ImageFieldImage> =
  *   parameters (if given). If the Image field is empty, `null` is returned.
  * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
  */
-export const asImagePixelDensitySrcSet = <Field extends ImageFieldImage>(
+export const asImagePixelDensitySrcSet = <
+	Field extends ImageFieldImage | null | undefined,
+>(
 	field: Field,
 	params: Omit<BuildPixelDensitySrcSetParams, "pixelDensities"> &
 		Partial<Pick<BuildPixelDensitySrcSetParams, "pixelDensities">> = {},
 ): AsImagePixelDensitySrcSetReturnType<Field> => {
-	if (isImageThumbnailFilled(field)) {
+	if (field && isImageThumbnailFilled(field)) {
 		const { pixelDensities = [1, 2, 3], ...imgixParams } = params;
 
 		return {

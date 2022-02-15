@@ -10,21 +10,22 @@ import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 /**
  * The return type of `asImageWidthSrcSet()`.
  */
-type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
-	Field extends ImageFieldImage<"empty">
-		? null
-		: {
-				/**
-				 * The Image field's image URL with Imgix URL parameters (if given).
-				 */
-				src: string;
+type AsImageWidthSrcSetReturnType<
+	Field extends ImageFieldImage | null | undefined,
+> = Field extends ImageFieldImage<"filled">
+	? {
+			/**
+			 * The Image field's image URL with Imgix URL parameters (if given).
+			 */
+			src: string;
 
-				/**
-				 * A width-based `srcset` attribute value for the Image field's image
-				 * with Imgix URL parameters (if given).
-				 */
-				srcset: string;
-		  };
+			/**
+			 * A width-based `srcset` attribute value for the Image field's image with
+			 * Imgix URL parameters (if given).
+			 */
+			srcset: string;
+	  }
+	: null;
 
 /**
  * Creates a width-based `srcset` from an Image field with optional image
@@ -60,12 +61,14 @@ type AsImageWidthSrcSetReturnType<Field extends ImageFieldImage> =
  *   parameters (if given). If the Image field is empty, `null` is returned.
  * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
  */
-export const asImageWidthSrcSet = <Field extends ImageFieldImage>(
+export const asImageWidthSrcSet = <
+	Field extends ImageFieldImage | null | undefined,
+>(
 	field: Field,
 	params: Omit<BuildWidthSrcSetParams, "widths"> &
 		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
-	if (isImageThumbnailFilled(field)) {
+	if (field && isImageThumbnailFilled(field)) {
 		const { widths = [640, 828, 1200, 2048, 3840], ...urlParams } = params;
 		const {
 			url,

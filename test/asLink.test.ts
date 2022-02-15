@@ -6,11 +6,9 @@ import { linkResolver } from "./__testutils__/linkResolver";
 import { asLink } from "../src";
 import { LinkType } from "@prismicio/types";
 
-test("returns null when link field is falsy", (t) => {
-	const field = undefined;
-
-	// @ts-expect-error testing JavaScript failsafe on purpose
-	t.is(asLink(field, linkResolver), null);
+test("returns null for nullish inputs", (t) => {
+	t.is(asLink(null, linkResolver), null);
+	t.is(asLink(undefined, linkResolver), null);
 });
 
 test("returns null when link to document field is empty", (t) => {
