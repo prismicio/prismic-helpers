@@ -108,6 +108,12 @@ const wrapMapSerializerWithStringChildren = (
 };
 
 /**
+ * The return type of `asHTML()`.
+ */
+type AsHTMLReturnType<Field extends RichTextField | null | undefined> =
+	Field extends RichTextField ? string : null;
+
+/**
  * Serializes a rich text or title field to an HTML string
  *
  * @param richTextField - A rich text or title field from Prismic
@@ -119,11 +125,11 @@ const wrapMapSerializerWithStringChildren = (
  * @returns HTML equivalent of the provided rich text or title field
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
-export const asHTML = (
-	richTextField: RichTextField | null | undefined,
+export const asHTML = <Field extends RichTextField | null | undefined>(
+	richTextField: Field,
 	linkResolver?: LinkResolverFunction<string> | null,
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer | null,
-): string | null => {
+): AsHTMLReturnType<Field> => {
 	if (richTextField) {
 		let serializer: RichTextFunctionSerializer<string>;
 		if (htmlSerializer) {
@@ -138,8 +144,10 @@ export const asHTML = (
 			serializer = createDefaultHTMLSerializer(linkResolver);
 		}
 
-		return serialize(richTextField, serializer).join("");
+		return serialize(richTextField, serializer).join(
+			"",
+		) as AsHTMLReturnType<Field>;
 	} else {
-		return null;
+		return null as AsHTMLReturnType<Field>;
 	}
 };

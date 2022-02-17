@@ -1,6 +1,13 @@
 import type { DateField, TimestampField } from "@prismicio/types";
 
 /**
+ * The return type of `asDate()`.
+ */
+type AsDateReturnType<
+	Field extends DateField | TimestampField | null | undefined,
+> = Field extends DateField<"filled"> | TimestampField<"filled"> ? Date : null;
+
+/**
  * Transforms a date or timestamp field into a JavaScript Date object
  *
  * @param dateOrTimestampField - A date or timestamp field from Prismic
@@ -8,11 +15,13 @@ import type { DateField, TimestampField } from "@prismicio/types";
  * @returns A Date object, null if provided date is falsy
  * @see Templating date field from Prismic {@link https://prismic.io/docs/technologies/templating-date-field-javascript}
  */
-export const asDate = (
-	dateOrTimestampField: DateField | TimestampField,
-): Date | null => {
+export const asDate = <
+	Field extends DateField | TimestampField | null | undefined,
+>(
+	dateOrTimestampField: Field,
+): AsDateReturnType<Field> => {
 	if (!dateOrTimestampField) {
-		return null;
+		return null as AsDateReturnType<Field>;
 	}
 
 	// If field is a timestamp field...
@@ -30,9 +39,9 @@ export const asDate = (
 		 */
 		return new Date(
 			dateOrTimestampField.replace(/(\+|-)(\d{2})(\d{2})$/, ".000$1$2:$3"),
-		);
+		) as AsDateReturnType<Field>;
 	} else {
 		// ...else field is a date field
-		return new Date(dateOrTimestampField);
+		return new Date(dateOrTimestampField) as AsDateReturnType<Field>;
 	}
 };

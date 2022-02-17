@@ -3,6 +3,11 @@ import test from "ava";
 
 import { asImageSrc } from "../src";
 
+test("returns null for nullish inputs", (t) => {
+	t.is(asImageSrc(null), null);
+	t.is(asImageSrc(undefined), null);
+});
+
 test("returns an image field URL", (t) => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",

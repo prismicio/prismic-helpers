@@ -3,6 +3,11 @@ import test from "ava";
 
 import { asImageWidthSrcSet } from "../src";
 
+test("returns null for nullish inputs", (t) => {
+	t.is(asImageWidthSrcSet(null), null);
+	t.is(asImageWidthSrcSet(undefined), null);
+});
+
 test("returns an image field src and width-based srcset with [640, 750, 828, 1080, 1200, 1920, 2048, 3840] widths by default", (t) => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",

@@ -6,8 +6,8 @@ import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 /**
  * The return type of `asImageSrc()`.
  */
-type AsImageSrcReturnType<Field extends ImageFieldImage> =
-	Field extends ImageFieldImage<"empty"> ? null : string;
+type AsImageSrcReturnType<Field extends ImageFieldImage | null | undefined> =
+	Field extends ImageFieldImage<"filled"> ? string : null;
 
 /**
  * Returns the URL of an Image field with optional image transformations (via
@@ -28,11 +28,11 @@ type AsImageSrcReturnType<Field extends ImageFieldImage> =
  *   If the Image field is empty, `null` is returned.
  * @see Imgix URL parameters reference: https://docs.imgix.com/apis/rendering
  */
-export const asImageSrc = <Field extends ImageFieldImage>(
+export const asImageSrc = <Field extends ImageFieldImage | null | undefined>(
 	field: Field,
 	params: ImgixURLParams = {},
 ): AsImageSrcReturnType<Field> => {
-	if (isImageThumbnailFilled(field)) {
+	if (field && isImageThumbnailFilled(field)) {
 		return buildURL(field.url, params) as AsImageSrcReturnType<Field>;
 	} else {
 		return null as AsImageSrcReturnType<Field>;
