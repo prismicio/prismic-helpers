@@ -4,8 +4,8 @@ import { RichTextField } from "@prismicio/types";
 /**
  * The return type of `asText()`.
  */
-type AsTextReturnType<MaybeField extends RichTextField | null | undefined> =
-	MaybeField extends RichTextField ? string : null;
+type AsTextReturnType<Field extends RichTextField | null | undefined> =
+	Field extends RichTextField ? string : null;
 
 /**
  * Serializes a rich text or title field to a plain text string
@@ -16,13 +16,13 @@ type AsTextReturnType<MaybeField extends RichTextField | null | undefined> =
  * @returns Plain text equivalent of the provided rich text or title field
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
-export const asText = <MaybeField extends RichTextField | null | undefined>(
-	richTextField: MaybeField,
+export const asText = <Field extends RichTextField | null | undefined>(
+	richTextField: Field,
 	separator?: string,
-): AsTextReturnType<MaybeField> => {
+): AsTextReturnType<Field> => {
 	if (richTextField) {
-		return baseAsText(richTextField, separator) as AsTextReturnType<MaybeField>;
+		return baseAsText(richTextField, separator) as AsTextReturnType<Field>;
 	} else {
-		return null as AsTextReturnType<MaybeField>;
+		return null as AsTextReturnType<Field>;
 	}
 };

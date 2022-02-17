@@ -110,8 +110,8 @@ const wrapMapSerializerWithStringChildren = (
 /**
  * The return type of `asHTML()`.
  */
-type AsHTMLReturnType<MaybeField extends RichTextField | null | undefined> =
-	MaybeField extends RichTextField ? string : null;
+type AsHTMLReturnType<Field extends RichTextField | null | undefined> =
+	Field extends RichTextField ? string : null;
 
 /**
  * Serializes a rich text or title field to an HTML string
@@ -125,11 +125,11 @@ type AsHTMLReturnType<MaybeField extends RichTextField | null | undefined> =
  * @returns HTML equivalent of the provided rich text or title field
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
-export const asHTML = <MaybeField extends RichTextField | null | undefined>(
-	richTextField: MaybeField,
+export const asHTML = <Field extends RichTextField | null | undefined>(
+	richTextField: Field,
 	linkResolver?: LinkResolverFunction<string> | null,
 	htmlSerializer?: HTMLFunctionSerializer | HTMLMapSerializer | null,
-): AsHTMLReturnType<MaybeField> => {
+): AsHTMLReturnType<Field> => {
 	if (richTextField) {
 		let serializer: RichTextFunctionSerializer<string>;
 		if (htmlSerializer) {
@@ -146,8 +146,8 @@ export const asHTML = <MaybeField extends RichTextField | null | undefined>(
 
 		return serialize(richTextField, serializer).join(
 			"",
-		) as AsHTMLReturnType<MaybeField>;
+		) as AsHTMLReturnType<Field>;
 	} else {
-		return null as AsHTMLReturnType<MaybeField>;
+		return null as AsHTMLReturnType<Field>;
 	}
 };

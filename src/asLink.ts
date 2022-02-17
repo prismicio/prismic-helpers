@@ -20,13 +20,11 @@ type AsLinkReturnType<
 		| PrismicDocument
 		| null
 		| undefined,
-> = Field extends FilledLinkToWebField
-	? LinkResolverFunctionReturnType | string | null
-	: Field extends FilledLinkToMediaField
-	? LinkResolverFunctionReturnType | string | null
-	: Field extends FilledLinkToDocumentField
-	? LinkResolverFunctionReturnType | string | null
-	: Field extends PrismicDocument
+> = Field extends
+	| FilledLinkToWebField
+	| FilledLinkToMediaField
+	| FilledLinkToDocumentField
+	| PrismicDocument
 	? LinkResolverFunctionReturnType | string | null
 	: null;
 

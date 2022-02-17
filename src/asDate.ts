@@ -5,11 +5,7 @@ import type { DateField, TimestampField } from "@prismicio/types";
  */
 type AsDateReturnType<
 	Field extends DateField | TimestampField | null | undefined,
-> = Field extends DateField<"filled">
-	? Date
-	: Field extends TimestampField<"filled">
-	? Date
-	: null;
+> = Field extends DateField<"filled"> | TimestampField<"filled"> ? Date : null;
 
 /**
  * Transforms a date or timestamp field into a JavaScript Date object
