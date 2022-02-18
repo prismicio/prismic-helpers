@@ -1,5 +1,4 @@
 import type {
-	AnyOEmbed,
 	AnyRegularField,
 	ColorField,
 	DateField,
@@ -13,7 +12,6 @@ import type {
 	LinkField,
 	LinkToMediaField,
 	NumberField,
-	OEmbedExtra,
 	RelationField,
 	RichTextField,
 	SelectField,
@@ -56,9 +54,11 @@ const isNonEmptyArray = <T>(input: T[]): input is [T, ...T[]] => {
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const richText = (
-	field: RichTextField,
+	field: RichTextField | null | undefined,
 ): field is RichTextField<"filled"> => {
-	if (field.length === 1 && "text" in field[0]) {
+	if (!isNonNullish(field)) {
+		return false;
+	} else if (field.length === 1 && "text" in field[0]) {
 		return !!field[0].text;
 	} else {
 		return !!field.length;
@@ -73,7 +73,7 @@ export const richText = (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const title = richText as (
-	field: TitleField,
+	field: TitleField | null | undefined,
 ) => field is TitleField<"filled">;
 
 /**
@@ -84,9 +84,9 @@ export const title = richText as (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const imageThumbnail = (
-	thumbnail: ImageFieldImage,
+	thumbnail: ImageFieldImage | null | undefined,
 ): thumbnail is ImageFieldImage<"filled"> => {
-	return !!thumbnail.url;
+	return isNonNullish(thumbnail) && !!thumbnail.url;
 };
 
 /**
@@ -96,11 +96,9 @@ export const imageThumbnail = (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const image = <ThumbnailNames extends string | null>(
-	field: ImageField<ThumbnailNames>,
-): field is ImageField<ThumbnailNames, "filled"> => {
-	return imageThumbnail(field);
-};
+export const image = imageThumbnail as <ThumbnailNames extends string | null>(
+	field: ImageField<ThumbnailNames> | null | undefined,
+) => field is ImageField<ThumbnailNames, "filled">;
 
 /**
  * Determines if a Link field is filled.
@@ -117,9 +115,9 @@ export const link = <
 		AnyRegularField | GroupField | SliceZone
 	> = never,
 >(
-	field: LinkField<TypeEnum, LangEnum, DataInterface>,
+	field: LinkField<TypeEnum, LangEnum, DataInterface> | null | undefined,
 ): field is LinkField<TypeEnum, LangEnum, DataInterface, "filled"> => {
-	return "id" in field || "url" in field;
+	return isNonNullish(field) && ("id" in field || "url" in field);
 };
 
 /**
@@ -130,7 +128,7 @@ export const link = <
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const linkToMedia = link as (
-	field: LinkToMediaField,
+	field: LinkToMediaField | null | undefined,
 ) => field is LinkToMediaField<"filled">;
 
 /**
@@ -148,7 +146,7 @@ export const contentRelationship = link as <
 		AnyRegularField | GroupField | SliceZone
 	> = never,
 >(
-	field: RelationField<TypeEnum, LangEnum, DataInterface>,
+	field: RelationField<TypeEnum, LangEnum, DataInterface> | null | undefined,
 ) => field is RelationField<TypeEnum, LangEnum, DataInterface, "filled">;
 
 /**
@@ -159,7 +157,7 @@ export const contentRelationship = link as <
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const date = isNonNullish as (
-	field: DateField,
+	field: DateField | null | undefined,
 ) => field is DateField<"filled">;
 
 /**
@@ -170,7 +168,7 @@ export const date = isNonNullish as (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const timestamp = isNonNullish as (
-	field: TimestampField,
+	field: TimestampField | null | undefined,
 ) => field is TimestampField<"filled">;
 
 /**
@@ -181,7 +179,7 @@ export const timestamp = isNonNullish as (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const color = isNonNullish as (
-	field: ColorField,
+	field: ColorField | null | undefined,
 ) => field is ColorField<"filled">;
 
 /**
@@ -192,7 +190,7 @@ export const color = isNonNullish as (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const number = isNonNullish as (
-	field: NumberField,
+	field: NumberField | null | undefined,
 ) => field is NumberField<"filled">;
 
 /**
@@ -202,9 +200,11 @@ export const number = isNonNullish as (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const keyText = isNonNullish as (
-	field: KeyTextField,
-) => field is KeyTextField<"filled">;
+export const keyText = (
+	field: KeyTextField | null | undefined,
+): field is KeyTextField<"filled"> => {
+	return isNonNullish(keyText) && !!field;
+};
 
 /**
  * Determines if a Select field is filled.
@@ -214,7 +214,7 @@ export const keyText = isNonNullish as (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const select = isNonNullish as <Enum extends string>(
-	field: SelectField<Enum>,
+	field: SelectField<Enum> | null | undefined,
 ) => field is SelectField<Enum, "filled">;
 
 /**
@@ -224,10 +224,10 @@ export const select = isNonNullish as <Enum extends string>(
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const embed = <Data extends AnyOEmbed = AnyOEmbed & OEmbedExtra>(
-	field: EmbedField<Data>,
-): field is EmbedField<Data, "filled"> => {
-	return !!field.embed_url;
+export const embed = <Field extends EmbedField>(
+	field: Field | null | undefined,
+): field is EmbedField<Exclude<Field, Record<string, never>>, "filled"> => {
+	return isNonNullish(field) && !!field.embed_url;
 };
 
 /**
@@ -238,9 +238,9 @@ export const embed = <Data extends AnyOEmbed = AnyOEmbed & OEmbedExtra>(
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const geoPoint = (
-	field: GeoPointField,
+	field: GeoPointField | null | undefined,
 ): field is GeoPointField<"filled"> => {
-	return "longitude" in field;
+	return isNonNullish(field) && "longitude" in field;
 };
 
 /**
@@ -251,7 +251,7 @@ export const geoPoint = (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const integrationFields = isNonNullish as <Blob>(
-	field: IntegrationFields<Blob>,
+	field: IntegrationFields<Blob> | null | undefined,
 ) => field is IntegrationFields<Blob, "filled">;
 
 /**
@@ -261,11 +261,11 @@ export const integrationFields = isNonNullish as <Blob>(
  *
  * @returns `true` if `group` contains at least one item, `false` otherwise.
  */
-export const group = isNonEmptyArray as <
-	Fields extends Record<string, AnyRegularField>,
->(
-	group: GroupField<Fields>,
-) => group is GroupField<Fields, "filled">;
+export const group = <Fields extends Record<string, AnyRegularField>>(
+	group: GroupField<Fields> | null | undefined,
+): group is GroupField<Fields, "filled"> => {
+	return isNonNullish(group) && isNonEmptyArray(group);
+};
 
 /**
  * Determines if a Slice Zone has at least one Slice.
@@ -274,8 +274,8 @@ export const group = isNonEmptyArray as <
  *
  * @returns `true` if `slices` contains at least one Slice, `false` otherwise.
  */
-export const sliceZone = isNonEmptyArray as <
-	Slices extends Slice | SharedSlice,
->(
-	slices: SliceZone<Slices>,
-) => slices is SliceZone<Slices, "filled">;
+export const sliceZone = <Slices extends Slice | SharedSlice>(
+	slices: SliceZone<Slices> | null | undefined,
+): slices is SliceZone<Slices, "filled"> => {
+	return isNonNullish(slices) && isNonEmptyArray(slices);
+};
