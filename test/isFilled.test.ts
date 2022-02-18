@@ -1,6 +1,5 @@
 import test from "ava";
 import * as prismicM from "@prismicio/mock";
-import * as _prismicT from "@prismicio/types";
 
 import * as prismicH from "../src";
 
