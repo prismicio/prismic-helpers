@@ -1,4 +1,5 @@
 import type {
+	AnyOEmbed,
 	AnyRegularField,
 	ColorField,
 	DateField,
@@ -224,7 +225,7 @@ export const select = isNonNullish as <Enum extends string>(
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const embed = <Field extends EmbedField>(
+export const embed = <Field extends EmbedField<AnyOEmbed>>(
 	field:
 		| (Field extends EmbedField<infer Data> ? EmbedField<Data> : never)
 		| null
