@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/prismicio/prismic-helpers/compare/v2.1.1...v2.2.0) (2022-02-25)
+
+
+### Features
+
+* narrow return types when field is known ([#43](https://github.com/prismicio/prismic-helpers/issues/43)) ([40f41f9](https://github.com/prismicio/prismic-helpers/commit/40f41f98bcb17ce4bc3c582e52171834dcc75b2b))
+* support nullish inputs for `isFilled` helpers ([#44](https://github.com/prismicio/prismic-helpers/issues/44)) ([6c5597b](https://github.com/prismicio/prismic-helpers/commit/6c5597b88db032a383fc52c6ea73304969311e42))
+
+
+### Chore
+
+* **deps:** update dependencies ([ebe24c3](https://github.com/prismicio/prismic-helpers/commit/ebe24c344adbbc71404eb6efd49d94556126bb4b))
+* update license ([6026a86](https://github.com/prismicio/prismic-helpers/commit/6026a86316e1e80fd62a1b8ede9805a407c2bc22))
+
 ### [2.1.1](https://github.com/prismicio/prismic-helpers/compare/v2.1.0...v2.1.1) (2022-02-04)
 
 
