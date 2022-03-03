@@ -16,7 +16,7 @@ test("content relationship", (t) => {
 		prismicH.isFilled.contentRelationship(
 			prismicM.value.contentRelationship({
 				seed: t.title,
-				isFilled: false,
+				state: "empty",
 			}),
 		),
 	);
@@ -24,7 +24,7 @@ test("content relationship", (t) => {
 		prismicH.isFilled.contentRelationship(
 			prismicM.value.contentRelationship({
 				seed: t.title,
-				isFilled: true,
+				state: "filled",
 			}),
 		),
 	);
@@ -102,12 +102,12 @@ test("link", (t) => {
 	t.false(prismicH.isFilled.link(undefined));
 	t.false(
 		prismicH.isFilled.link(
-			prismicM.value.link({ seed: t.title, isFilled: false }),
+			prismicM.value.link({ seed: t.title, state: "empty" }),
 		),
 	);
 	t.true(
 		prismicH.isFilled.link(
-			prismicM.value.link({ seed: t.title, isFilled: true }),
+			prismicM.value.link({ seed: t.title, state: "filled" }),
 		),
 	);
 });
@@ -117,12 +117,12 @@ test("link to media", (t) => {
 	t.false(prismicH.isFilled.linkToMedia(undefined));
 	t.false(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: t.title, isFilled: false }),
+			prismicM.value.linkToMedia({ seed: t.title, state: "empty" }),
 		),
 	);
 	t.true(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: t.title, isFilled: true }),
+			prismicM.value.linkToMedia({ seed: t.title, state: "filled" }),
 		),
 	);
 });
@@ -148,7 +148,17 @@ test("rich text", (t) => {
 test("select", (t) => {
 	t.false(prismicH.isFilled.select(null));
 	t.false(prismicH.isFilled.select(undefined));
-	t.true(prismicH.isFilled.select(prismicM.value.select({ seed: t.title })));
+	t.true(
+		prismicH.isFilled.select(
+			prismicM.value.select({
+				seed: t.title,
+				model: prismicM.model.select({
+					seed: t.title,
+					options: ["foo", "bar"],
+				}),
+			}),
+		),
+	);
 });
 
 test("slice zone", (t) => {
@@ -156,7 +166,18 @@ test("slice zone", (t) => {
 	t.false(prismicH.isFilled.sliceZone(undefined));
 	t.false(prismicH.isFilled.sliceZone([]));
 	t.true(
-		prismicH.isFilled.sliceZone(prismicM.value.sliceZone({ seed: t.title })),
+		prismicH.isFilled.sliceZone(
+			prismicM.value.sliceZone({
+				seed: t.title,
+				model: prismicM.model.sliceZone({
+					seed: t.title,
+					choices: {
+						Foo: prismicM.model.slice({ seed: t.title }),
+						Bar: prismicM.model.slice({ seed: t.title }),
+					},
+				}),
+			}),
+		),
 	);
 });
 
