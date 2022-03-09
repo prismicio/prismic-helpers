@@ -97,9 +97,13 @@ export const imageThumbnail = (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const image = imageThumbnail as <ThumbnailNames extends string | null>(
-	field: ImageField<ThumbnailNames> | null | undefined,
-) => field is ImageField<ThumbnailNames, "filled">;
+export const image = imageThumbnail as <Field extends ImageField>(
+	field:
+		| Field
+		| ImageField<Exclude<keyof Field, number | symbol>>
+		| null
+		| undefined,
+) => field is ImageField<Exclude<keyof Field, number | symbol>, "filled">;
 
 /**
  * Determines if a Link field is filled.
