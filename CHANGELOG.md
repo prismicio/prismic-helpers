@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/prismicio/prismic-helpers/compare/v2.2.0...v2.2.1) (2022-03-18)
+
+
+### Bug Fixes
+
+* `isFilled.image()` parameter type ([#46](https://github.com/prismicio/prismic-helpers/issues/46)) ([8d99482](https://github.com/prismicio/prismic-helpers/commit/8d994825ecdddd0a412d0bb6556181617274fce8))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([f3c18c5](https://github.com/prismicio/prismic-helpers/commit/f3c18c5679e897a7a1362206aaac82d0a3f4b218))
+* **deps:** maintain dependencies ([1305d40](https://github.com/prismicio/prismic-helpers/commit/1305d4009bb18add6c6c88bf0dd95e81c140c51d))
+* update template ([48c9b7a](https://github.com/prismicio/prismic-helpers/commit/48c9b7ab3522127998e2976bc381d866b1991983))
+
 ## [2.2.0](https://github.com/prismicio/prismic-helpers/compare/v2.1.1...v2.2.0) (2022-02-25)
 
 
