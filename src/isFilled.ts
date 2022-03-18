@@ -80,7 +80,7 @@ export const title = richText as (
 /**
  * Determines if an Image thumbnail is filled.
  *
- * @param field - Image thumbnail to check.
+ * @param thumbnail - Image thumbnail to check.
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
@@ -97,8 +97,14 @@ export const imageThumbnail = (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const image = imageThumbnail as <ThumbnailNames extends string | null>(
-	field: ImageField<ThumbnailNames> | null | undefined,
+export const image = imageThumbnail as <
+	Field extends ImageField,
+	ThumbnailNames extends Exclude<
+		keyof Field,
+		keyof ImageFieldImage | number | symbol
+	>,
+>(
+	field: Field | ImageField<ThumbnailNames> | null | undefined,
 ) => field is ImageField<ThumbnailNames, "filled">;
 
 /**
