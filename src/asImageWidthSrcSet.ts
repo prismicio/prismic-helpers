@@ -43,11 +43,12 @@ type AsImageWidthSrcSetConfig = Omit<BuildWidthSrcSetParams, "widths"> & {
  * Creates a width-based `srcset` from an Image field with optional image
  * transformations (via Imgix URL parameters).
  *
- * If the Image field contains responsive views, each responsive view is used as
- * a width in the resulting `srcset`.
- *
  * If a `widths` parameter is not given, the following widths will be used by
  * default: 640, 750, 828, 1080, 1200, 1920, 2048, 3840.
+ *
+ * If the Image field contains responsive views, each responsive view can be
+ * used as a width in the resulting `srcset` by passing `"thumbnails"` as the
+ * `widths` parameter.
  *
  * @example
  *
@@ -67,7 +68,8 @@ type AsImageWidthSrcSetConfig = Omit<BuildWidthSrcSetParams, "widths"> & {
  * @param field - Image field (or one of its responsive views) from which to get
  *   an image URL.
  * @param params - An object of Imgix URL API parameters. The `widths` parameter
- *   defines the resulting `srcset` widths.
+ *   defines the resulting `srcset` widths. Pass `"thumbnails"` to automatically
+ *   use the field's responsive views.
  *
  * @returns A `srcset` attribute value for the Image field with Imgix URL
  *   parameters (if given). If the Image field is empty, `null` is returned.
