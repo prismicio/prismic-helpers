@@ -8,6 +8,11 @@ import {
 import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 
 /**
+ * The default widths used to generate a `srcset` value.
+ */
+const DEFAULT_WIDTHS = [640, 828, 1200, 2048, 3840];
+
+/**
  * The return type of `asImageWidthSrcSet()`.
  */
 type AsImageWidthSrcSetReturnType<
@@ -26,6 +31,13 @@ type AsImageWidthSrcSetReturnType<
 			srcset: string;
 	  }
 	: null;
+
+/**
+ * Configuration for `asImageWidthSrcSet()`.
+ */
+type AsImageWidthSrcSetConfig = Omit<BuildWidthSrcSetParams, "widths"> & {
+	widths?: "thumbnails" | BuildWidthSrcSetParams["widths"];
+};
 
 /**
  * Creates a width-based `srcset` from an Image field with optional image
@@ -65,11 +77,16 @@ export const asImageWidthSrcSet = <
 	Field extends ImageFieldImage | null | undefined,
 >(
 	field: Field,
-	params: Omit<BuildWidthSrcSetParams, "widths"> &
-		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
+	params: AsImageWidthSrcSetConfig = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
 	if (field && isImageThumbnailFilled(field)) {
-		const { widths = [640, 828, 1200, 2048, 3840], ...urlParams } = params;
+		// We are using destructuring to omit `widths` from the object
+		// we will pass to `buildURL()`.
+		let {
+			widths = DEFAULT_WIDTHS,
+			// eslint-disable-next-line prefer-const
+			...imgixParams
+		} = params;
 		const {
 			url,
 			dimensions,
@@ -83,25 +100,35 @@ export const asImageWidthSrcSet = <
 		const responsiveViewObjects: ImageFieldImage<"filled">[] =
 			Object.values(responsiveViews);
 
+		// If this `asImageWidthSrcSet()` call is configured to use
+		// thumbnail widths, but the field does not have thumbnails, we
+		// fall back to the default set of widths.
+		if (widths === "thumbnails" && responsiveViewObjects.length < 1) {
+			widths = DEFAULT_WIDTHS;
+		}
+
 		return {
-			src: buildURL(url, urlParams),
-			srcset: responsiveViewObjects.length
-				? [
-						buildWidthSrcSet(url, {
-							...urlParams,
-							widths: [dimensions.width],
-						}),
-						...responsiveViewObjects.map((thumbnail) => {
-							return buildWidthSrcSet(thumbnail.url, {
-								...urlParams,
-								widths: [thumbnail.dimensions.width],
-							});
-						}),
-				  ].join(", ")
-				: buildWidthSrcSet(field.url, {
-						...urlParams,
-						widths,
-				  }),
+			src: buildURL(url, imgixParams),
+			srcset:
+				// By this point, we know `widths` can only be
+				// `"thubmanils"` if the field has thumbnails.
+				widths === "thumbnails"
+					? [
+							buildWidthSrcSet(url, {
+								...imgixParams,
+								widths: [dimensions.width],
+							}),
+							...responsiveViewObjects.map((thumbnail) => {
+								return buildWidthSrcSet(thumbnail.url, {
+									...imgixParams,
+									widths: [thumbnail.dimensions.width],
+								});
+							}),
+					  ].join(", ")
+					: buildWidthSrcSet(field.url, {
+							...imgixParams,
+							widths,
+					  }),
 		} as AsImageWidthSrcSetReturnType<Field>;
 	} else {
 		return null as AsImageWidthSrcSetReturnType<Field>;

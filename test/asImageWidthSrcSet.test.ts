@@ -73,7 +73,55 @@ test("applies given Imgix URL parameters", (t) => {
 	);
 });
 
-test("returns a srcset of responsive views if the field contains responsive views", (t) => {
+test('if widths is "auto", returns a srcset of responsive views if the field contains responsive views', (t) => {
+	const field = {
+		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
+		alt: null,
+		copyright: null,
+		dimensions: { width: 1000, height: 800 },
+		foo: {
+			url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
+			alt: null,
+			copyright: null,
+			dimensions: { width: 500, height: 400 },
+		},
+		bar: {
+			url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
+			alt: null,
+			copyright: null,
+			dimensions: { width: 250, height: 200 },
+		},
+	};
+
+	t.deepEqual(asImageWidthSrcSet(field, { widths: "thumbnails" }), {
+		src: field.url,
+		srcset:
+			`${field.url}&width=1000 1000w, ` +
+			`${field.foo.url}&width=500 500w, ` +
+			`${field.bar.url}&width=250 250w`,
+	});
+});
+
+test('if widths is "auto", but the field does not contain responsive views, uses the default widths', (t) => {
+	const field = {
+		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
+		alt: null,
+		copyright: null,
+		dimensions: { width: 1000, height: 800 },
+	};
+
+	t.deepEqual(asImageWidthSrcSet(field, { widths: "thumbnails" }), {
+		src: field.url,
+		srcset:
+			`${field.url}&width=640 640w, ` +
+			`${field.url}&width=828 828w, ` +
+			`${field.url}&width=1200 1200w, ` +
+			`${field.url}&width=2048 2048w, ` +
+			`${field.url}&width=3840 3840w`,
+	});
+});
+
+test('if widths is not "auto", but the field contains responsive views, uses the default widths and ignores thumbnails', (t) => {
 	const field = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -96,9 +144,11 @@ test("returns a srcset of responsive views if the field contains responsive view
 	t.deepEqual(asImageWidthSrcSet(field), {
 		src: field.url,
 		srcset:
-			`${field.url}&width=1000 1000w, ` +
-			`${field.foo.url}&width=500 500w, ` +
-			`${field.bar.url}&width=250 250w`,
+			`${field.url}&width=640 640w, ` +
+			`${field.url}&width=828 828w, ` +
+			`${field.url}&width=1200 1200w, ` +
+			`${field.url}&width=2048 2048w, ` +
+			`${field.url}&width=3840 3840w`,
 	});
 });
 
