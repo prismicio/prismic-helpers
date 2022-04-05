@@ -8,6 +8,20 @@ import {
 import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 
 /**
+ * The default pixel densities used to generate a `srcset` value.
+ */
+const DEFAULT_PIXEL_DENSITIES = [1, 2, 3];
+
+/**
+ * Configuration for `asImagePixelDensitySrcSet()`.
+ */
+type AsImagePixelDensitySrcSetConfig = Omit<
+	BuildPixelDensitySrcSetParams,
+	"pixelDensities"
+> &
+	Partial<Pick<BuildPixelDensitySrcSetParams, "pixelDensities">>;
+
+/**
  * The return type of `asImagePixelDensitySrcSet()`.
  */
 type AsImagePixelDensitySrcSetReturnType<
@@ -61,11 +75,12 @@ export const asImagePixelDensitySrcSet = <
 	Field extends ImageFieldImage | null | undefined,
 >(
 	field: Field,
-	params: Omit<BuildPixelDensitySrcSetParams, "pixelDensities"> &
-		Partial<Pick<BuildPixelDensitySrcSetParams, "pixelDensities">> = {},
+	params: AsImagePixelDensitySrcSetConfig = {},
 ): AsImagePixelDensitySrcSetReturnType<Field> => {
 	if (field && isImageThumbnailFilled(field)) {
-		const { pixelDensities = [1, 2, 3], ...imgixParams } = params;
+		// We are using destructuring to omit `pixelDensities` from the
+		// object we will pass to `buildURL()`.
+		const { pixelDensities = DEFAULT_PIXEL_DENSITIES, ...imgixParams } = params;
 
 		return {
 			src: buildURL(field.url, imgixParams),

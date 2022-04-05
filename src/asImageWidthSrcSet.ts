@@ -8,6 +8,11 @@ import {
 import { imageThumbnail as isImageThumbnailFilled } from "./isFilled";
 
 /**
+ * The default widths used to generate a `srcset` value.
+ */
+const DEFAULT_WIDTHS = [640, 828, 1200, 2048, 3840];
+
+/**
  * The return type of `asImageWidthSrcSet()`.
  */
 type AsImageWidthSrcSetReturnType<
@@ -28,14 +33,22 @@ type AsImageWidthSrcSetReturnType<
 	: null;
 
 /**
+ * Configuration for `asImageWidthSrcSet()`.
+ */
+type AsImageWidthSrcSetConfig = Omit<BuildWidthSrcSetParams, "widths"> & {
+	widths?: "thumbnails" | BuildWidthSrcSetParams["widths"];
+};
+
+/**
  * Creates a width-based `srcset` from an Image field with optional image
  * transformations (via Imgix URL parameters).
  *
- * If the Image field contains responsive views, each responsive view is used as
- * a width in the resulting `srcset`.
- *
  * If a `widths` parameter is not given, the following widths will be used by
  * default: 640, 750, 828, 1080, 1200, 1920, 2048, 3840.
+ *
+ * If the Image field contains responsive views, each responsive view can be
+ * used as a width in the resulting `srcset` by passing `"thumbnails"` as the
+ * `widths` parameter.
  *
  * @example
  *
@@ -55,7 +68,8 @@ type AsImageWidthSrcSetReturnType<
  * @param field - Image field (or one of its responsive views) from which to get
  *   an image URL.
  * @param params - An object of Imgix URL API parameters. The `widths` parameter
- *   defines the resulting `srcset` widths.
+ *   defines the resulting `srcset` widths. Pass `"thumbnails"` to automatically
+ *   use the field's responsive views.
  *
  * @returns A `srcset` attribute value for the Image field with Imgix URL
  *   parameters (if given). If the Image field is empty, `null` is returned.
@@ -65,11 +79,16 @@ export const asImageWidthSrcSet = <
 	Field extends ImageFieldImage | null | undefined,
 >(
 	field: Field,
-	params: Omit<BuildWidthSrcSetParams, "widths"> &
-		Partial<Pick<BuildWidthSrcSetParams, "widths">> = {},
+	params: AsImageWidthSrcSetConfig = {},
 ): AsImageWidthSrcSetReturnType<Field> => {
 	if (field && isImageThumbnailFilled(field)) {
-		const { widths = [640, 828, 1200, 2048, 3840], ...urlParams } = params;
+		// We are using destructuring to omit `widths` from the object
+		// we will pass to `buildURL()`.
+		let {
+			widths = DEFAULT_WIDTHS,
+			// eslint-disable-next-line prefer-const
+			...imgixParams
+		} = params;
 		const {
 			url,
 			dimensions,
@@ -83,25 +102,35 @@ export const asImageWidthSrcSet = <
 		const responsiveViewObjects: ImageFieldImage<"filled">[] =
 			Object.values(responsiveViews);
 
+		// If this `asImageWidthSrcSet()` call is configured to use
+		// thumbnail widths, but the field does not have thumbnails, we
+		// fall back to the default set of widths.
+		if (widths === "thumbnails" && responsiveViewObjects.length < 1) {
+			widths = DEFAULT_WIDTHS;
+		}
+
 		return {
-			src: buildURL(url, urlParams),
-			srcset: responsiveViewObjects.length
-				? [
-						buildWidthSrcSet(url, {
-							...urlParams,
-							widths: [dimensions.width],
-						}),
-						...responsiveViewObjects.map((thumbnail) => {
-							return buildWidthSrcSet(thumbnail.url, {
-								...urlParams,
-								widths: [thumbnail.dimensions.width],
-							});
-						}),
-				  ].join(", ")
-				: buildWidthSrcSet(field.url, {
-						...urlParams,
-						widths,
-				  }),
+			src: buildURL(url, imgixParams),
+			srcset:
+				// By this point, we know `widths` can only be
+				// `"thubmanils"` if the field has thumbnails.
+				widths === "thumbnails"
+					? [
+							buildWidthSrcSet(url, {
+								...imgixParams,
+								widths: [dimensions.width],
+							}),
+							...responsiveViewObjects.map((thumbnail) => {
+								return buildWidthSrcSet(thumbnail.url, {
+									...imgixParams,
+									widths: [thumbnail.dimensions.width],
+								});
+							}),
+					  ].join(", ")
+					: buildWidthSrcSet(field.url, {
+							...imgixParams,
+							widths,
+					  }),
 		} as AsImageWidthSrcSetReturnType<Field>;
 	} else {
 		return null as AsImageWidthSrcSetReturnType<Field>;
