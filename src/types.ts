@@ -16,7 +16,7 @@ import {
  * @see Prismic link resolver documentation: {@link https://prismic.io/docs/technologies/link-resolver-javascript}
  */
 export type LinkResolverFunction<ReturnType = string> = (
-	linkToDocumentField: Omit<FilledLinkToDocumentField, "url">,
+	linkToDocumentField: FilledLinkToDocumentField,
 ) => ReturnType;
 
 /**
