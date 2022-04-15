@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/prismicio/prismic-helpers/compare/v2.2.1...v2.3.0) (2022-04-15)
+
+
+### Features
+
+* opt-in automatic responsive view support for `asImageWidthSrcSet()` ([#47](https://github.com/prismicio/prismic-helpers/issues/47)) ([2a1ad82](https://github.com/prismicio/prismic-helpers/commit/2a1ad829851bc294e3ffc5ffe868bf091a9ee99d))
+
+
+### Bug Fixes
+
+* include `url` property when using `asLink()` with a document ([#48](https://github.com/prismicio/prismic-helpers/issues/48)) ([f437962](https://github.com/prismicio/prismic-helpers/commit/f4379627c080b88bfec8b08e93924496baeac453))
+
+
+### Chore
+
+* **deps:** upgrade dependencies ([2c2360e](https://github.com/prismicio/prismic-helpers/commit/2c2360e998d278569074dcec454e1dc802326c3a))
+
 ### [2.2.1](https://github.com/prismicio/prismic-helpers/compare/v2.2.0...v2.2.1) (2022-03-18)
 
 
