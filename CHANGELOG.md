@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/prismicio/prismic-helpers/compare/v2.3.0...v2.3.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* support partial document in `asLink()` and `documentToLinkField()` ([#51](https://github.com/prismicio/prismic-helpers/issues/51)) ([e3a3493](https://github.com/prismicio/prismic-helpers/commit/e3a3493adcd77356e75e09c06a445f0a295b38e8))
+
 ## [2.3.0](https://github.com/prismicio/prismic-helpers/compare/v2.2.1...v2.3.0) (2022-04-15)
 
 
