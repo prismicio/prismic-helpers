@@ -35,8 +35,14 @@ export const documentToLinkField = <
 		lang: prismicDocument.lang,
 		url: prismicDocument.url ?? undefined,
 		slug: prismicDocument.slugs?.[0], // Slug field is not available with GraphQl
-		// The REST API does not include a `data` property if the data object is empty.
-		...(Object.keys(prismicDocument.data).length > 0
+		// The REST API does not include a `data` property if the data
+		// object is empty.
+		//
+		// A presence check for `prismicDocument.data` is done to
+		// support partial documents. While `documentToLinkField` is
+		// not typed to accept partial documents, passing a partial
+		// document can happen in untyped projects.
+		...(prismicDocument.data && Object.keys(prismicDocument.data).length > 0
 			? { data: prismicDocument.data }
 			: {}),
 	};
