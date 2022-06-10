@@ -262,7 +262,9 @@ export const geoPoint = (
  *
  * @returns `true` if `field` is filled, `false` otherwise.
  */
-export const integrationFields = isNonNullish as <Blob>(
+export const integrationFields = isNonNullish as <
+	Blob extends Record<string, unknown>,
+>(
 	field: IntegrationFields<Blob> | null | undefined,
 ) => field is IntegrationFields<Blob, "filled">;
 
