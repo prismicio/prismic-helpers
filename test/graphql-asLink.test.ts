@@ -1,5 +1,6 @@
-import { FilledMinimalLinkToDocumentField } from "@prismicio/types/dist/graphql";
-import test from "ava";
+import { it, expect } from "vitest";
+
+import type { FilledMinimalLinkToDocumentField } from "@prismicio/types/dist/graphql";
 
 import { asLink, LinkResolverFunction } from "../src/graphql";
 
@@ -12,50 +13,50 @@ interface MyLinkToDocumentField extends FilledMinimalLinkToDocumentField {
 const linkResolver: LinkResolverFunction<MyLinkToDocumentField> = (doc) =>
 	`/${doc._meta.uid}`;
 
-test("returns null when link field is falsy", (t) => {
+it("returns null when link field is falsy", () => {
 	const field = undefined;
 
 	// @ts-expect-error testing JavaScript failsafe on purpose
-	t.is(asLink(field, linkResolver), null);
+	expect(asLink(field, linkResolver)).toBeNull();
 });
 
-test("returns null when link field is empty", (t) => {
+it("returns null when link field is empty", () => {
 	const field = {
 		_linkType: "Link.any",
 	} as const;
 
 	// @ts-expect-error testing JavaScript failsafe on purpose
-	t.is(asLink(field, linkResolver), null);
+	expect(asLink(field, linkResolver)).toBeNull();
 });
 
-test("resolves a link to file field", (t) => {
+it("resolves a link to file field", () => {
 	const field = {
 		_linkType: "Link.file",
 		url: "https://prismic.io",
 	} as const;
 
-	t.is(asLink(field, linkResolver), "https://prismic.io");
+	expect(asLink(field, linkResolver)).toBe("https://prismic.io");
 });
 
-test("resolves a link to image field", (t) => {
+it("resolves a link to image field", () => {
 	const field = {
 		_linkType: "Link.image",
 		url: "https://prismic.io",
 	} as const;
 
-	t.is(asLink(field, linkResolver), "https://prismic.io");
+	expect(asLink(field, linkResolver)).toBe("https://prismic.io");
 });
 
-test("resolves a link to web field", (t) => {
+it("resolves a link to web field", () => {
 	const field = {
 		_linkType: "Link.web",
 		url: "https://prismic.io",
 	} as const;
 
-	t.is(asLink(field, linkResolver), "https://prismic.io");
+	expect(asLink(field, linkResolver)).toBe("https://prismic.io");
 });
 
-test("resolves a link to document field", (t) => {
+it("resolves a link to document field", () => {
 	const field = {
 		_linkType: "Link.document",
 		_meta: {
@@ -63,10 +64,10 @@ test("resolves a link to document field", (t) => {
 		},
 	} as const;
 
-	t.is(asLink(field, linkResolver), "/test");
+	expect(asLink(field, linkResolver), "/test");
 });
 
-test("returns null when given a document field and linkResolver is not provided ", (t) => {
+it("returns null when given a document field and linkResolver is not provided ", () => {
 	const field = {
 		_linkType: "Link.document",
 		_meta: {
@@ -74,5 +75,5 @@ test("returns null when given a document field and linkResolver is not provided 
 		},
 	} as const;
 
-	t.is(asLink(field), null);
+	expect(asLink(field)).toBeNull();
 });

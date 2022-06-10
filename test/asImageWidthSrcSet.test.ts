@@ -1,14 +1,14 @@
 import { ImageField } from "@prismicio/types";
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { asImageWidthSrcSet } from "../src";
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asImageWidthSrcSet(null), null);
-	t.is(asImageWidthSrcSet(undefined), null);
+it("returns null for nullish inputs", () => {
+	expect(asImageWidthSrcSet(null)).toBeNull();
+	expect(asImageWidthSrcSet(undefined)).toBeNull();
 });
 
-test("returns an image field src and width-based srcset with [640, 750, 828, 1080, 1200, 1920, 2048, 3840] widths by default", (t) => {
+it("returns an image field src and width-based srcset with [640, 750, 828, 1080, 1200, 1920, 2048, 3840] widths by default", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -16,7 +16,7 @@ test("returns an image field src and width-based srcset with [640, 750, 828, 108
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(asImageWidthSrcSet(field), {
+	expect(asImageWidthSrcSet(field)).toStrictEqual({
 		src: field.url,
 		srcset:
 			`${field.url}&width=640 640w, ` +
@@ -27,7 +27,7 @@ test("returns an image field src and width-based srcset with [640, 750, 828, 108
 	});
 });
 
-test("supports custom widths", (t) => {
+it("supports custom widths", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -35,21 +35,20 @@ test("supports custom widths", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(
+	expect(
 		asImageWidthSrcSet(field, {
 			widths: [400, 800, 1600],
 		}),
-		{
-			src: field.url,
-			srcset:
-				`${field.url}&width=400 400w, ` +
-				`${field.url}&width=800 800w, ` +
-				`${field.url}&width=1600 1600w`,
-		},
-	);
+	).toStrictEqual({
+		src: field.url,
+		srcset:
+			`${field.url}&width=400 400w, ` +
+			`${field.url}&width=800 800w, ` +
+			`${field.url}&width=1600 1600w`,
+	});
 });
 
-test("applies given Imgix URL parameters", (t) => {
+it("applies given Imgix URL parameters", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -57,23 +56,22 @@ test("applies given Imgix URL parameters", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(
+	expect(
 		asImageWidthSrcSet(field, {
 			sat: 100,
 		}),
-		{
-			src: `${field.url}&sat=100`,
-			srcset:
-				`${field.url}&sat=100&width=640 640w, ` +
-				`${field.url}&sat=100&width=828 828w, ` +
-				`${field.url}&sat=100&width=1200 1200w, ` +
-				`${field.url}&sat=100&width=2048 2048w, ` +
-				`${field.url}&sat=100&width=3840 3840w`,
-		},
-	);
+	).toStrictEqual({
+		src: `${field.url}&sat=100`,
+		srcset:
+			`${field.url}&sat=100&width=640 640w, ` +
+			`${field.url}&sat=100&width=828 828w, ` +
+			`${field.url}&sat=100&width=1200 1200w, ` +
+			`${field.url}&sat=100&width=2048 2048w, ` +
+			`${field.url}&sat=100&width=3840 3840w`,
+	});
 });
 
-test('if widths is "auto", returns a srcset of responsive views if the field contains responsive views', (t) => {
+it('if widths is "auto", returns a srcset of responsive views if the field contains responsive views', () => {
 	const field = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -93,7 +91,7 @@ test('if widths is "auto", returns a srcset of responsive views if the field con
 		},
 	};
 
-	t.deepEqual(asImageWidthSrcSet(field, { widths: "thumbnails" }), {
+	expect(asImageWidthSrcSet(field, { widths: "thumbnails" })).toStrictEqual({
 		src: field.url,
 		srcset:
 			`${field.url}&width=1000 1000w, ` +
@@ -102,7 +100,7 @@ test('if widths is "auto", returns a srcset of responsive views if the field con
 	});
 });
 
-test('if widths is "auto", but the field does not contain responsive views, uses the default widths', (t) => {
+it('if widths is "auto", but the field does not contain responsive views, uses the default widths', () => {
 	const field = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -110,7 +108,7 @@ test('if widths is "auto", but the field does not contain responsive views, uses
 		dimensions: { width: 1000, height: 800 },
 	};
 
-	t.deepEqual(asImageWidthSrcSet(field, { widths: "thumbnails" }), {
+	expect(asImageWidthSrcSet(field, { widths: "thumbnails" })).toStrictEqual({
 		src: field.url,
 		srcset:
 			`${field.url}&width=640 640w, ` +
@@ -121,7 +119,7 @@ test('if widths is "auto", but the field does not contain responsive views, uses
 	});
 });
 
-test('if widths is not "auto", but the field contains responsive views, uses the default widths and ignores thumbnails', (t) => {
+it('if widths is not "auto", but the field contains responsive views, uses the default widths and ignores thumbnails', () => {
 	const field = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -141,7 +139,7 @@ test('if widths is not "auto", but the field contains responsive views, uses the
 		},
 	};
 
-	t.deepEqual(asImageWidthSrcSet(field), {
+	expect(asImageWidthSrcSet(field)).toStrictEqual({
 		src: field.url,
 		srcset:
 			`${field.url}&width=640 640w, ` +
@@ -152,8 +150,8 @@ test('if widths is not "auto", but the field contains responsive views, uses the
 	});
 });
 
-test("returns null when image field is empty", (t) => {
+it("returns null when image field is empty", () => {
 	const field: ImageField<null, "empty"> = {};
 
-	t.is(asImageWidthSrcSet(field), null);
+	expect(asImageWidthSrcSet(field)).toBeNull();
 });

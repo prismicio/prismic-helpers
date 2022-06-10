@@ -1,14 +1,15 @@
+import { it, expect } from "vitest";
+
 import { ImageField } from "@prismicio/types";
-import test from "ava";
 
 import { asImagePixelDensitySrcSet } from "../src";
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asImagePixelDensitySrcSet(null), null);
-	t.is(asImagePixelDensitySrcSet(undefined), null);
+it("returns null for nullish inputs", () => {
+	expect(asImagePixelDensitySrcSet(null)).toBeNull();
+	expect(asImagePixelDensitySrcSet(undefined)).toBeNull();
 });
 
-test("returns an image field pixel-density-based srcset with [1, 2, 3] pxiel densities by default", (t) => {
+it("returns an image field pixel-density-based srcset with [1, 2, 3] pxiel densities by default", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -16,7 +17,7 @@ test("returns an image field pixel-density-based srcset with [1, 2, 3] pxiel den
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(asImagePixelDensitySrcSet(field), {
+	expect(asImagePixelDensitySrcSet(field)).toStrictEqual({
 		src: field.url,
 		srcset:
 			`${field.url}&dpr=1 1x, ` +
@@ -25,7 +26,7 @@ test("returns an image field pixel-density-based srcset with [1, 2, 3] pxiel den
 	});
 });
 
-test("supports custom pixel densities", (t) => {
+it("supports custom pixel densities", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -33,21 +34,20 @@ test("supports custom pixel densities", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(
+	expect(
 		asImagePixelDensitySrcSet(field, {
 			pixelDensities: [2, 4, 6],
 		}),
-		{
-			src: field.url,
-			srcset:
-				`${field.url}&dpr=2 2x, ` +
-				`${field.url}&dpr=4 4x, ` +
-				`${field.url}&dpr=6 6x`,
-		},
-	);
+	).toStrictEqual({
+		src: field.url,
+		srcset:
+			`${field.url}&dpr=2 2x, ` +
+			`${field.url}&dpr=4 4x, ` +
+			`${field.url}&dpr=6 6x`,
+	});
 });
 
-test("applies given Imgix URL parameters", (t) => {
+it("applies given Imgix URL parameters", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -55,22 +55,21 @@ test("applies given Imgix URL parameters", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.deepEqual(
+	expect(
 		asImagePixelDensitySrcSet(field, {
 			sat: 100,
 		}),
-		{
-			src: `${field.url}&sat=100`,
-			srcset:
-				`${field.url}&sat=100&dpr=1 1x, ` +
-				`${field.url}&sat=100&dpr=2 2x, ` +
-				`${field.url}&sat=100&dpr=3 3x`,
-		},
-	);
+	).toStrictEqual({
+		src: `${field.url}&sat=100`,
+		srcset:
+			`${field.url}&sat=100&dpr=1 1x, ` +
+			`${field.url}&sat=100&dpr=2 2x, ` +
+			`${field.url}&sat=100&dpr=3 3x`,
+	});
 });
 
-test("returns null when image field is empty", (t) => {
+it("returns null when image field is empty", () => {
 	const field: ImageField<null, "empty"> = {};
 
-	t.is(asImagePixelDensitySrcSet(field), null);
+	expect(asImagePixelDensitySrcSet(field)).toBeNull();
 });

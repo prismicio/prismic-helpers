@@ -1,4 +1,4 @@
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { richTextFixture } from "./__fixtures__/richText";
 import { linkResolver } from "./__testutils__/linkResolver";
@@ -7,23 +7,27 @@ import { htmlMapSerializer } from "./__testutils__/htmlMapSerializer";
 
 import { asHTML } from "../src";
 
-test("serializes with default serializer", (t) => {
-	t.snapshot(asHTML(richTextFixture.en, linkResolver));
+it("serializes with default serializer", () => {
+	expect(asHTML(richTextFixture.en, linkResolver)).toMatchSnapshot();
 });
 
-test("serializes with a custom function serializer", (t) => {
-	t.snapshot(asHTML(richTextFixture.en, linkResolver, htmlFunctionSerializer));
+it("serializes with a custom function serializer", () => {
+	expect(
+		asHTML(richTextFixture.en, linkResolver, htmlFunctionSerializer),
+	).toMatchSnapshot();
 });
 
-test("serializes with a custom map serializer", (t) => {
-	t.snapshot(asHTML(richTextFixture.en, linkResolver, htmlMapSerializer));
+it("serializes with a custom map serializer", () => {
+	expect(
+		asHTML(richTextFixture.en, linkResolver, htmlMapSerializer),
+	).toMatchSnapshot();
 });
 
-test("escapes external links to prevent XSS", (t) => {
-	t.snapshot(asHTML(richTextFixture.xss, linkResolver));
+it("escapes external links to prevent XSS", () => {
+	expect(asHTML(richTextFixture.xss, linkResolver)).toMatchSnapshot();
 });
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asHTML(null), null);
-	t.is(asHTML(undefined), null);
+it("returns null for nullish inputs", () => {
+	expect(asHTML(null)).toBeNull();
+	expect(asHTML(undefined)).toBeNull();
 });

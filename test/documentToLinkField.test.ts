@@ -1,14 +1,14 @@
 import { LinkType } from "@prismicio/types";
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { documentFixture } from "./__fixtures__/document";
 
 import { documentToLinkField } from "../src";
 
-test("returns equivalent link field from given document", (t) => {
+it("returns equivalent link field from given document", () => {
 	const document = { ...documentFixture.empty, url: null };
 
-	t.deepEqual(documentToLinkField(document), {
+	expect(documentToLinkField(document)).toStrictEqual({
 		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
@@ -20,10 +20,10 @@ test("returns equivalent link field from given document", (t) => {
 	});
 });
 
-test("returns equivalent link field from given document with `apiOptions.routes`", (t) => {
+it("returns equivalent link field from given document with `apiOptions.routes`", () => {
 	const document = { ...documentFixture.empty };
 
-	t.deepEqual(documentToLinkField(document), {
+	expect(documentToLinkField(document)).toStrictEqual({
 		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
@@ -35,10 +35,10 @@ test("returns equivalent link field from given document with `apiOptions.routes`
 	});
 });
 
-test("returns equivalent link field from given document without uid", (t) => {
+it("returns equivalent link field from given document without uid", () => {
 	const document = { ...documentFixture.empty, uid: null };
 
-	t.deepEqual(documentToLinkField(document), {
+	expect(documentToLinkField(document)).toStrictEqual({
 		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: undefined,
@@ -50,10 +50,10 @@ test("returns equivalent link field from given document without uid", (t) => {
 	});
 });
 
-test("returns equivalent link field from given document with non-empty data", (t) => {
+it("returns equivalent link field from given document with non-empty data", () => {
 	const document = { ...documentFixture.empty, data: { foo: "bar" } };
 
-	t.deepEqual(documentToLinkField(document), {
+	expect(documentToLinkField(document)).toStrictEqual({
 		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
@@ -69,14 +69,14 @@ test("returns equivalent link field from given document with non-empty data", (t
 // This test checks support for Gatsby users. The `slugs` field is not
 // queriable in Gatsby since it is deprecated.
 // Deprecation info: https://community.prismic.io/t/what-are-slugs/6493
-test("supports documents without slugs field", (t) => {
+it("supports documents without slugs field", () => {
 	const document = {
 		...documentFixture.empty,
 		url: null,
 		slugs: undefined,
 	};
 
-	t.deepEqual(documentToLinkField(document), {
+	expect(documentToLinkField(document)).toStrictEqual({
 		link_type: LinkType.Document,
 		id: "XvoFFREAAM0WGBng",
 		uid: "test",
