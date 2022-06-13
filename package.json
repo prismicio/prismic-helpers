@@ -57,7 +57,7 @@
 	},
 	"dependencies": {
 		"@prismicio/richtext": "^2.1.0",
-		"@prismicio/types": "^0.1.28",
+		"@prismicio/types": "^0.1.29",
 		"escape-html": "^1.0.3",
 		"imgix-url-builder": "^0.0.3"
 	},
