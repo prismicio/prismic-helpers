@@ -1,4 +1,4 @@
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { documentFixture } from "./__fixtures__/document";
 import { linkResolver } from "./__testutils__/linkResolver";
@@ -6,36 +6,36 @@ import { linkResolver } from "./__testutils__/linkResolver";
 import { asLink } from "../src";
 import { LinkType } from "@prismicio/types";
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asLink(null, linkResolver), null);
-	t.is(asLink(undefined, linkResolver), null);
+it("returns null for nullish inputs", () => {
+	expect(asLink(null, linkResolver)).toBeNull();
+	expect(asLink(undefined, linkResolver)).toBeNull();
 });
 
-test("returns null when link to document field is empty", (t) => {
+it("returns null when link to document field is empty", () => {
 	const field = {
 		link_type: LinkType.Document,
 	};
 
-	t.is(asLink(field, linkResolver), null);
+	expect(asLink(field, linkResolver)).toBeNull();
 });
 
-test("returns null when link to media field is empty", (t) => {
+it("returns null when link to media field is empty", () => {
 	const field = {
 		link_type: LinkType.Media,
 	};
 
-	t.is(asLink(field, linkResolver), null);
+	expect(asLink(field, linkResolver)).toBeNull();
 });
 
-test("returns null when link field is empty", (t) => {
+it("returns null when link field is empty", () => {
 	const field = {
 		link_type: LinkType.Any,
 	};
 
-	t.is(asLink(field, linkResolver), null);
+	expect(asLink(field, linkResolver)).toBeNull();
 });
 
-test("resolves a link to document field without Route Resolver", (t) => {
+it("resolves a link to document field without Route Resolver", () => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
 		type: "page",
@@ -47,29 +47,25 @@ test("resolves a link to document field without Route Resolver", (t) => {
 		isBroken: false,
 	};
 
-	t.is(
+	expect(
 		asLink(field),
-		null,
 		"returns null if both Link Resolver and Route Resolver are not used",
-	);
-	t.is(
+	).toBeNull();
+	expect(
 		asLink(field, linkResolver),
-		"/test",
 		"uses Link Resolver URL if Link Resolver returns a non-nullish value",
-	);
-	t.is(
+	).toBe("/test");
+	expect(
 		asLink(field, () => undefined),
-		null,
 		"returns null if Link Resolver returns undefined",
-	);
-	t.is(
+	).toBeNull();
+	expect(
 		asLink(field, () => null),
-		null,
 		"returns null if Link Resolver returns null",
-	);
+	).toBeNull();
 });
 
-test("resolves a link to document field with Route Resolver", (t) => {
+it("resolves a link to document field with Route Resolver", () => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
 		type: "page",
@@ -82,47 +78,43 @@ test("resolves a link to document field with Route Resolver", (t) => {
 		isBroken: false,
 	};
 
-	t.is(
+	expect(
 		asLink(field),
-		field.url,
 		"uses Route Resolver URL if Link Resolver is not given",
-	);
-	t.is(
+	).toBe(field.url);
+	expect(
 		asLink(field, () => "link-resolver-value"),
-		"link-resolver-value",
 		"uses Link Resolver URL if Link Resolver returns a non-nullish value",
-	);
-	t.is(
+	).toBe("link-resolver-value");
+	expect(
 		asLink(field, () => undefined),
-		field.url,
 		"uses Route Resolver URL if Link Resolver returns undefined",
-	);
-	t.is(
+	).toBe(field.url);
+	expect(
 		asLink(field, () => null),
-		field.url,
 		"uses Route Resolver URL if Link Resolver returns null",
-	);
+	).toBe(field.url);
 });
 
-test("returns null when given a document field and linkResolver is not provided ", (t) => {
+it("returns null when given a document field and linkResolver is not provided ", () => {
 	const field = {
 		id: "XvoFFREAAM0WGBng",
 		link_type: LinkType.Document,
 	};
 
-	t.is(asLink(field), null);
+	expect(asLink(field)).toBeNull();
 });
 
-test("resolves a link to web field", (t) => {
+it("resolves a link to web field", () => {
 	const field = {
 		link_type: LinkType.Web,
 		url: "https://prismic.io",
 	};
 
-	t.is(asLink(field, linkResolver), "https://prismic.io");
+	expect(asLink(field, linkResolver), "https://prismic.io");
 });
 
-test("resolves a link to media field", (t) => {
+it("resolves a link to media field", () => {
 	const field = {
 		link_type: LinkType.Media,
 		name: "test.jpg",
@@ -133,11 +125,11 @@ test("resolves a link to media field", (t) => {
 		width: "42",
 	};
 
-	t.is(asLink(field, linkResolver), "https://prismic.io");
+	expect(asLink(field, linkResolver), "https://prismic.io");
 });
 
-test("resolves a document", (t) => {
+it("resolves a document", () => {
 	const document = { ...documentFixture.empty };
 
-	t.is(asLink(document), "/test");
+	expect(asLink(document), "/test");
 });

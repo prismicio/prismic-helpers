@@ -1,14 +1,14 @@
 import { ImageField } from "@prismicio/types";
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { asImageSrc } from "../src";
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asImageSrc(null), null);
-	t.is(asImageSrc(undefined), null);
+it("returns null for nullish inputs", () => {
+	expect(asImageSrc(null)).toBeNull();
+	expect(asImageSrc(undefined)).toBeNull();
 });
 
-test("returns an image field URL", (t) => {
+it("returns an image field URL", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -16,10 +16,10 @@ test("returns an image field URL", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.is(asImageSrc(field), field.url);
+	expect(asImageSrc(field)).toBe(field.url);
 });
 
-test("applies given Imgix URL parameters", (t) => {
+it("applies given Imgix URL parameters", () => {
 	const field: ImageField = {
 		url: "https://images.prismic.io/qwerty/image.png?auto=compress%2Cformat",
 		alt: null,
@@ -27,11 +27,11 @@ test("applies given Imgix URL parameters", (t) => {
 		dimensions: { width: 400, height: 300 },
 	};
 
-	t.is(asImageSrc(field, { sat: 100 }), `${field.url}&sat=100`);
+	expect(asImageSrc(field, { sat: 100 })).toBe(`${field.url}&sat=100`);
 });
 
-test("returns null when image field is empty", (t) => {
+it("returns null when image field is empty", () => {
 	const field: ImageField<null, "empty"> = {};
 
-	t.is(asImageSrc(field), null);
+	expect(asImageSrc(field)).toBeNull();
 });

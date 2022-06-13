@@ -1,32 +1,32 @@
-import test from "ava";
+import { it, expect } from "vitest";
 
 import { asDate } from "../src";
 
-test("returns null for nullish inputs", (t) => {
-	t.is(asDate(null), null);
-	t.is(asDate(undefined), null);
+it("returns null for nullish inputs", () => {
+	expect(asDate(null)).toBeNull();
+	expect(asDate(undefined)).toBeNull();
 });
 
-test("returns null when date field is empty", (t) => {
+it("returns null when date field is empty", () => {
 	const field = null;
 
-	t.is(asDate(field), null);
+	expect(asDate(field)).toBeNull();
 });
 
-test("returns a date object from a date field", (t) => {
+it("returns a date object from a date field", () => {
 	const field = "2021-05-12";
 
-	t.true(asDate(field) instanceof Date);
+	expect(asDate(field)).toBeInstanceOf(Date);
 });
 
-test("returns null when timestamp field is empty", (t) => {
+it("returns null when timestamp field is empty", () => {
 	const field = null;
 
-	t.is(asDate(field), null);
+	expect(asDate(field)).toBeNull();
 });
 
-test("returns a date object from a timestamp field", (t) => {
+it("returns a date object from a timestamp field", () => {
 	const field = "2021-05-11T22:00:00+0000";
 
-	t.true(asDate(field) instanceof Date);
+	expect(asDate(field)).toBeInstanceOf(Date);
 });

@@ -1,198 +1,226 @@
-import test from "ava";
+import { it, expect } from "vitest";
 import * as prismicM from "@prismicio/mock";
+
+import * as prismicT from "@prismicio/types";
 
 import * as prismicH from "../src";
 
-test("color", (t) => {
-	t.false(prismicH.isFilled.color(null));
-	t.false(prismicH.isFilled.color(undefined));
-	t.true(prismicH.isFilled.color(prismicM.value.color({ seed: t.title })));
+it("color", (ctx) => {
+	expect(prismicH.isFilled.color(null)).toBe(false);
+	expect(prismicH.isFilled.color(undefined)).toBe(false);
+	expect(
+		prismicH.isFilled.color(prismicM.value.color({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("content relationship", (t) => {
-	t.false(prismicH.isFilled.contentRelationship(null));
-	t.false(prismicH.isFilled.contentRelationship(undefined));
-	t.false(
+it("content relationship", (ctx) => {
+	expect(prismicH.isFilled.contentRelationship(null)).toBe(false);
+	expect(prismicH.isFilled.contentRelationship(undefined)).toBe(false);
+	expect(
 		prismicH.isFilled.contentRelationship(
 			prismicM.value.contentRelationship({
-				seed: t.title,
+				seed: ctx.meta.name,
 				state: "empty",
 			}),
 		),
-	);
-	t.true(
+	).toBe(false);
+	expect(
 		prismicH.isFilled.contentRelationship(
 			prismicM.value.contentRelationship({
-				seed: t.title,
+				seed: ctx.meta.name,
 				state: "filled",
 			}),
 		),
-	);
+	).toBe(true);
 });
 
-test("date", (t) => {
-	t.false(prismicH.isFilled.date(null));
-	t.false(prismicH.isFilled.date(undefined));
-	t.true(prismicH.isFilled.date(prismicM.value.date({ seed: t.title })));
+it("date", (ctx) => {
+	expect(prismicH.isFilled.date(null)).toBe(false);
+	expect(prismicH.isFilled.date(undefined)).toBe(false);
+	expect(
+		prismicH.isFilled.date(prismicM.value.date({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("embed", (t) => {
-	t.false(prismicH.isFilled.embed(null));
-	t.false(prismicH.isFilled.embed(undefined));
-	t.false(prismicH.isFilled.embed({}));
-	t.true(prismicH.isFilled.embed(prismicM.value.embed({ seed: t.title })));
+it("embed", (ctx) => {
+	expect(prismicH.isFilled.embed(null)).toBe(false);
+	expect(prismicH.isFilled.embed(undefined)).toBe(false);
+	expect(prismicH.isFilled.embed({})).toBe(false);
+	expect(
+		prismicH.isFilled.embed(prismicM.value.embed({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("geopoint", (t) => {
-	t.false(prismicH.isFilled.geoPoint(null));
-	t.false(prismicH.isFilled.geoPoint(undefined));
-	t.false(prismicH.isFilled.geoPoint({}));
-	t.true(
-		prismicH.isFilled.geoPoint(prismicM.value.geoPoint({ seed: t.title })),
-	);
+it("geopoint", (ctx) => {
+	expect(prismicH.isFilled.geoPoint(null)).toBe(false);
+	expect(prismicH.isFilled.geoPoint(undefined)).toBe(false);
+	expect(prismicH.isFilled.geoPoint({})).toBe(false);
+	expect(
+		prismicH.isFilled.geoPoint(
+			prismicM.value.geoPoint({ seed: ctx.meta.name }),
+		),
+	).toBe(true);
 });
 
-test("group", (t) => {
-	t.false(prismicH.isFilled.group(null));
-	t.false(prismicH.isFilled.group(undefined));
-	t.false(prismicH.isFilled.group([]));
-	t.true(prismicH.isFilled.group(prismicM.value.group({ seed: t.title })));
+it("group", (ctx) => {
+	expect(prismicH.isFilled.group(null)).toBe(false);
+	expect(prismicH.isFilled.group(undefined)).toBe(false);
+	expect(prismicH.isFilled.group([])).toBe(false);
+	expect(
+		prismicH.isFilled.group(
+			prismicM.value.group({ seed: ctx.meta.name }) as prismicT.GroupField,
+		),
+	).toBe(true);
 });
 
-test("image", (t) => {
-	t.false(prismicH.isFilled.image(null));
-	t.false(prismicH.isFilled.image(undefined));
-	t.false(prismicH.isFilled.image({}));
-	t.true(prismicH.isFilled.image(prismicM.value.image({ seed: t.title })));
+it("image", (ctx) => {
+	expect(prismicH.isFilled.image(null)).toBe(false);
+	expect(prismicH.isFilled.image(undefined)).toBe(false);
+	expect(prismicH.isFilled.image({})).toBe(false);
+	expect(
+		prismicH.isFilled.image(prismicM.value.image({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("image thumbnail", (t) => {
-	t.false(prismicH.isFilled.imageThumbnail(null));
-	t.false(prismicH.isFilled.imageThumbnail(undefined));
-	t.false(prismicH.isFilled.imageThumbnail({}));
-	t.true(
+it("image thumbnail", () => {
+	expect(prismicH.isFilled.imageThumbnail(null)).toBe(false);
+	expect(prismicH.isFilled.imageThumbnail(undefined)).toBe(false);
+	expect(prismicH.isFilled.imageThumbnail({})).toBe(false);
+	expect(
 		prismicH.isFilled.imageThumbnail({
 			url: "url",
 			alt: null,
 			copyright: null,
 			dimensions: { width: 1, height: 1 },
 		}),
-	);
+	).toBe(true);
 });
 
-test("integration fields", (t) => {
-	t.false(prismicH.isFilled.integrationFields(null));
-	t.false(prismicH.isFilled.integrationFields(undefined));
-	t.true(
+it("integration fields", (ctx) => {
+	expect(prismicH.isFilled.integrationFields(null)).toBe(false);
+	expect(prismicH.isFilled.integrationFields(undefined)).toBe(false);
+	expect(
 		prismicH.isFilled.integrationFields(
-			prismicM.value.integrationFields({ seed: t.title }),
+			prismicM.value.integrationFields({ seed: ctx.meta.name }),
 		),
-	);
+	).toBe(true);
 });
 
-test("key text", (t) => {
-	t.false(prismicH.isFilled.keyText(null));
-	t.false(prismicH.isFilled.keyText(undefined));
-	t.false(prismicH.isFilled.keyText(""));
-	t.true(prismicH.isFilled.keyText(prismicM.value.keyText({ seed: t.title })));
+it("key text", (ctx) => {
+	expect(prismicH.isFilled.keyText(null)).toBe(false);
+	expect(prismicH.isFilled.keyText(undefined)).toBe(false);
+	expect(prismicH.isFilled.keyText("")).toBe(false);
+	expect(
+		prismicH.isFilled.keyText(prismicM.value.keyText({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("link", (t) => {
-	t.false(prismicH.isFilled.link(null));
-	t.false(prismicH.isFilled.link(undefined));
-	t.false(
+it("link", (ctx) => {
+	expect(prismicH.isFilled.link(null)).toBe(false);
+	expect(prismicH.isFilled.link(undefined)).toBe(false);
+	expect(
 		prismicH.isFilled.link(
-			prismicM.value.link({ seed: t.title, state: "empty" }),
+			prismicM.value.link({ seed: ctx.meta.name, state: "empty" }),
 		),
-	);
-	t.true(
+	).toBe(false);
+	expect(
 		prismicH.isFilled.link(
-			prismicM.value.link({ seed: t.title, state: "filled" }),
+			prismicM.value.link({ seed: ctx.meta.name, state: "filled" }),
 		),
-	);
+	).toBe(true);
 });
 
-test("link to media", (t) => {
-	t.false(prismicH.isFilled.linkToMedia(null));
-	t.false(prismicH.isFilled.linkToMedia(undefined));
-	t.false(
+it("link to media", (ctx) => {
+	expect(prismicH.isFilled.linkToMedia(null)).toBe(false);
+	expect(prismicH.isFilled.linkToMedia(undefined)).toBe(false);
+	expect(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: t.title, state: "empty" }),
+			prismicM.value.linkToMedia({ seed: ctx.meta.name, state: "empty" }),
 		),
-	);
-	t.true(
+	).toBe(false);
+	expect(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: t.title, state: "filled" }),
+			prismicM.value.linkToMedia({ seed: ctx.meta.name, state: "filled" }),
 		),
-	);
+	).toBe(true);
 });
 
-test("number", (t) => {
-	t.false(prismicH.isFilled.number(null));
-	t.false(prismicH.isFilled.number(undefined));
-	t.true(prismicH.isFilled.number(prismicM.value.number({ seed: t.title })));
+it("number", (ctx) => {
+	expect(prismicH.isFilled.number(null)).toBe(false);
+	expect(prismicH.isFilled.number(undefined)).toBe(false);
+	expect(
+		prismicH.isFilled.number(prismicM.value.number({ seed: ctx.meta.name })),
+	).toBe(true);
 });
 
-test("rich text", (t) => {
-	t.false(prismicH.isFilled.richText(null));
-	t.false(prismicH.isFilled.richText(undefined));
-	t.false(prismicH.isFilled.richText([]));
-	t.false(
+it("rich text", (ctx) => {
+	expect(prismicH.isFilled.richText(null)).toBe(false);
+	expect(prismicH.isFilled.richText(undefined)).toBe(false);
+	expect(prismicH.isFilled.richText([])).toBe(false);
+	expect(
 		prismicH.isFilled.richText([{ type: "paragraph", text: "", spans: [] }]),
-	);
-	t.true(
-		prismicH.isFilled.richText(prismicM.value.richText({ seed: t.title })),
-	);
+	).toBe(false);
+	expect(
+		prismicH.isFilled.richText(
+			prismicM.value.richText({ seed: ctx.meta.name }),
+		),
+	).toBe(true);
 });
 
-test("select", (t) => {
-	t.false(prismicH.isFilled.select(null));
-	t.false(prismicH.isFilled.select(undefined));
-	t.true(
+it("select", (ctx) => {
+	expect(prismicH.isFilled.select(null)).toBe(false);
+	expect(prismicH.isFilled.select(undefined)).toBe(false);
+	expect(
 		prismicH.isFilled.select(
 			prismicM.value.select({
-				seed: t.title,
+				seed: ctx.meta.name,
 				model: prismicM.model.select({
-					seed: t.title,
+					seed: ctx.meta.name,
 					options: ["foo", "bar"],
 				}),
 			}),
 		),
-	);
+	).toBe(true);
 });
 
-test("slice zone", (t) => {
-	t.false(prismicH.isFilled.sliceZone(null));
-	t.false(prismicH.isFilled.sliceZone(undefined));
-	t.false(prismicH.isFilled.sliceZone([]));
-	t.true(
+it("slice zone", (ctx) => {
+	expect(prismicH.isFilled.sliceZone(null)).toBe(false);
+	expect(prismicH.isFilled.sliceZone(undefined)).toBe(false);
+	expect(prismicH.isFilled.sliceZone([])).toBe(false);
+	expect(
 		prismicH.isFilled.sliceZone(
 			prismicM.value.sliceZone({
-				seed: t.title,
+				seed: ctx.meta.name,
 				model: prismicM.model.sliceZone({
-					seed: t.title,
+					seed: ctx.meta.name,
 					choices: {
-						Foo: prismicM.model.slice({ seed: t.title }),
-						Bar: prismicM.model.slice({ seed: t.title }),
+						Foo: prismicM.model.slice({ seed: ctx.meta.name }),
+						Bar: prismicM.model.slice({ seed: ctx.meta.name }),
 					},
 				}),
-			}),
+			}) as prismicT.SliceZone,
 		),
-	);
+	).toBe(true);
 });
 
-test("timestamp", (t) => {
-	t.false(prismicH.isFilled.timestamp(null));
-	t.false(prismicH.isFilled.timestamp(undefined));
-	t.true(
-		prismicH.isFilled.timestamp(prismicM.value.timestamp({ seed: t.title })),
-	);
+it("timestamp", (ctx) => {
+	expect(prismicH.isFilled.timestamp(null)).toBe(false);
+	expect(prismicH.isFilled.timestamp(undefined)).toBe(false);
+	expect(
+		prismicH.isFilled.timestamp(
+			prismicM.value.timestamp({ seed: ctx.meta.name }),
+		),
+	).toBe(true);
 });
 
-test("title", (t) => {
-	t.false(prismicH.isFilled.title(null));
-	t.false(prismicH.isFilled.title(undefined));
-	t.false(prismicH.isFilled.title([]));
-	t.false(prismicH.isFilled.title([{ type: "heading1", text: "", spans: [] }]));
-	t.true(prismicH.isFilled.title(prismicM.value.title({ seed: t.title })));
+it("title", (ctx) => {
+	expect(prismicH.isFilled.title(null)).toBe(false);
+	expect(prismicH.isFilled.title(undefined)).toBe(false);
+	expect(prismicH.isFilled.title([])).toBe(false);
+	expect(
+		prismicH.isFilled.title([{ type: "heading1", text: "", spans: [] }]),
+	).toBe(false);
+	expect(
+		prismicH.isFilled.title(prismicM.value.title({ seed: ctx.meta.name })),
+	).toBe(true);
 });
