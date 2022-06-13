@@ -263,10 +263,10 @@ export const geoPoint = (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const integrationFields = isNonNullish as <
-	Blob extends Record<string, unknown>,
+	Data extends Record<string, unknown>,
 >(
-	field: IntegrationFields<Blob> | null | undefined,
-) => field is IntegrationFields<Blob, "filled">;
+	field: IntegrationFields<Data> | null | undefined,
+) => field is IntegrationFields<Data, "filled">;
 
 /**
  * Determines if a Group has at least one item.
