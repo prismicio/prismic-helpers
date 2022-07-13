@@ -1,5 +1,4 @@
 import { it, expect } from "vitest";
-import * as prismicM from "@prismicio/mock";
 
 import * as prismicT from "@prismicio/types";
 
@@ -8,9 +7,7 @@ import * as prismicH from "../src";
 it("color", (ctx) => {
 	expect(prismicH.isFilled.color(null)).toBe(false);
 	expect(prismicH.isFilled.color(undefined)).toBe(false);
-	expect(
-		prismicH.isFilled.color(prismicM.value.color({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.color(ctx.mock.value.color())).toBe(true);
 });
 
 it("content relationship", (ctx) => {
@@ -18,16 +15,14 @@ it("content relationship", (ctx) => {
 	expect(prismicH.isFilled.contentRelationship(undefined)).toBe(false);
 	expect(
 		prismicH.isFilled.contentRelationship(
-			prismicM.value.contentRelationship({
-				seed: ctx.meta.name,
+			ctx.mock.value.contentRelationship({
 				state: "empty",
 			}),
 		),
 	).toBe(false);
 	expect(
 		prismicH.isFilled.contentRelationship(
-			prismicM.value.contentRelationship({
-				seed: ctx.meta.name,
+			ctx.mock.value.contentRelationship({
 				state: "filled",
 			}),
 		),
@@ -37,29 +32,21 @@ it("content relationship", (ctx) => {
 it("date", (ctx) => {
 	expect(prismicH.isFilled.date(null)).toBe(false);
 	expect(prismicH.isFilled.date(undefined)).toBe(false);
-	expect(
-		prismicH.isFilled.date(prismicM.value.date({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.date(ctx.mock.value.date())).toBe(true);
 });
 
 it("embed", (ctx) => {
 	expect(prismicH.isFilled.embed(null)).toBe(false);
 	expect(prismicH.isFilled.embed(undefined)).toBe(false);
 	expect(prismicH.isFilled.embed({})).toBe(false);
-	expect(
-		prismicH.isFilled.embed(prismicM.value.embed({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.embed(ctx.mock.value.embed())).toBe(true);
 });
 
 it("geopoint", (ctx) => {
 	expect(prismicH.isFilled.geoPoint(null)).toBe(false);
 	expect(prismicH.isFilled.geoPoint(undefined)).toBe(false);
 	expect(prismicH.isFilled.geoPoint({})).toBe(false);
-	expect(
-		prismicH.isFilled.geoPoint(
-			prismicM.value.geoPoint({ seed: ctx.meta.name }),
-		),
-	).toBe(true);
+	expect(prismicH.isFilled.geoPoint(ctx.mock.value.geoPoint())).toBe(true);
 });
 
 it("group", (ctx) => {
@@ -67,9 +54,7 @@ it("group", (ctx) => {
 	expect(prismicH.isFilled.group(undefined)).toBe(false);
 	expect(prismicH.isFilled.group([])).toBe(false);
 	expect(
-		prismicH.isFilled.group(
-			prismicM.value.group({ seed: ctx.meta.name }) as prismicT.GroupField,
-		),
+		prismicH.isFilled.group(ctx.mock.value.group() as prismicT.GroupField),
 	).toBe(true);
 });
 
@@ -77,9 +62,7 @@ it("image", (ctx) => {
 	expect(prismicH.isFilled.image(null)).toBe(false);
 	expect(prismicH.isFilled.image(undefined)).toBe(false);
 	expect(prismicH.isFilled.image({})).toBe(false);
-	expect(
-		prismicH.isFilled.image(prismicM.value.image({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.image(ctx.mock.value.image())).toBe(true);
 });
 
 it("image thumbnail", () => {
@@ -100,9 +83,7 @@ it("integration fields", (ctx) => {
 	expect(prismicH.isFilled.integrationFields(null)).toBe(false);
 	expect(prismicH.isFilled.integrationFields(undefined)).toBe(false);
 	expect(
-		prismicH.isFilled.integrationFields(
-			prismicM.value.integrationFields({ seed: ctx.meta.name }),
-		),
+		prismicH.isFilled.integrationFields(ctx.mock.value.integrationFields()),
 	).toBe(true);
 });
 
@@ -110,24 +91,18 @@ it("key text", (ctx) => {
 	expect(prismicH.isFilled.keyText(null)).toBe(false);
 	expect(prismicH.isFilled.keyText(undefined)).toBe(false);
 	expect(prismicH.isFilled.keyText("")).toBe(false);
-	expect(
-		prismicH.isFilled.keyText(prismicM.value.keyText({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.keyText(ctx.mock.value.keyText())).toBe(true);
 });
 
 it("link", (ctx) => {
 	expect(prismicH.isFilled.link(null)).toBe(false);
 	expect(prismicH.isFilled.link(undefined)).toBe(false);
-	expect(
-		prismicH.isFilled.link(
-			prismicM.value.link({ seed: ctx.meta.name, state: "empty" }),
-		),
-	).toBe(false);
-	expect(
-		prismicH.isFilled.link(
-			prismicM.value.link({ seed: ctx.meta.name, state: "filled" }),
-		),
-	).toBe(true);
+	expect(prismicH.isFilled.link(ctx.mock.value.link({ state: "empty" }))).toBe(
+		false,
+	);
+	expect(prismicH.isFilled.link(ctx.mock.value.link({ state: "filled" }))).toBe(
+		true,
+	);
 });
 
 it("link to media", (ctx) => {
@@ -135,12 +110,12 @@ it("link to media", (ctx) => {
 	expect(prismicH.isFilled.linkToMedia(undefined)).toBe(false);
 	expect(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: ctx.meta.name, state: "empty" }),
+			ctx.mock.value.linkToMedia({ state: "empty" }),
 		),
 	).toBe(false);
 	expect(
 		prismicH.isFilled.linkToMedia(
-			prismicM.value.linkToMedia({ seed: ctx.meta.name, state: "filled" }),
+			ctx.mock.value.linkToMedia({ state: "filled" }),
 		),
 	).toBe(true);
 });
@@ -148,9 +123,7 @@ it("link to media", (ctx) => {
 it("number", (ctx) => {
 	expect(prismicH.isFilled.number(null)).toBe(false);
 	expect(prismicH.isFilled.number(undefined)).toBe(false);
-	expect(
-		prismicH.isFilled.number(prismicM.value.number({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.number(ctx.mock.value.number())).toBe(true);
 });
 
 it("rich text", (ctx) => {
@@ -160,11 +133,7 @@ it("rich text", (ctx) => {
 	expect(
 		prismicH.isFilled.richText([{ type: "paragraph", text: "", spans: [] }]),
 	).toBe(false);
-	expect(
-		prismicH.isFilled.richText(
-			prismicM.value.richText({ seed: ctx.meta.name }),
-		),
-	).toBe(true);
+	expect(prismicH.isFilled.richText(ctx.mock.value.richText())).toBe(true);
 });
 
 it("select", (ctx) => {
@@ -172,10 +141,8 @@ it("select", (ctx) => {
 	expect(prismicH.isFilled.select(undefined)).toBe(false);
 	expect(
 		prismicH.isFilled.select(
-			prismicM.value.select({
-				seed: ctx.meta.name,
-				model: prismicM.model.select({
-					seed: ctx.meta.name,
+			ctx.mock.value.select({
+				model: ctx.mock.model.select({
 					options: ["foo", "bar"],
 				}),
 			}),
@@ -189,13 +156,11 @@ it("slice zone", (ctx) => {
 	expect(prismicH.isFilled.sliceZone([])).toBe(false);
 	expect(
 		prismicH.isFilled.sliceZone(
-			prismicM.value.sliceZone({
-				seed: ctx.meta.name,
-				model: prismicM.model.sliceZone({
-					seed: ctx.meta.name,
+			ctx.mock.value.sliceZone({
+				model: ctx.mock.model.sliceZone({
 					choices: {
-						Foo: prismicM.model.slice({ seed: ctx.meta.name }),
-						Bar: prismicM.model.slice({ seed: ctx.meta.name }),
+						Foo: ctx.mock.model.slice(),
+						Bar: ctx.mock.model.slice(),
 					},
 				}),
 			}) as prismicT.SliceZone,
@@ -206,11 +171,7 @@ it("slice zone", (ctx) => {
 it("timestamp", (ctx) => {
 	expect(prismicH.isFilled.timestamp(null)).toBe(false);
 	expect(prismicH.isFilled.timestamp(undefined)).toBe(false);
-	expect(
-		prismicH.isFilled.timestamp(
-			prismicM.value.timestamp({ seed: ctx.meta.name }),
-		),
-	).toBe(true);
+	expect(prismicH.isFilled.timestamp(ctx.mock.value.timestamp())).toBe(true);
 });
 
 it("title", (ctx) => {
@@ -220,7 +181,5 @@ it("title", (ctx) => {
 	expect(
 		prismicH.isFilled.title([{ type: "heading1", text: "", spans: [] }]),
 	).toBe(false);
-	expect(
-		prismicH.isFilled.title(prismicM.value.title({ seed: ctx.meta.name })),
-	).toBe(true);
+	expect(prismicH.isFilled.title(ctx.mock.value.title())).toBe(true);
 });

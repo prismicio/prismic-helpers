@@ -5,5 +5,6 @@ export default defineConfig({
 		coverage: {
 			reporter: ["lcovonly", "text"],
 		},
+		setupFiles: ["./vitest.setup"],
 	},
 });
