@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/prismicio/prismic-helpers/compare/v2.3.2...v2.3.3) (2022-08-05)
+
+
+### Bug Fixes
+
+* resolve invalid compiled TypeScript types ([#56](https://github.com/prismicio/prismic-helpers/issues/56)) ([6122cb7](https://github.com/prismicio/prismic-helpers/commit/6122cb769e6f8c3f3b52d827f527257638ed55df))
+
 ### [2.3.2](https://github.com/prismicio/prismic-helpers/compare/v2.3.1...v2.3.2) (2022-07-13)
 
 
