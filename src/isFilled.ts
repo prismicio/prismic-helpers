@@ -98,13 +98,9 @@ export const imageThumbnail = (
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const image = imageThumbnail as <
-	Field extends ImageField,
-	ThumbnailNames extends Exclude<
-		keyof Field,
-		keyof ImageFieldImage | number | symbol
-	>,
+	ThumbnailNames extends string | null = never,
 >(
-	field: Field | ImageField<ThumbnailNames> | null | undefined,
+	field: ImageField<ThumbnailNames> | null | undefined,
 ) => field is ImageField<ThumbnailNames, "filled">;
 
 /**
