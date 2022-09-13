@@ -228,13 +228,8 @@ export const select = isNonNullish as <Enum extends string>(
  * @returns `true` if `field` is filled, `false` otherwise.
  */
 export const embed = <Field extends EmbedField<AnyOEmbed>>(
-	field:
-		| (Field extends EmbedField<infer Data> ? EmbedField<Data> : never)
-		| null
-		| undefined,
-): field is Field extends EmbedField<infer Data>
-	? EmbedField<Data, "filled">
-	: never => {
+	field: Field | null | undefined,
+): field is Extract<Field, EmbedField<AnyOEmbed, "filled">> => {
 	return isNonNullish(field) && !!field.embed_url;
 };
 
