@@ -27,6 +27,10 @@ it("escapes external links to prevent XSS", () => {
 	expect(asHTML(richTextFixture.xss, linkResolver)).toMatchSnapshot();
 });
 
+it("omits the target attributes on links without a target value", () => {
+	expect(asHTML(richTextFixture.noLinkTarget, linkResolver)).toMatchSnapshot();
+});
+
 it("returns null for nullish inputs", () => {
 	expect(asHTML(null)).toBeNull();
 	expect(asHTML(undefined)).toBeNull();

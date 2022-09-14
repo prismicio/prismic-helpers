@@ -1,0 +1,17 @@
+[
+	{
+		"type": "paragraph",
+		"text": "This is a link with no target.",
+		"spans": [
+			{
+				"start": 10,
+				"end": 14,
+				"type": "hyperlink",
+				"data": {
+					"link_type": "Web",
+					"url": "https://example.org"
+				}
+			}
+		]
+	}
+]
