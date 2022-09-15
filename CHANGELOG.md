@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.4](https://github.com/prismicio/prismic-helpers/compare/v2.3.3...v2.3.4) (2022-09-15)
+
+
+### Bug Fixes
+
+* omit `target` attribute on links without a target ([#59](https://github.com/prismicio/prismic-helpers/issues/59)) ([9b2dddd](https://github.com/prismicio/prismic-helpers/commit/9b2dddd4107c4f9b9a0bc7178437ca3232cc8827))
+
+
+### Chore
+
+* **deps:** upgrade dependencies ([#60](https://github.com/prismicio/prismic-helpers/issues/60)) ([32f849c](https://github.com/prismicio/prismic-helpers/commit/32f849ccc8e87377dc9e17096899d9d1211aea36))
+
 ### [2.3.3](https://github.com/prismicio/prismic-helpers/compare/v2.3.2...v2.3.3) (2022-08-05)
 
 
