@@ -23,7 +23,8 @@ export type LinkResolverFunction<ReturnType = string> = (
  * Serializes a node from a rich text or title field with a function to HTML
  *
  * Unlike a typical `@prismicio/richtext` function serializer, this serializer
- * converts the `children` argument to a single string rather than an array of strings.
+ * converts the `children` argument to a single string rather than an array of
+ * strings.
  *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
@@ -39,7 +40,8 @@ export type HTMLFunctionSerializer = (
  * Serializes a node from a rich text or title field with a map to HTML
  *
  * Unlike a typical `@prismicio/richtext` map serializer, this serializer
- * converts the `children` property to a single string rather than an array of strings.
+ * converts the `children` property to a single string rather than an array of
+ * strings.
  *
  * @see Templating rich text and title fields from Prismic {@link https://prismic.io/docs/technologies/templating-rich-text-and-title-fields-javascript}
  */
@@ -54,7 +56,8 @@ export type HTMLMapSerializer = {
 };
 
 /**
- * A {@link RichTextMapSerializerFunction} type specifically for {@link HTMLMapSerializer}.
+ * A {@link RichTextMapSerializerFunction} type specifically for
+ * {@link HTMLMapSerializer}.
  *
  * @typeParam BlockName - The serializer's Rich Text block type.
  */

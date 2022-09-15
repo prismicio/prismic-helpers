@@ -56,29 +56,29 @@
 		"unit:watch": "vitest watch"
 	},
 	"dependencies": {
-		"@prismicio/richtext": "^2.1.0",
-		"@prismicio/types": "^0.2.1",
+		"@prismicio/richtext": "^2.1.1",
+		"@prismicio/types": "^0.2.3",
 		"escape-html": "^1.0.3",
 		"imgix-url-builder": "^0.0.3"
 	},
 	"devDependencies": {
-		"@prismicio/mock": "^0.1.0",
-		"@size-limit/preset-small-lib": "^7.0.8",
+		"@prismicio/mock": "^0.1.1",
+		"@size-limit/preset-small-lib": "^8.1.0",
 		"@types/escape-html": "^1.0.2",
-		"@typescript-eslint/eslint-plugin": "^5.30.6",
-		"@typescript-eslint/parser": "^5.30.6",
-		"c8": "^7.11.3",
-		"eslint": "^8.19.0",
+		"@typescript-eslint/eslint-plugin": "^5.37.0",
+		"@typescript-eslint/parser": "^5.37.0",
+		"@vitest/coverage-c8": "^0.23.2",
+		"eslint": "^8.23.1",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.2.1",
-		"eslint-plugin-tsdoc": "^0.2.16",
+		"eslint-plugin-tsdoc": "^0.2.17",
 		"prettier": "^2.7.1",
-		"prettier-plugin-jsdoc": "^0.3.38",
+		"prettier-plugin-jsdoc": "^0.4.2",
 		"siroc": "^0.16.0",
-		"size-limit": "^7.0.8",
+		"size-limit": "^8.1.0",
 		"standard-version": "^9.5.0",
-		"typescript": "^4.7.4",
-		"vitest": "^0.18.0"
+		"typescript": "^4.8.3",
+		"vitest": "^0.23.2"
 	},
 	"engines": {
 		"node": ">=12.7.0"

@@ -31,7 +31,8 @@ type AsLinkReturnType<
 /**
  * Resolves any type of link field or document to a URL
  *
- * @typeParam LinkResolverFunctionReturnType - Link resolver function return type
+ * @typeParam LinkResolverFunctionReturnType - Link resolver function return
+ *   type
  * @param linkFieldOrDocument - Any kind of link field or a document to resolve
  * @param linkResolver - An optional link resolver function, without it you're
  *   expected to use the `routes` options from the API

@@ -206,6 +206,7 @@ Where:
 - **Framework**: Represents libraries to integrate into frameworks, including data fetching and normalizing. They must follow frameworks' expected practices, e.g. [`@prismicio/next`](https://github.com/prismicio/prismic-next).
 
 This package is a **Core** library.
+
 <!-- This package is an **Integration** library, it relies on [XXX](#) and [YYY](#) **Core** libraries. -->
 <!-- This package is a **Framework** library, it relies on [XXX](#) **Integration** library. -->
 
