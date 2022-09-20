@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.5](https://github.com/prismicio/prismic-helpers/compare/v2.3.4...v2.3.5) (2022-09-20)
+
+
+### Bug Fixes
+
+* simplify `isFilled.embed()` for better TypeScript compatibility ([#57](https://github.com/prismicio/prismic-helpers/issues/57)) ([55b093c](https://github.com/prismicio/prismic-helpers/commit/55b093c935cfd74fe5ae206004bebb1d81e4adfa))
+
 ### [2.3.4](https://github.com/prismicio/prismic-helpers/compare/v2.3.3...v2.3.4) (2022-09-15)
 
 
