@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.6](https://github.com/prismicio/prismic-helpers/compare/v2.3.5...v2.3.6) (2022-11-16)
+
+
+### Bug Fixes
+
+* allow Content Relationship field's `data` property overrides when using `isFilled` helpers ([#62](https://github.com/prismicio/prismic-helpers/issues/62)) ([cc75ce5](https://github.com/prismicio/prismic-helpers/commit/cc75ce5c43f4cd302beec60308d66033c544b9c4))
+
+
+### Chore
+
+* **deps:** update all dependencies ([#61](https://github.com/prismicio/prismic-helpers/issues/61)) ([471d2f5](https://github.com/prismicio/prismic-helpers/commit/471d2f5275c3193a4567b560113f8f85d28f59ae))
+
 ### [2.3.5](https://github.com/prismicio/prismic-helpers/compare/v2.3.4...v2.3.5) (2022-09-20)
 
 
