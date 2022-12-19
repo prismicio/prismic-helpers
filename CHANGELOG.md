@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.8](https://github.com/prismicio/prismic-helpers/compare/v2.3.7...v2.3.8) (2022-12-19)
+
+
+### Chore
+
+* **deps:** maintain dependencies ([22040aa](https://github.com/prismicio/prismic-helpers/commit/22040aa67a77498d54c4e15c58a43dcf64721f88))
+
 ### [2.3.7](https://github.com/prismicio/prismic-helpers/compare/v2.3.6...v2.3.7) (2022-12-19)
 
 
