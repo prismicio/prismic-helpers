@@ -56,28 +56,28 @@
 		"unit:watch": "vitest watch"
 	},
 	"dependencies": {
-		"@prismicio/richtext": "^2.1.3",
+		"@prismicio/richtext": "^2.1.4",
 		"@prismicio/types": "^0.2.7",
 		"imgix-url-builder": "^0.0.3"
 	},
 	"devDependencies": {
 		"@prismicio/mock": "^0.1.1",
-		"@size-limit/preset-small-lib": "^8.1.0",
-		"@typescript-eslint/eslint-plugin": "^5.46.1",
-		"@typescript-eslint/parser": "^5.46.1",
-		"@vitest/coverage-c8": "^0.26.0",
-		"eslint": "^8.30.0",
-		"eslint-config-prettier": "^8.5.0",
+		"@size-limit/preset-small-lib": "^8.1.2",
+		"@typescript-eslint/eslint-plugin": "^5.49.0",
+		"@typescript-eslint/parser": "^5.49.0",
+		"@vitest/coverage-c8": "^0.28.3",
+		"eslint": "^8.32.0",
+		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-tsdoc": "^0.2.17",
-		"prettier": "^2.8.1",
+		"prettier": "^2.8.3",
 		"prettier-plugin-jsdoc": "^0.4.2",
-		"size-limit": "^8.1.0",
+		"size-limit": "^8.1.2",
 		"standard-version": "^9.5.0",
 		"typescript": "^4.9.4",
-		"vite": "^4.0.2",
+		"vite": "^4.0.4",
 		"vite-plugin-sdk": "^0.1.0",
-		"vitest": "0.26.0"
+		"vitest": "0.28.3"
 	},
 	"engines": {
 		"node": ">=12.7.0"
