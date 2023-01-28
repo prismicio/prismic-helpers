@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.9](https://github.com/prismicio/prismic-helpers/compare/v2.3.8...v2.3.9) (2023-01-28)
+
+
+### Refactor
+
+* inline `escape-html` ([8716fe5](https://github.com/prismicio/prismic-helpers/commit/8716fe556da688a5387f02ad1201551b069a5beb))
+
+
+### Chore
+
+* **deps:** maintain dependencies ([75a77a8](https://github.com/prismicio/prismic-helpers/commit/75a77a8070ea5244fe7d4bd8aa89e8b96a99416a))
+
 ### [2.3.8](https://github.com/prismicio/prismic-helpers/compare/v2.3.7...v2.3.8) (2022-12-19)
 
 

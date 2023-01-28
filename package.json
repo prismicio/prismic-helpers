@@ -1,6 +1,6 @@
 {
 	"name": "@prismicio/helpers",
-	"version": "2.3.8",
+	"version": "2.3.9",
 	"description": "Set of helpers to manage Prismic data",
 	"keywords": [
 		"typescript",
