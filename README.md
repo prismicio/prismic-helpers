@@ -1,3 +1,7 @@
+> **Note**: **This package has been merged into [`@prismicio/client`](https://github.com/prismicio/prismic-client) ≥ v7.**
+>
+> This package and repository will no longer be updated, except in special circumstances.
+
 # @prismicio/helpers
 
 [![npm version][npm-version-src]][npm-version-href]
